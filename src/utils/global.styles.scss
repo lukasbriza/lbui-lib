@@ -1,0 +1,27 @@
+//ROBOTO FONT//
+@import url("https://fonts.googleapis.com/css2?family=Oleo+Script+Swash+Caps:wght@400;700&family=Poppins:ital,wght@0,400;0,500;0,700;0,800;0,900;1,400;1,500;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,500;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+* {
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: Roboto, Poppins, Arial, sans-serif;
+  margin: 0px;
+  padding: 0px;
+}
+
+$large-size: 0.9375rem;
+$medium-size: 0.875rem;
+$small-size: 0.8125rem;
+
+$btn-min-width: 64px;
+
+$btn-label-padding-small: 5px 5px;
+$btn-label-padding-medium: 8px 5px;
+$btn-label-padding-large: 11px 5px;
+
+$btn-root-padding-small: 0px 10px;
+$btn-root-padding-medium: 0px 20px;
+$btn-root-padding-large: 0px 30px;
+
+$btn-bckg: #e35f21;
+$btn-bckg-hover: #d34d0f;

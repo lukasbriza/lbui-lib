@@ -1,24 +1,22 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { SquareButton } from '../../components/buttons/SquareButton/SquareButton';
+import { buttonsBaseDescription } from './buttonsBaseDescription'
 
-import { Button } from '../../components/buttons/DefaultButton/DefaultButton';
-
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'ReactComponentLibrary/Button',
-  component: Button,
-} as ComponentMeta<typeof Button>;
+  title: '@lbui/Buttons/SquareButton',
+  component: SquareButton,
+  argTypes: {
+    ...buttonsBaseDescription
+  }
+} as ComponentMeta<typeof SquareButton>;
 
-// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
+const Template: ComponentStory<typeof SquareButton> = (args) => <SquareButton {...args} />;
 
-export const HelloWorld = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-HelloWorld.args = {
-  label: 'Hello world!',
-};
-
-export const ClickMe = Template.bind({});
-ClickMe.args = {
-  label: 'Click me!',
-};
+export const Button = Template.bind({});
+Button.args = {
+  label: "Button",
+  onClick: (e: React.BaseSyntheticEvent) => { console.log(e) },
+  size: "large",
+  textColor: "white"
+}
