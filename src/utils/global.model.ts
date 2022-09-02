@@ -1,6 +1,6 @@
 import { ReactElement, ReactNode } from "react";
 
-export type Element = HTMLElement | JSX.Element | ReactElement | ReactNode;
+export type Element = ReactNode;
 export type Sizes = "small" | "medium" | "large";
 export type ExtSizes = "small" | "medium" | "large" | number;
 
