@@ -1,0 +1,41 @@
+//ROOT
+.lbui-basicHamburger-root {
+  display: grid;
+  grid-template-rows: 8px 8px 8px;
+  grid-template-areas: "l1" "l2" "l3";
+  align-self: center;
+  align-items: center;
+
+  position: absolute;
+  z-index: 1;
+
+  cursor: pointer;
+}
+//LINE STYLE
+.lbui-basicHamburger-line-rounded {
+  border-radius: 7px;
+}
+.lbui-basicHamburger-line {
+  width: 28px;
+  height: 4px;
+  background: black;
+}
+
+.lbui-basicHamburger-line:nth-child(1) {
+  grid-area: l1;
+}
+.lbui-basicHamburger-line:nth-child(2) {
+  grid-area: l2;
+}
+.lbui-basicHamburger-line:nth-child(3) {
+  grid-area: l3;
+}
+
+//SHOW
+.lbui-basicHamburgerr-show {
+  display: grid;
+}
+//HIDE
+.lbui-basicHamburger-hide {
+  display: none;
+}
