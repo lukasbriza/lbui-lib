@@ -1,1 +1,0 @@
-export { SquareButton } from "./SquareButton";

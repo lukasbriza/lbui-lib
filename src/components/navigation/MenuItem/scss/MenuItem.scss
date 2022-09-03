@@ -1,0 +1,80 @@
+//ROOT
+.lbui-MenuItem-root {
+  position: relative;
+  cursor: pointer;
+  display: grid;
+  align-items: center;
+  width: min-content;
+}
+
+//ICON
+.lbui-MenuItem-icon {
+  grid-area: icon;
+  margin-right: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+//ICON POSITION
+.lbui-MenuItem-icon-left {
+  grid-template-columns: min-content min-content;
+  grid-template-areas: "icon label";
+}
+.lbui-MenuItem-icon-top {
+  grid-template-rows: min-content min-content;
+  grid-template-areas: "icon" "label";
+  justify-items: center;
+}
+.lbui-MenuItem-icon-right {
+  grid-template-columns: min-content min-content;
+  grid-template-areas: "label icon";
+}
+.lbui-MenuItem-icon-bottom {
+  grid-template-rows: min-content min-content;
+  grid-template-areas: "label" "icon";
+  justify-items: center;
+}
+
+//LABEL
+.lbui-MenuItem-label {
+  grid-area: label;
+}
+.lbui-MenuItem-label-upperCase {
+  text-transform: uppercase;
+}
+//UNDERLINER
+.lbui-MenuItem-underliner {
+  position: absolute;
+  height: 2px;
+  width: 0px;
+  top: 100%;
+  //border-radius: 100%;
+  background: black;
+  transition: width 0.5s ease-in-out;
+}
+
+.lbui-MenuItem-root:hover {
+  .lbui-MenuItem-underliner {
+    width: 100%;
+    overflow: hidden;
+  }
+}
+
+.lbui-MenuItem-underliner-show {
+  display: initial;
+}
+.lbui-MenuItem-underliner-hide {
+  display: none;
+}
+
+//UNDERLINE ORIGIN
+.lbui-MenuItem-underline-left {
+  left: 0px;
+}
+.lbui-MenuItem-underline-center {
+  left: 50%;
+  transform: translateX(-50%);
+}
+.lbui-MenuItem-underline-right {
+  right: 0px;
+}

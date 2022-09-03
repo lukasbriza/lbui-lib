@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode } from "react";
+import { ReactNode } from "react";
 
 export type Element = ReactNode;
 export type Sizes = "small" | "medium" | "large";
