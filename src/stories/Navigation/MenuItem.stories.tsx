@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { MenuItem } from '../../components';
-import { Icon } from '../../lib/global-ui/Icon';
+import { Icon } from '../../lib';
 
 export default {
     title: '@lbui/Navigation/MenuItem',
