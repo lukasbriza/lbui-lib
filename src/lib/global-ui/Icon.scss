@@ -1,0 +1,14 @@
+.container {
+  height: 0; /* collapse the container's height */
+  width: 15px; /* specify any width you want (a percentage value, basically) */
+  /* apply a padding using the following formula */
+  /* this formula makes sure the aspect ratio of the container equals that of the svg graphic */
+  padding-top: 15px;
+  position: relative; /* create positioning context for svg */
+
+  svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
