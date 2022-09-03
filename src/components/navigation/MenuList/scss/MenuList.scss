@@ -1,0 +1,19 @@
+.lbui-MenuList-root {
+  .lbui-MenuItem-root {
+    margin: 5px;
+  }
+}
+.lbui-MenuList-onWidth {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+.lbui-MenuList-onHeight {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+
+  .lbui-MenuItem-root {
+    margin: 8px 5px;
+  }
+}
