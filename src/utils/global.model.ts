@@ -1,4 +1,6 @@
-import { ReactNode } from "react";
+import { ReactNode, MutableRefObject } from "react";
+
+export type GsapSelector = string | HTMLElement;
 
 export type Element = ReactNode;
 export type Sizes = "small" | "medium" | "large";
@@ -18,4 +20,17 @@ export type DefaultButtonProps = {
   textColor?: string;
   startIcon?: Element;
   endIcon?: Element;
+};
+
+//ANIMATION TYPES
+export type FadeInConfig = {
+  duration?: number;
+  ease?: gsap.EaseFunction;
+  position?: number | string;
+};
+
+export type FadeOffConfig = {
+  duration?: number;
+  ease?: gsap.EaseFunction;
+  position?: number | string;
 };
