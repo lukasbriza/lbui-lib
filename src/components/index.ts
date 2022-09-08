@@ -7,3 +7,5 @@ export * from "./navigation/MenuList/MenuList";
 export * from "./navigation/RoundBadge/RoundBadge";
 
 export * from "./animations/Fade/Fade";
+
+export * from "./bricks/Divider/Divider";
