@@ -19,3 +19,12 @@ export type DefaultButtonProps = {
   startIcon?: Element;
   endIcon?: Element;
 };
+
+//ANIMATION TYPES
+export type FadeInConfig = {
+  delay?: number;
+  duration?: number;
+  ease?: gsap.EaseFunction;
+};
+
+export type FadeOffConfig = FadeInConfig;
