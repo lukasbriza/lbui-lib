@@ -11,6 +11,15 @@ import { FadeProps } from './types/model'
 const COMP_PREFIX = 'Fade'
 const useClass = (className: string) => { return useLibClass(COMP_PREFIX, className) }
 
+/**
+ * Fade component
+ * @param {boolean} on - toggle fadeIn and fadeOff methods
+ * @param {boolean} appear - allow appear animation, default true
+ * @param {FadeOffConfig} configOff - optional configuration for fadeOff method
+ * @param {FadeInConfig} configIn - optional configuration for fadeIn method
+ * @param {string} className - class applied to the root of component
+ * @param {void} onEnd - method called on end of animaiton
+ */
 export const Fade: FC<FadeProps> = (props) => {
     const { on = true, appear = true, configOff, configIn, className, onEnd } = props
 
@@ -40,7 +49,7 @@ export const Fade: FC<FadeProps> = (props) => {
     return (
         <div
             ref={ref}
-            className={clsx([useClass('root'), className])}
+            className={clsx([useClass('root'), appear && useClass('default-appear'), className])}
         >
             {props.children}
         </div>
