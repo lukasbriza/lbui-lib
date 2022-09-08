@@ -40,7 +40,7 @@ export const Fade: FC<FadeProps> = (props) => {
     return (
         <div
             ref={ref}
-            className={clsx([useClass('root'), className])}
+            className={clsx([useClass('root'), appear && useClass('default-appear'), className])}
         >
             {props.children}
         </div>
