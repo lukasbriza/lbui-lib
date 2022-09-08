@@ -1,4 +1,6 @@
-import { ReactNode } from "react";
+import { ReactNode, MutableRefObject } from "react";
+
+export type GsapSelector = string | HTMLElement;
 
 export type Element = ReactNode;
 export type Sizes = "small" | "medium" | "large";

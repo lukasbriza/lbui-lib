@@ -23,7 +23,7 @@ export const Fade: FC<FadeProps> = (props) => {
     useEffect(() => {
         if (appear && ref.current && on) {
             let tl = fadeIn(ref.current, configIn)
-            tl.call(changeAppear).call(() => handleCallback("on"))
+            tl.then(() => { changeAppear(); handleCallback("on") })
             return
         }
         if (!appear) {
@@ -33,7 +33,7 @@ export const Fade: FC<FadeProps> = (props) => {
 
     useEffect(() => {
         if (appeared && ref.current) {
-            on ? fadeIn(ref.current, configIn).call(() => handleCallback("on")) : fadeOff(ref.current, configOff).call(() => handleCallback("off"))
+            on ? fadeIn(ref.current, configIn).then(() => handleCallback("on")) : fadeOff(ref.current, configOff).then(() => handleCallback("off"))
         }
     }, [on])
 
