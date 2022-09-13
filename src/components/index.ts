@@ -10,3 +10,4 @@ export * from "./animations/Fade/Fade";
 export * from "./animations/Underlining/Underlining";
 
 export * from "./bricks/Divider/Divider";
+export * from "./bricks/Underliner/Underliner";

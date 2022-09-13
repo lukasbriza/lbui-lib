@@ -35,10 +35,11 @@ export const stretch = (selector: GsapSelector, config: StretchConfig = {}) => {
   const conf = {
     duration: config.duration ? config.duration : 1,
     ease: config.ease ? config.ease : Power2.easeOut,
+    width: config.width ? config.width : "100%",
   };
 
   return gsap.to(selector, {
-    width: "100%",
+    width: conf.width,
     duration: conf.duration,
     ease: conf.ease,
   });
