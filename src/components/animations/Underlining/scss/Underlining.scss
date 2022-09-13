@@ -1,0 +1,27 @@
+.lbui-Underlining-root {
+  position: relative;
+  width: min-content;
+  cursor: pointer;
+}
+
+.lbui-Underlining-line {
+  position: relative;
+  width: 0%;
+  height: 1px;
+  background: black;
+  border-radius: 10px;
+}
+
+.lbui-Underlining-origin-left {
+  position: absolute;
+  left: 0px;
+}
+.lbui-Underlining-origin-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.lbui-Underlining-origin-right {
+  position: absolute;
+  right: 0px;
+}

@@ -30,3 +30,9 @@ export type FadeInConfig = {
 };
 
 export type FadeOffConfig = FadeInConfig;
+
+export type StretchConfig = {
+  duration?: number;
+  ease?: gsap.EaseFunction;
+};
+export type ShrinkConfig = StretchConfig;
