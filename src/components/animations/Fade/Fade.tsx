@@ -5,6 +5,7 @@ import clsx from 'clsx'
 import { fadeIn, fadeOff } from '../../../utils/global.animations'
 import { useLibClass } from '../../../hooks/useLibClass'
 
+import { Props } from '../../../utils/global.model'
 import { FadeProps } from './types/model'
 
 
@@ -20,8 +21,8 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
  * @param {string} className - class applied to the root of component
  * @param {void} onEnd - method called on end of animaiton
  */
-export const Fade: FC<FadeProps> = (props) => {
-    const { on = true, appear = true, configOff, configIn, className, onEnd } = props
+export const Fade: FC<FadeProps & Props<HTMLDivElement>> = (props) => {
+    const { on = true, appear = true, configOff, configIn, className, onEnd, ...otherProps } = props
 
     const [appeared, setAppeared] = useState<boolean>(false)
     const ref = useRef<HTMLDivElement>(null)
@@ -50,6 +51,7 @@ export const Fade: FC<FadeProps> = (props) => {
         <div
             ref={ref}
             className={clsx([useClass('root'), appear && useClass('default-appear'), className])}
+            {...otherProps}
         >
             {props.children}
         </div>

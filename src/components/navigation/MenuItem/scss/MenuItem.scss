@@ -48,7 +48,9 @@
   height: 2px;
   width: 0px;
   top: 100%;
-  //border-radius: 100%;
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
   background: black;
   transition: width 0.5s ease-in-out;
 }

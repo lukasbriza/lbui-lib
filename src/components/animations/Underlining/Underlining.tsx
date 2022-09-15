@@ -6,6 +6,7 @@ import { useLibClass } from '../../../hooks/useLibClass'
 import clsx from 'clsx'
 import { stretch, shrink } from '../../../utils/global.animations'
 
+import { Props } from '../../../utils/global.model'
 import { UnderliningProps } from './types/model'
 
 
@@ -22,7 +23,7 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
  * @param {ShrinkConfig} shrinkConfig - configurate shrink animation 
  * @param {string} origin - sets origin of animation
  */
-export const Underlining: FC<UnderliningProps> = (props) => {
+export const Underlining: FC<UnderliningProps & Props<HTMLDivElement>> = (props) => {
     const { className, lineClass, hoverable = true, on, children, shrinkConfig, stretchConfig, origin = 'center', ...otherProps } = props
     const lineRef = useRef<HTMLDivElement>(null)
     const playing = useRef<boolean>(false)

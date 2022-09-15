@@ -1,14 +1,16 @@
 import './scss/SquareButton.scss'
+
 import React, { useState } from "react";
-import { SquareButtonProps } from './types/model'
 import { useLibClass } from '../../../hooks/useLibClass'
 import clsx from 'clsx'
 
+import { SquareButtonProps } from './types/model'
+import { Props } from '../../../utils/global.model'
 
 const COMP_PREFIX = 'squareButton'
 const useClass = (className: string) => { return useLibClass(COMP_PREFIX, className) }
 
-export const SquareButton = React.forwardRef<HTMLButtonElement, SquareButtonProps>((props, ref) => {
+export const SquareButton = React.forwardRef<HTMLButtonElement, SquareButtonProps & Props<HTMLButtonElement>>((props, ref) => {
   const {
     onClick,
     color,

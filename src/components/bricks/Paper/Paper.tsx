@@ -2,8 +2,10 @@ import './scss/Paper.scss'
 
 import React, { forwardRef } from 'react'
 import { useLibClass } from '../../../hooks/useLibClass'
-import { PaperProps } from './types/model'
 import clsx from 'clsx'
+
+import { PaperProps } from './types/model'
+import { Props } from '../../../utils/global.model'
 
 const COMP_PREFIX = 'Paper'
 const useClass = (className: string) => { return useLibClass(COMP_PREFIX, className) }
@@ -14,8 +16,9 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
  * @param {number} elevation - Level of surface elevation
  * @param {boolean} square - If true, rounded corners are disabled 
  */
-export const Paper = forwardRef<HTMLElement, PaperProps>((props, ref) => {
+export const Paper = forwardRef<HTMLElement, PaperProps & Props<HTMLElement>>((props, ref) => {
     const { className, children, elevation = 2, square = false, ...otherProps } = props
+    console.log(otherProps)
     return (
         <section
             className={clsx(
@@ -25,7 +28,8 @@ export const Paper = forwardRef<HTMLElement, PaperProps>((props, ref) => {
                     className]
             )}
             ref={ref}
-            {...otherProps}>
+            {...otherProps}
+        >
             {children}
         </section>
     )

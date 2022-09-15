@@ -3,8 +3,10 @@ import './scss/Underliner.scss'
 import React, { forwardRef } from 'react'
 import { Divider } from '../../'
 import { useLibClass } from '../../../hooks/useLibClass'
-import { UnderlinerProps } from './types/model'
 import clsx from 'clsx'
+
+import { Props } from '../../../utils/global.model'
+import { UnderlinerProps } from './types/model'
 
 const COMP_PREFIX = 'Underliner'
 const useClass = (className: string) => { return useLibClass(COMP_PREFIX, className) }
@@ -18,7 +20,7 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
  * @param {number} width - define width of underliner in %
  * @param {string} color - optional color of underliner background
  */
-export const Underliner = forwardRef<HTMLDivElement, UnderlinerProps>((props, ref) => {
+export const Underliner = forwardRef<HTMLDivElement, UnderlinerProps & Props<HTMLDivElement>>((props, ref) => {
     const { children, className, underlinerClass, color, depth = 1, fullWidth = true, width, ...otherProps } = props
     return (
         <div className={clsx([useClass('root'), className])} ref={ref} {...otherProps}>

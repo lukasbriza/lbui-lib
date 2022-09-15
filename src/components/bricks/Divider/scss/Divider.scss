@@ -1,10 +1,10 @@
-@import "../../../../utils/global.styles.scss";
+@use '../../../../utils/global.styles.scss' as g;
 
 .lbui-Divider-root {
   position: relative;
   overflow: hidden;
   width: initial;
-  background: $default-color;
+  background: g.$default-color;
 }
 .lbui-Divider-fullWidth {
   width: 100%;
