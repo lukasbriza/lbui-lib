@@ -1,6 +1,6 @@
 import './scss/RoundBadge.scss'
 
-import React, { FC, useState, useEffect, forwardRef, useRef } from 'react'
+import React, { useState, useEffect, forwardRef, useRef } from 'react'
 import clsx from 'clsx'
 import gsap from 'gsap'
 import { useLibClass } from '../../../hooks/useLibClass'
@@ -42,7 +42,7 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
  * @param {void} onTouchCancel - passing base synthetic event object on event call
  */
 
-export const RoundBadge: FC<RoundBadgeProps> = forwardRef<HTMLElement, RoundBadgeProps>((props, ref) => {
+export const RoundBadge = forwardRef<HTMLElement, RoundBadgeProps>((props, ref) => {
     const {
         onClick,
         onHover,

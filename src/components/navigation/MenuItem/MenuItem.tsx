@@ -1,6 +1,6 @@
 import './scss/MenuItem.scss'
 
-import React, { FC } from 'react'
+import React from 'react'
 import clsx from 'clsx'
 import { MenuItemProps } from './types/model'
 import { useLibClass } from '../../../hooks/useLibClass'
@@ -8,7 +8,7 @@ import { useLibClass } from '../../../hooks/useLibClass'
 const COMP_PREFIX = 'MenuItem'
 const useClass = (className: string) => { return useLibClass(COMP_PREFIX, className) }
 
-export const MenuItem: FC<MenuItemProps> = React.forwardRef<HTMLDivElement, MenuItemProps>((props, ref) => {
+export const MenuItem = React.forwardRef<HTMLDivElement, MenuItemProps>((props, ref) => {
     const {
         icon,
         iconPosition = "left",

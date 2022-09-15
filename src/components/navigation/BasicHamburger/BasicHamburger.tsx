@@ -1,6 +1,6 @@
 import './scss/BasicHamburger.scss'
 
-import React, { useState, useEffect, useRef, FC } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useLibClass } from '../../../hooks/useLibClass'
 import { crossOn, crossOff } from './gsap.animation'
 import { BasicHamburgerProps } from './types/model'
@@ -9,7 +9,7 @@ import clsx from 'clsx'
 const COMP_PREFIX = 'basicHamburger'
 const useClass = (className: string) => { return useLibClass(COMP_PREFIX, className) }
 
-export const BasicHamburger: FC<BasicHamburgerProps> = React.forwardRef<HTMLDivElement, BasicHamburgerProps>((props, ref) => {
+export const BasicHamburger = React.forwardRef<HTMLDivElement, BasicHamburgerProps>((props, ref) => {
     const {
         show = true,
         className,

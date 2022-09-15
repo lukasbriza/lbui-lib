@@ -1,6 +1,6 @@
 import './scss/Divider.scss'
 
-import React, { FC, forwardRef } from 'react'
+import React, { forwardRef } from 'react'
 import { PIXEL_STEP } from '../../../utils/global.constants'
 import { useLibClass } from '../../../hooks/useLibClass'
 import { DividerProps } from './types/model'
@@ -17,7 +17,7 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
  * @param {number} width - define width of component in %
  * @param {string} color - optional color of background
  */
-export const Divider: FC<DividerProps> = forwardRef<HTMLElement, DividerProps>((props, ref) => {
+export const Divider = forwardRef<HTMLElement, DividerProps>((props, ref) => {
     const { className, depth = 1, fullWidth = true, width, color, ...otherProps } = props
     return (
         <section
