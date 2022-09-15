@@ -1,10 +1,11 @@
-import { ReactNode, MutableRefObject } from "react";
+import React, { ReactNode, MutableRefObject } from "react";
 
 export type GsapSelector = string | HTMLElement;
 
 export type Element = ReactNode;
 export type Sizes = "small" | "medium" | "large";
 export type ExtSizes = "small" | "medium" | "large" | number;
+export type Props<T> = React.HTMLAttributes<T>;
 
 export type DefaultButtonProps = {
   label: string;
