@@ -16,13 +16,13 @@
 .lbui-Card-onlyBody {
   padding: 10px;
   display: flex;
+}
 
-  :first-child {
-    background: g.$pallete-primary;
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
+.lbui-Card-onlyBody-first-child {
+  background: g.$pallete-primary;
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 .lbui-Card-withDescription {
@@ -30,11 +30,11 @@
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
+}
 
-  :first-child {
-    background: g.$pallete-primary;
-  }
-  :last-child {
-    background: g.$pallete-secondary;
-  }
+.lbui-Card-withDescription-first-child {
+  background: g.$pallete-primary;
+}
+.lbui-Card-withDescription-second-child {
+  background: g.$pallete-secondary;
 }

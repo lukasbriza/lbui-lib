@@ -1,0 +1,25 @@
+.lbui-PictureCard-root {
+  padding: 0px;
+  overflow: hidden;
+}
+
+.lbui-PictureCard-image {
+  position: relative;
+  height: 100%;
+}
+.lbui-PictureCard-layer {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.454);
+}
+.lbui-PictureCard-contentWrapper {
+  z-index: +100;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+}

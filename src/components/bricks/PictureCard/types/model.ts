@@ -1,8 +1,9 @@
 import { Element } from "../../../../utils/global.model";
 
-export type PaperProps = {
-  children: Element;
+export type PictureCardProps = {
   className?: string;
+  imageClass?: string;
+  layerClass?: string;
   elevation?:
     | 0
     | 1
@@ -30,4 +31,13 @@ export type PaperProps = {
     | 23
     | 24;
   square?: boolean;
+  src: string;
+  body: Element;
+};
+
+export type BackgroundTypes = {
+  src: string;
+  className?: string;
+  layerClass?: string;
+  children?: Element;
 };

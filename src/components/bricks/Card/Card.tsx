@@ -1,6 +1,6 @@
 import './scss/Card.scss'
 
-import React, { forwardRef } from 'react'
+import React, { forwardRef, ReactElement, JSXElementConstructor } from 'react'
 import { Paper } from '../../'
 import clsx from 'clsx'
 import { useLibClass } from '../../../hooks/useLibClass'
@@ -21,6 +21,39 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
  */
 export const Card = forwardRef<HTMLElement, CardProps & Props<HTMLElement>>((props, ref) => {
     const { className, description, body, ...otherProps } = props
+
+    const StyledChildren = () => {
+        return React.Children.map(body, (child: any, index) => {
+            if (index === 0) {
+                if (body && !description) {
+                    return React.cloneElement(child, {
+                        className: clsx([useClass('onlyBody-first-child'), child.props.className])
+                    }, child.props.children)
+                }
+                if (body && description) {
+                    return React.cloneElement(child, {
+                        className: clsx([useClass('withDescription-first-child'), child.props.className])
+                    }, child.props.children)
+                }
+            }
+            return child
+        })
+    }
+
+    const StyledDescription = () => {
+        if (description) {
+            return React.Children.map(description, (child: any, index) => {
+                if (index === 0) {
+                    return React.cloneElement(child, {
+                        className: clsx([useClass('withDescription-second-child'), child.props.className]),
+                    }, child.props.children)
+                }
+                return child
+            })
+        }
+        return null
+    }
+
     return (
         <Paper
             ref={ref}
@@ -31,8 +64,8 @@ export const Card = forwardRef<HTMLElement, CardProps & Props<HTMLElement>>((pro
             ])}
             {...otherProps}
         >
-            {body}
-            {description}
+            <StyledChildren />
+            <StyledDescription />
         </Paper>
     )
 })
