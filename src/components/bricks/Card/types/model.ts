@@ -5,6 +5,7 @@ export type CardProps = {
   description?: Element;
   className?: string;
   elevation?:
+    | 0
     | 1
     | 2
     | 3
