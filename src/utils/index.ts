@@ -1,4 +1,4 @@
 export * from "./global.model";
 export * from "./global.constants";
 
-export { fadeIn, fadeOff } from "./global.animations";
+export { fadeIn, fadeOff, turnTo } from "./global.animations";

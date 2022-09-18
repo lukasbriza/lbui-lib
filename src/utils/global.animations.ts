@@ -1,5 +1,5 @@
 import gsap, { Power2 } from "gsap";
-import { GsapSelector, FadeInConfig, FadeOffConfig, StretchConfig, ShrinkConfig } from "./global.model";
+import { GsapSelector, FadeInConfig, FadeOffConfig, StretchConfig, ShrinkConfig, TurnToConfig } from "./global.model";
 
 export const fadeIn = (selector: GsapSelector, config: FadeInConfig = {}) => {
   const conf = {
@@ -53,6 +53,20 @@ export const shrink = (selector: GsapSelector, config: ShrinkConfig = {}) => {
 
   return gsap.to(selector, {
     width: "0%",
+    duration: conf.duration,
+    ease: conf.ease,
+  });
+};
+
+export const turnTo = (selector: GsapSelector, to: number, config: TurnToConfig = {}) => {
+  const conf = {
+    to: to,
+    duration: config.duration ? config.duration : 1,
+    ease: config.ease ? config.ease : "linear",
+  };
+
+  return gsap.to(selector, {
+    rotate: conf.to,
     duration: conf.duration,
     ease: conf.ease,
   });
