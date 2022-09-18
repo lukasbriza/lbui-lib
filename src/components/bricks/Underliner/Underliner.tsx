@@ -1,7 +1,7 @@
 import './scss/Underliner.scss'
 
 import React, { forwardRef } from 'react'
-import { Divider } from '../../'
+import { Divider } from '../Divider/Divider'
 import { useLibClass } from '../../../hooks/useLibClass'
 import clsx from 'clsx'
 

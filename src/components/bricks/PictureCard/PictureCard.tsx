@@ -1,6 +1,6 @@
 import './scss/PictureCard.scss'
 
-import { Card } from '../../'
+import { Card } from '../Card/Card'
 import React, { forwardRef, FC } from 'react'
 import clsx from 'clsx'
 import { useLibClass } from '../../../hooks/useLibClass'

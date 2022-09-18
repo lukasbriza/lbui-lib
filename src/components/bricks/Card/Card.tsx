@@ -1,7 +1,7 @@
 import './scss/Card.scss'
 
-import React, { forwardRef, ReactElement, JSXElementConstructor } from 'react'
-import { Paper } from '../../'
+import React, { forwardRef } from 'react'
+import { Paper } from '../Paper/Paper'
 import clsx from 'clsx'
 import { useLibClass } from '../../../hooks/useLibClass'
 
