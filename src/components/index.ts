@@ -15,3 +15,5 @@ export * from "./bricks/Underliner/Underliner";
 export * from "./bricks/Paper/Paper";
 export * from "./bricks/Card/Card";
 export * from "./bricks/PictureCard/PictureCard";
+export * from "./bricks/Typography/Typography";
+export * from "./bricks/Typography/TypographyProvider";
