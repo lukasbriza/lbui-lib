@@ -27,14 +27,19 @@ export type DefaultButtonProps = {
 export type FadeInConfig = {
   delay?: number;
   duration?: number;
-  ease?: gsap.EaseFunction;
+  ease?: gsap.EaseFunction | "linear";
 };
 
 export type FadeOffConfig = FadeInConfig;
 
 export type StretchConfig = {
   duration?: number;
-  ease?: gsap.EaseFunction;
+  ease?: gsap.EaseFunction | "linear";
   width?: string;
 };
 export type ShrinkConfig = StretchConfig;
+
+export type TurnToConfig = {
+  duration?: number;
+  ease?: gsap.EaseFunction | "linear";
+};

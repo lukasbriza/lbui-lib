@@ -8,6 +8,7 @@ export * from "./navigation/RoundBadge/RoundBadge";
 
 export * from "./animations/Fade/Fade";
 export * from "./animations/Underlining/Underlining";
+export * from "./animations/Turn/Turn";
 
 export * from "./bricks/Divider/Divider";
 export * from "./bricks/Underliner/Underliner";
