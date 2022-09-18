@@ -3,6 +3,7 @@ import './scss/Fade.scss'
 import React, { FC, useEffect, useRef, useState } from 'react'
 import clsx from 'clsx'
 import { fadeIn, fadeOff } from '../../../utils/global.animations'
+import { FadeInConfig } from '../../../utils/global.model'
 import { useLibClass } from '../../../hooks/useLibClass'
 
 import { Props } from '../../../utils/global.model'
@@ -19,7 +20,7 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
  * @param {FadeOffConfig} configOff - optional configuration for fadeOff method
  * @param {FadeInConfig} configIn - optional configuration for fadeIn method
  * @param {string} className - class applied to the root of component
- * @param {void} onEnd - method called on end of animaiton
+ * @param {void} onEnd - method called on end of animation
  */
 export const Fade: FC<FadeProps & Props<HTMLDivElement>> = (props) => {
     const { on = true, appear = true, configOff, configIn, className, onEnd, ...otherProps } = props

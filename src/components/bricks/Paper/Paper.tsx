@@ -18,7 +18,6 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
  */
 export const Paper = forwardRef<HTMLElement, PaperProps & Props<HTMLElement>>((props, ref) => {
     const { className, children, elevation = 2, square = false, ...otherProps } = props
-    console.log(otherProps)
     return (
         <section
             className={clsx(
