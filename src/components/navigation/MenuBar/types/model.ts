@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
 export type MenuBarProps = {
-  className: string;
+  className?: string;
   children: ReactNode | ReactNode[];
 };

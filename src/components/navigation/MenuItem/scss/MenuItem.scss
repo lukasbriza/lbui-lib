@@ -5,6 +5,7 @@
   display: grid;
   align-items: center;
   width: min-content;
+  height: min-content;
 }
 
 //ICON
@@ -18,20 +19,22 @@
 //ICON POSITION
 .lbui-MenuItem-icon-left {
   grid-template-columns: min-content min-content;
-  grid-template-areas: "icon label";
+  grid-template-rows: min-content min-content;
+  grid-template-areas: "icon label" "underliner underliner";
 }
 .lbui-MenuItem-icon-top {
-  grid-template-rows: min-content min-content;
-  grid-template-areas: "icon" "label";
+  grid-template-rows: min-content min-content min-content;
+  grid-template-areas: "icon" "label" "underliner";
   justify-items: center;
 }
 .lbui-MenuItem-icon-right {
   grid-template-columns: min-content min-content;
-  grid-template-areas: "label icon";
+  grid-template-rows: min-content min-content;
+  grid-template-areas: "label icon" "underliner underliner";
 }
 .lbui-MenuItem-icon-bottom {
-  grid-template-rows: min-content min-content;
-  grid-template-areas: "label" "icon";
+  grid-template-rows: min-content min-content min-content;
+  grid-template-areas: "label" "icon" "underliner";
   justify-items: center;
 }
 
@@ -44,18 +47,19 @@
 }
 //UNDERLINER
 .lbui-MenuItem-underliner {
+  grid-area: underliner;
   position: absolute;
   height: 2px;
-  width: 0px;
-  top: 100%;
+  width: 100%;
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
+  border-radius: 50%;
   background: black;
   transition: width 0.5s ease-in-out;
 }
 
-.lbui-MenuItem-root:hover {
+.lbui-MenuItem-root-hover {
   .lbui-MenuItem-underliner {
     width: 100%;
     overflow: hidden;
