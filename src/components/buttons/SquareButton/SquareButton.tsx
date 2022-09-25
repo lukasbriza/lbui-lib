@@ -40,8 +40,8 @@ export const SquareButton = React.forwardRef<HTMLButtonElement, SquareButtonProp
   const handleMouseLeave = () => {
     setActiveClass(null)
   }
-  const handleTouchStart = (e: React.BaseSyntheticEvent) => {
-    e.preventDefault()
+
+  const handleTouchStart = () => {
     setActiveClass(hoverClass)
   }
   const handleTouchEnd = (e: React.BaseSyntheticEvent) => {

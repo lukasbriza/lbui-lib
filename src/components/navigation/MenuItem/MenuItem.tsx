@@ -57,12 +57,10 @@ export const MenuItem = React.forwardRef<HTMLDivElement, MenuItemProps & Props<H
     const [clicked, setClicked] = useState<boolean>(false)
 
     const handleTouchStart = (e: React.BaseSyntheticEvent) => {
-        e.preventDefault();
         setActive(true);
         onTouchStart?.(e)
     }
     const handleTouchEnd = (e: React.BaseSyntheticEvent) => {
-        e.preventDefault()
         setTimeout(() => {
             setClicked(true)
             setActive(false)
@@ -73,9 +71,9 @@ export const MenuItem = React.forwardRef<HTMLDivElement, MenuItemProps & Props<H
         onTouchEnd?.(e)
     }
     const handleClick = (e: React.BaseSyntheticEvent) => { e.preventDefault(); onClick?.(e) }
-    const handleMouseEnter = (e: React.BaseSyntheticEvent) => { e.preventDefault(); setActive(true); onMouseEnter?.(e) }
-    const handleMouseLeave = (e: React.BaseSyntheticEvent) => { e.preventDefault(); setActive(false); onMouseLeave?.(e) }
-    const handleTouchCancel = (e: React.BaseSyntheticEvent) => { e.preventDefault(), setActive(false); setClicked(false); onTouchCancel?.(e) }
+    const handleMouseEnter = (e: React.BaseSyntheticEvent) => { setActive(true); onMouseEnter?.(e) }
+    const handleMouseLeave = (e: React.BaseSyntheticEvent) => { setActive(false); onMouseLeave?.(e) }
+    const handleTouchCancel = (e: React.BaseSyntheticEvent) => { setActive(false); setClicked(false); onTouchCancel?.(e) }
 
     return (
         <div
