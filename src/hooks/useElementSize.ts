@@ -7,7 +7,6 @@ export const useElementSize = (ref: React.MutableRefObject<any>) => {
     height: null,
   });
 
-  //TODO - usecallback implementation
   const handleWidth = useThrottle(() => {
     setSize({ width: ref.current.offsetWidth, height: ref.current.offsetHeight });
   }, 300);
