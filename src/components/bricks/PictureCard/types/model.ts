@@ -33,6 +33,7 @@ export type PictureCardProps = {
   square?: boolean;
   src: string;
   body: Element;
+  imgComponent?: Element;
 };
 
 export type BackgroundTypes = {
@@ -40,4 +41,5 @@ export type BackgroundTypes = {
   className?: string;
   layerClass?: string;
   children?: Element;
+  imgComponent?: Element;
 };

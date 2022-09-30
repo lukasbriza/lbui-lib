@@ -23,8 +23,7 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
  * @param {Element} body - Element passed as body of card
  */
 export const PictureCard = forwardRef<HTMLElement, PictureCardProps & Props<HTMLElement>>((props, ref) => {
-    const { className, imageClass, layerClass, elevation = 1, src, body, ...otherProps } = props
-
+    const { className, imageClass, imgComponent, layerClass, elevation = 1, src, body, ...otherProps } = props
     return (
         <Card
             className={clsx([useClass('root'), className])}
@@ -33,6 +32,7 @@ export const PictureCard = forwardRef<HTMLElement, PictureCardProps & Props<HTML
                     src={src}
                     className={imageClass}
                     layerClass={layerClass}
+                    imgComponent={imgComponent}
                 >
                     {body}
                 </Background>
@@ -45,11 +45,15 @@ export const PictureCard = forwardRef<HTMLElement, PictureCardProps & Props<HTML
 })
 
 const Background: FC<BackgroundTypes> = (props) => {
-    const { src, className, layerClass, children } = props
+    const { src, className, layerClass, imgComponent, children } = props
 
     return (
         <>
-            <img src={src} alt="card background" className={clsx([useClass('image')], className)} />
+            {
+                imgComponent ?
+                    imgComponent :
+                    <img src={src} alt="card background" className={clsx([useClass('image')], className)} />
+            }
             <div className={clsx([useClass('layer'), layerClass])}></div>
             <div className={useClass('contentWrapper')}>
                 {children}
