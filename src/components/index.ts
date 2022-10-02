@@ -17,3 +17,4 @@ export * from "./bricks/Card/Card";
 export * from "./bricks/PictureCard/PictureCard";
 export * from "./bricks/Typography/Typography";
 export * from "./bricks/Typography/TypographyProvider";
+export * from "./bricks/Grid/Grid";
