@@ -22,10 +22,21 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
 export const Card = forwardRef<HTMLElement, CardProps & Props<HTMLElement>>((props, ref) => {
     const { className, description, body, ...otherProps } = props
 
-    //TODO: pokud child je pouze string a nikoliv element?
     const StyledChildren = memo(() => {
         return React.Children.map(body, (child: any, index) => {
             if (index === 0) {
+                if (typeof child === 'string' && body && !description) {
+                    return (
+                        <div className={useClass('onlyBody-first-child')}>
+                            {child}
+                        </div>)
+                }
+                if (typeof child === 'string' && body && description) {
+                    return (
+                        <div className={useClass('withDescription-first-child')}>
+                            {child}
+                        </div>)
+                }
                 if (body && !description) {
                     return React.cloneElement(child, {
                         className: clsx([useClass('onlyBody-first-child'), child.props.className])
