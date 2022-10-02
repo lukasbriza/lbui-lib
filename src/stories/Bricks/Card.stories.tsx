@@ -6,6 +6,21 @@ export default {
     title: '@lbui/Bricks/Card',
     component: Card,
     argTypes: {
+        body: {
+            description: "Element passed as body of card."
+        },
+        description: {
+            description: "Element passed as description of card."
+        },
+        elevation: {
+            description: "Define elevation of card"
+        },
+        className: {
+            description: "Add custom class to component root"
+        },
+        square: {
+            description: "Define squared or sharp corners"
+        }
     }
 } as ComponentMeta<typeof Card>;
 
@@ -22,4 +37,8 @@ WithDescription.args = {
 export const OnlyBody = Template.bind({})
 OnlyBody.args = {
     body: <div style={{ width: '100px', height: '100px' }}>Body</div>
+}
+export const StringBody = Template.bind({})
+StringBody.args = {
+    body: "StringBody"
 }

@@ -31,7 +31,7 @@ export type PictureCardProps = {
     | 23
     | 24;
   square?: boolean;
-  src: string;
+  src: unknown;
   body: Element;
   imgComponent?: Element;
 };

@@ -22,4 +22,5 @@ export type confOff = {
   middleDuration?: number;
   delay?: number;
   middleDelay?: number;
+  line2Height?: number;
 };
