@@ -1,0 +1,28 @@
+.lbui-ArrowShape-root {
+  position: relative;
+  width: 15px;
+  height: 15px;
+}
+.lbui-ArrowShape-line1 {
+  position: absolute;
+  top: 50%;
+  right: 0%;
+  transform: translateY(-50%) rotate(45deg);
+  transform-origin: right;
+  width: inherit;
+  height: 3px;
+  background: black;
+}
+.lbui-ArrowShape-line2 {
+  position: absolute;
+  top: 49%;
+  transform: translateY(-50%) rotate(-45deg);
+  transform-origin: right;
+  right: 0%;
+  width: inherit;
+  height: 3px;
+  background: black;
+}
+.lbui-ArrowShape-rounded {
+  border-radius: 5px;
+}

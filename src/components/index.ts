@@ -18,3 +18,6 @@ export * from "./bricks/PictureCard/PictureCard";
 export * from "./bricks/Typography/Typography";
 export * from "./bricks/Typography/TypographyProvider";
 export * from "./bricks/Grid/Grid";
+
+export * from "./shapes/BulletShape/BulletShape";
+export * from "./shapes/ArrowShape/ArrowShape";
