@@ -1,0 +1,17 @@
+.lbui-BulletShape-root {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  background: black;
+}
+
+.lbui-BulletShape-round {
+  border-radius: 50%;
+}
+.lbui-BulletShape-square {
+  border-radius: 0%;
+}
+.lbui-BulletShape-diamond {
+  border-radius: 0%;
+  transform: rotate(45deg);
+}
