@@ -1,4 +1,5 @@
 import React, { ReactNode } from "react";
+import { Control } from "react-hook-form";
 
 export type GsapSelector = string | HTMLElement;
 
@@ -35,6 +36,23 @@ export type DefaultButtonProps = {
   textColor?: string;
   startIcon?: Element;
   endIcon?: Element;
+};
+
+export type DefaultInputProps = {
+  rootClass?: string;
+  className?: string;
+  labelClass?: string;
+  labelFocusClass?: string;
+  labelFilledClass?: string;
+  focusIn?: (e: React.BaseSyntheticEvent | FocusEvent) => void;
+  focusOut?: (e: React.BaseSyntheticEvent | FocusEvent) => void;
+  name: string;
+  label: string;
+  value: string;
+  error?: boolean;
+  errorInputClass?: string;
+  errorLabelClass?: string;
+  autoComplete?: "on" | "off";
 };
 
 //ANIMATION TYPES
