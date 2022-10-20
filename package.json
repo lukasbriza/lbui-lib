@@ -9,7 +9,8 @@
     "rollup": "rollup -c",
     "test": "jest",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "component": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./createComponent.ps1"
   },
   "keywords": [
     "UI",
@@ -64,7 +65,8 @@
     "typescript": "^4.7.4"
   },
   "peerDependencies": {
-    "react": "^18.2.0"
+    "react": "^18.2.0",
+    "react-hook-form": "^7.37.0"
   },
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",

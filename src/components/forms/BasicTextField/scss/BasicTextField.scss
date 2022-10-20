@@ -1,0 +1,62 @@
+@use '../../../../utils/global.styles.scss' as g;
+
+.lbui-BasicTextField-root {
+  position: relative;
+  width: fit-content;
+}
+
+.lbui-BasicTextField-root:hover {
+  label {
+    color: rgb(0, 0, 0);
+  }
+}
+
+.lbui-BasicTextField-label {
+  position: absolute;
+  background: white;
+  margin-left: 15px;
+  top: 50%;
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.6);
+  transform: translateY(-50%);
+  transition: font-size 0.2s ease-out, top 0.2s ease-out, margin-left 0.2s ease-out,
+    color 200ms cubic-bezier(0, 0, 0.2, 1);
+  z-index: +1;
+}
+
+.lbui-BasicTextField-label-focused,
+.lbui-BasicTextField-label-filled {
+  top: -1px;
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-left: 15px;
+  font-size: 12px;
+  opacity: 1;
+}
+
+.lbui-BasicTextField-label-focused-color {
+  color: g.$pallete-primary;
+}
+
+.lbui-BasicTextField-input {
+  border: none;
+  outline: none;
+  outline: 1px rgba(0, 0, 0, 0.3) solid;
+  border-radius: 6px;
+  height: 45px;
+  padding-left: 15px;
+  font-size: 18px;
+  transition: outline 100ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.lbui-BasicTextField-input:focus {
+  outline: g.$pallete-primary 2px solid;
+}
+
+.lbui-BasicTextField-input:focus:hover {
+  outline: g.$pallete-primary 2px solid;
+}
+
+.lbui-BasicTextField-input:hover {
+  outline: g.$default-color 1px solid;
+}

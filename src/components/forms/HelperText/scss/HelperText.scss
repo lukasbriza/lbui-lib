@@ -1,0 +1,81 @@
+.lbui-Helpertext-root {
+  width: fit-content;
+}
+
+.lbui-Helpertext-text {
+  padding: 5px 10px;
+  margin: 0px;
+  color: rgba(0, 0, 0, 0.678);
+  transform: visibility 0.5s ease-out;
+}
+
+.lbui-Helpertext-hide {
+  visibility: hidden;
+}
+
+.lbui-Helpertext-show-animated {
+  animation-name: show;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+}
+.lbui-Helpertext-hide-animated {
+  animation-name: hide;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes hide {
+  0% {
+    visibility: visible;
+    opacity: 1;
+  }
+  99% {
+    visibility: visible;
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes show {
+  0% {
+    visibility: hidden;
+    opacity: 0;
+  }
+  1% {
+    visibility: visible;
+    opacity: 0;
+  }
+  100% {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+//POSITION
+.lbui-Helpertext-left {
+  display: flex;
+  flex-flow: row-reverse;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+.lbui-Helpertext-right {
+  display: flex;
+  flex-flow: row;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+.lbui-Helpertext-bottom {
+  display: block;
+}
+.lbui-Helpertext-top {
+  display: flex;
+  flex-flow: column-reverse;
+  flex-wrap: nowrap;
+}
+
+.lbui-Helpertext-error {
+  color: red;
+}
