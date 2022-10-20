@@ -32,6 +32,7 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
  * @param {string} autoComplete - turn on/off autocomplete (default is off)
  */
 
+//TODO: on 1st render - recognize value > apply filled state + padding - left text
 export const FilledTextField = forwardRef<HTMLInputElement, FilledTextFieldProps & Props<HTMLInputElement>>((props, ref) => {
     const {
         rootClass,
@@ -53,6 +54,7 @@ export const FilledTextField = forwardRef<HTMLInputElement, FilledTextFieldProps
         lineOrigin = "center",
         error = false,
         autoComplete = "off",
+        defaultValue,
         ...otherProps
     } = props
 
@@ -77,6 +79,9 @@ export const FilledTextField = forwardRef<HTMLInputElement, FilledTextFieldProps
             }
             setFilled(false)
         }
+
+        (value?.length > 0 || defaultValue && defaultValue?.toString().length > 0) && setFilled(true)
+
         divRef.current?.addEventListener('focusin', focusInFn)
         divRef.current?.addEventListener('focusout', focuseOutFn)
         return () => {
@@ -112,6 +117,7 @@ export const FilledTextField = forwardRef<HTMLInputElement, FilledTextFieldProps
                 name={name}
                 autoComplete={autoComplete}
                 value={value}
+                defaultValue={defaultValue}
                 className={clsx([useClass('input'), className, error && errorInputClass])}
                 {...otherProps}
             />

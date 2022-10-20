@@ -11,5 +11,4 @@ export type FilledTextFieldProps = {
 
 export type FilledTextFieldHRProps = {
   control: Control<any, any>;
-  defaultValue?: unknown;
 } & FilledTextFieldProps;

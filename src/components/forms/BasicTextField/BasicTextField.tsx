@@ -44,6 +44,7 @@ export const BasicTextField = forwardRef<HTMLInputElement, BasicTextFieldProps &
         errorInputClass,
         error = false,
         autoComplete = "off",
+        defaultValue,
         ...otherProps
     } = props
 
@@ -68,6 +69,9 @@ export const BasicTextField = forwardRef<HTMLInputElement, BasicTextFieldProps &
             }
             setFilled(false)
         }
+
+        (value?.length > 0 || defaultValue && defaultValue?.toString().length > 0) && setFilled(true)
+
         divRef.current?.addEventListener('focusin', focusInFn)
         divRef.current?.addEventListener('focusout', focuseOutFn)
         return () => {

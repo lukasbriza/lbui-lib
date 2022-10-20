@@ -21,6 +21,7 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
  * @param {boolean} square - If true, rounded corners are disabled 
  * @param {string} src - Path to the image
  * @param {Element} body - Element passed as body of card
+ * @param {Element} imgComponent - Element passed as img component (opt for Next.js image)
  */
 export const PictureCard = forwardRef<HTMLElement, PictureCardProps & Props<HTMLElement>>((props, ref) => {
     const { className, imageClass, imgComponent, layerClass, elevation = 1, src, body, ...otherProps } = props

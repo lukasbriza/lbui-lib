@@ -1,10 +1,12 @@
-import React, { FC, forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import { Controller } from 'react-hook-form'
 import { FilledTextField } from './FilledTextField'
 import { FilledTextFieldHRProps } from './types/model'
+import { Props } from '../../../utils/global.model'
 
 /**
  * BasicTextFieldHF component
+ * Default value is recommended to set by useForm hook
  * @param {string} rootClass - class applied to the root div element
  * @param {string} className - class applied to the input element
  * @param {string} labelClass - class applied to the label element
@@ -22,17 +24,15 @@ import { FilledTextFieldHRProps } from './types/model'
  * @param {string} name - value applied to the htmlFor props of label and to the id of input
  * @param {string} label - value applied as text for label
  * @param {string} autoComplete - turn on/off autocomplete (default is off)
- * @param {string} defaultValue - default value set to the input
  * @param {void} control - control hooks passed to the controller (react hooks form)
  */
 
-export const FilledTextFieldHF = forwardRef<HTMLInputElement, FilledTextFieldHRProps>((props, ref) => {
-    const { control, label, defaultValue = "", ...otherProps } = props
+export const FilledTextFieldHF = forwardRef<HTMLInputElement, FilledTextFieldHRProps & Props<HTMLInputElement>>((props, ref) => {
+    const { control, label, ...otherProps } = props
     return (
         <Controller
             control={control}
             name={props.name}
-            defaultValue={defaultValue}
             render={({ field }) => {
                 return (
                     <FilledTextField

@@ -1,5 +1,4 @@
 import React, { ReactNode } from "react";
-import { Control } from "react-hook-form";
 
 export type GsapSelector = string | HTMLElement;
 
@@ -20,8 +19,10 @@ export type TypographyType =
   | "body1"
   | "body2"
   | "buttonText";
+
 export type Props<T> = React.HTMLAttributes<T>;
 
+//BUTTON
 export type DefaultButtonProps = {
   label: string;
   size?: ExtSizes;
@@ -38,6 +39,18 @@ export type DefaultButtonProps = {
   endIcon?: Element;
 };
 
+//CHECKBOX
+export type CheckboxDefaultProps = {
+  name: string;
+  label: Element;
+  checked?: boolean;
+  className?: string;
+  checkboxClass?: string;
+  labelClass?: string;
+  defaultChecked?: boolean;
+};
+
+//INPUT
 export type DefaultInputProps = {
   rootClass?: string;
   className?: string;

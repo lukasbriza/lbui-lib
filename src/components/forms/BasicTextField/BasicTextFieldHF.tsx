@@ -2,6 +2,7 @@ import React, { forwardRef } from 'react';
 import { Controller } from 'react-hook-form'
 import { BasicTextField } from './BasicTextField'
 import { BasicTextFieldHRProps } from './types/model'
+import { Props } from '../../../utils/global.model'
 
 /**
  * BasicTextFieldHF component
@@ -22,13 +23,12 @@ import { BasicTextFieldHRProps } from './types/model'
  * @param {void} control - control hooks passed to the controller (react hooks form)
  */
 
-export const BasicTextFieldHF = forwardRef<HTMLInputElement, BasicTextFieldHRProps>((props, ref) => {
-    const { control, label, defaultValue = "", ...otherProps } = props
+export const BasicTextFieldHF = forwardRef<HTMLInputElement, BasicTextFieldHRProps & Props<HTMLInputElement>>((props, ref) => {
+    const { control, label, ...otherProps } = props
     return (
         <Controller
             control={control}
             name={props.name}
-            defaultValue={defaultValue}
             render={({ field }) => {
                 return (
                     <BasicTextField
