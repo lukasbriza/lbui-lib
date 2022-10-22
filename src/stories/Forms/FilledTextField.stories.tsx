@@ -62,7 +62,7 @@ type FormInputs = {
 const HookForms: ComponentStory<typeof FilledTextField> = (args) => {
     const { handleSubmit, control } = useForm<FormInputs>({
         defaultValues: {
-            input: "default value"
+
         }
     })
     const ref = useRef<HTMLInputElement>(null)

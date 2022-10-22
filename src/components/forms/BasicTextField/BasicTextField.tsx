@@ -35,7 +35,7 @@ export const BasicTextField = forwardRef<HTMLInputElement, BasicTextFieldProps &
         labelClass,
         name,
         label,
-        value,
+        value = "",
         focusIn,
         focusOut,
         labelFocusClass,
@@ -101,6 +101,7 @@ export const BasicTextField = forwardRef<HTMLInputElement, BasicTextFieldProps &
                 {label}
             </label>
             <input
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => { props.onChange?.(e) }}
                 type="text"
                 ref={ref}
                 id={name}

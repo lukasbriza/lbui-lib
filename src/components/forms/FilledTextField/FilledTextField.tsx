@@ -40,7 +40,7 @@ export const FilledTextField = forwardRef<HTMLInputElement, FilledTextFieldProps
         labelClass,
         name,
         label,
-        value,
+        value = "",
         focusIn,
         focusOut,
         labelFocusClass,
@@ -111,6 +111,7 @@ export const FilledTextField = forwardRef<HTMLInputElement, FilledTextFieldProps
                 {label}
             </label>
             <input
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => { props.onChange?.(e) }}
                 type="text"
                 ref={ref}
                 id={name}

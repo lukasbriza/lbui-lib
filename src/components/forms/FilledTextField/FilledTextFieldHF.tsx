@@ -28,11 +28,11 @@ import { Props } from '../../../utils/global.model'
  */
 
 export const FilledTextFieldHF = forwardRef<HTMLInputElement, FilledTextFieldHRProps & Props<HTMLInputElement>>((props, ref) => {
-    const { control, label, ...otherProps } = props
+    const { control, label, name, ...otherProps } = props
     return (
         <Controller
             control={control}
-            name={props.name}
+            name={name}
             render={({ field }) => {
                 return (
                     <FilledTextField

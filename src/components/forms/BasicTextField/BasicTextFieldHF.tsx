@@ -24,11 +24,11 @@ import { Props } from '../../../utils/global.model'
  */
 
 export const BasicTextFieldHF = forwardRef<HTMLInputElement, BasicTextFieldHRProps & Props<HTMLInputElement>>((props, ref) => {
-    const { control, label, ...otherProps } = props
+    const { control, label, name, ...otherProps } = props
     return (
         <Controller
             control={control}
-            name={props.name}
+            name={name}
             render={({ field }) => {
                 return (
                     <BasicTextField
