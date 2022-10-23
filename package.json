@@ -3,7 +3,7 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/lukasbriza"
   },
-  "version": "1.0.51",
+  "version": "1.0.52",
   "description": "Component library of most used components for my projects, to speed up development.",
   "scripts": {
     "rollup": "rollup -c",

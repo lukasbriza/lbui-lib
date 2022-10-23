@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { FC } from 'react';
 import { Controller } from 'react-hook-form'
 import { BasicTextField } from './BasicTextField'
 import { BasicTextFieldHRProps } from './types/model'
@@ -23,22 +23,22 @@ import { Props } from '../../../utils/global.model'
  * @param {void} control - control hooks passed to the controller (react hooks form)
  */
 
-export const BasicTextFieldHF = forwardRef<HTMLInputElement, BasicTextFieldHRProps & Props<HTMLInputElement>>((props, ref) => {
-    const { control, label, name, ...otherProps } = props
+export const BasicTextFieldHF: FC<BasicTextFieldHRProps & Props<HTMLInputElement>> = (props) => {
+    const { control, label, name, error, ...otherProps } = props
     return (
         <Controller
             control={control}
             name={name}
-            render={({ field }) => {
+            render={({ field, fieldState }) => {
                 return (
                     <BasicTextField
                         label={label}
+                        error={error !== undefined ? error : fieldState.error ? true : false}
                         {...field}
-                        ref={ref}
                         {...otherProps}
                     />
                 )
             }}
         />
     )
-})
+}

@@ -1,4 +1,4 @@
-import React, { FC, forwardRef } from 'react';
+import React, { FC } from 'react';
 import { Controller } from 'react-hook-form'
 import { CheckboxSquared } from './CheckboxSquared'
 import { CheckboxSquaredHFProps } from './types/model'
@@ -16,7 +16,7 @@ import { Props } from '../../../utils/global.model'
  * @param {boolean} animate - define if transition is provided
  */
 
-export const CheckboxSquaredHF = forwardRef<HTMLInputElement, CheckboxSquaredHFProps & Props<HTMLInputElement>>((props, ref) => {
+export const CheckboxSquaredHF: FC<CheckboxSquaredHFProps & Props<HTMLInputElement>> = (props) => {
     const { control, label, name, ...otherProps } = props
 
     return (
@@ -30,11 +30,10 @@ export const CheckboxSquaredHF = forwardRef<HTMLInputElement, CheckboxSquaredHFP
                         defaultChecked={control._defaultValues[name]}
                         label={label}
                         {...field}
-                        ref={ref}
                         {...otherProps}
                     />
                 )
             }}
         />
     )
-})
+}
