@@ -24,7 +24,7 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
  */
 
 export const CheckboxSquared = forwardRef<HTMLInputElement, CheckboxSquaredProps & Props<HTMLInputElement>>((props, ref) => {
-    const { checkboxClass, checkerClass, labelClass, defaultChecked = false, checked, animate = true, ...otherProps } = props
+    const { checkboxClass, checkerClass, defaultChecked = false, checked, animate = true, ...otherProps } = props
     const [isChecked, setIsChecked] = useState<boolean>(defaultChecked)
 
     useEffect(() => {
