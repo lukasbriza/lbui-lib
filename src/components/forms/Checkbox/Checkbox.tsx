@@ -40,7 +40,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps & Props<HTMLI
                 />
                 {checker}
             </div>
-            <p className={clsx([useClass('label'), labelClass])}>{label}</p>
+            <div className={clsx([useClass('label'), labelClass])}>{label}</div>
         </label>
     )
 })
