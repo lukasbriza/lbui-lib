@@ -25,6 +25,7 @@ import { Props } from '../../../utils/global.model'
  * @param {string} label - value applied as text for label
  * @param {string} autoComplete - turn on/off autocomplete (default is off)
  * @param {void} control - control hooks passed to the controller (react hooks form)
+ * @param {boolean} password - if true, input have type "password", else input have type "text" (default is false)
  */
 
 export const FilledTextFieldHF: FC<FilledTextFieldHRProps & Props<HTMLInputElement>> = (props) => {

@@ -26,6 +26,7 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
  * @param {string} label - value applied as text for label
  * @param {string} value - value applied to the input element
  * @param {string} autoComplete - turn on/off autocomplete (default is off)
+ * @param {boolean} password - if true, input have type "password", else input have type "text" (default is false)
  */
 
 export const BasicTextField = forwardRef<HTMLInputElement, BasicTextFieldProps & Props<HTMLInputElement>>((props, ref) => {
@@ -45,6 +46,7 @@ export const BasicTextField = forwardRef<HTMLInputElement, BasicTextFieldProps &
         error = false,
         autoComplete = "off",
         defaultValue,
+        password = false,
         ...otherProps
     } = props
 
@@ -102,7 +104,7 @@ export const BasicTextField = forwardRef<HTMLInputElement, BasicTextFieldProps &
             </label>
             <input
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => { props.onChange?.(e) }}
-                type="text"
+                type={password ? "password" : "text"}
                 ref={ref}
                 id={name}
                 name={name}
