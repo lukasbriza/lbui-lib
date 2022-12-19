@@ -6,7 +6,15 @@ export default {
     title: '@lbui/Shapes/BulletShape',
     component: BulletShape,
     argTypes: {
-
+        className: {
+            description: "Apply custom class to the root of ocmponent"
+        },
+        size: {
+            description: "Size applied to width and height of component"
+        },
+        type: {
+            description: "Change shape to diamond,square or round"
+        }
     }
 } as ComponentMeta<typeof BulletShape>;
 
