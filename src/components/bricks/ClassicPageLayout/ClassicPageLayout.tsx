@@ -19,7 +19,7 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
  * @param {string} footerClass - Class applied to the footer component
  * @param {Element} menu - Element passed to menu section
  * @param {Element} footer - Element passed to footer section
- * @param {number} maxWidth - maximum width of root component in px
+ * @param {number} maxWidth - Maximum width of root component in px
  * @param {boolean} options.stickyMenu - if true, menu component will be sticky
  * @param {boolean} options.hideMenuOnScroll - if true, menu disappear on scroll down and show on scroll up
  */

@@ -7,26 +7,29 @@ export default {
     component: ClassicPageLayout,
     argTypes: {
         className: {
-            description: ""
+            description: "Class applied to the root component"
         },
         menuClass: {
-            description: ""
+            description: "Class applied to the menu component"
         },
         bodyClass: {
-            description: ""
+            description: "Class applied to the body component"
         },
         footerClass: {
-            description: ""
+            description: "Class applied to the footer component"
         },
         menu: {
-            description: "",
+            description: "Element passed to menu section",
         },
         footer: {
-            description: "",
+            description: "Element passed to footer section",
         },
         maxWidth: {
-            description: "",
+            description: "Maximum width of root component in px",
         },
+        options: {
+            description: "Additional options to component"
+        }
     }
 } as ComponentMeta<typeof ClassicPageLayout>;
 
