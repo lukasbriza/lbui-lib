@@ -4,6 +4,8 @@ import { Control } from "react-hook-form";
 export type CheckboxSquaredProps = {
   checkerClass?: string;
   animate?: boolean;
+  clickEffect?: boolean;
+  clickEffectClass?: string;
 } & CheckboxDefaultProps;
 
 export type CheckboxSquaredHFProps = {
