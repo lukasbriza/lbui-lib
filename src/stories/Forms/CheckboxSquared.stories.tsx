@@ -54,8 +54,18 @@ Animated.args = {
     animate: true
 }
 
+export const WithClickEffect = Template.bind({})
+WithClickEffect.args = {
+    label: "label",
+    animate: true,
+    clickEffect: true,
+    clickEffectClass: 'clickEffectClass'
+}
+
 export const HookFormCheckbox = HookForms.bind({})
 HookFormCheckbox.args = {
     name: "checkbox",
     label: "name of checkbox"
 }
+
+

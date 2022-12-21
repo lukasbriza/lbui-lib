@@ -21,10 +21,21 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
  * @param {string} label - text/element applied to the label component
  * @param {string} checkerClass - class applied to the checker component
  * @param {boolean} animate - define if transition is provided
+ * @param {boolean} clickEffect - define if click effect will be visible
+ * @param {string} clickEffectClass - class applied on click event if clickEffect is allowed
  */
 
 export const CheckboxSquared = forwardRef<HTMLInputElement, CheckboxSquaredProps & Props<HTMLInputElement>>((props, ref) => {
-    const { checkboxClass, checkerClass, defaultChecked = false, checked, animate = true, ...otherProps } = props
+    const {
+        checkboxClass,
+        checkerClass,
+        defaultChecked = false,
+        checked,
+        animate = true,
+        clickEffect,
+        clickEffectClass,
+        ...otherProps
+    } = props
     const [isChecked, setIsChecked] = useState<boolean>(defaultChecked)
 
     useEffect(() => {
@@ -54,6 +65,8 @@ export const CheckboxSquared = forwardRef<HTMLInputElement, CheckboxSquaredProps
             onChange={handleChange}
             onClick={() => { setIsChecked(value => !value) }}
             checker={checker}
+            clickEffect={clickEffect}
+            clickEffectClass={clickEffectClass}
             ref={ref}
             {...otherProps}
         />
