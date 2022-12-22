@@ -10,7 +10,12 @@
     "test": "jest",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "component": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ./createComponent.ps1"
+    "genAnimations": "node template-cli.js folder=animations",
+    "genBricks": "node template-cli.js folder=bricks",
+    "genButtons": "node template-cli.js folder=buttons",
+    "genForms": "node template-cli.js folder=forms",
+    "genNavigation": "node template-cli.js folder=navigation",
+    "genShapes": "node template-cli.js folder=shapes"
   },
   "keywords": [
     "UI",
