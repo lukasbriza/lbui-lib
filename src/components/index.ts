@@ -19,6 +19,7 @@ export * from "./bricks/Typography/Typography";
 export * from "./bricks/Typography/TypographyProvider";
 export * from "./bricks/Grid/Grid";
 export * from "./bricks/ClassicPageLayout/ClassicPageLayout";
+export * from "./bricks/Modal/ModalProvider";
 
 export * from "./shapes/BulletShape/BulletShape";
 export * from "./shapes/ArrowShape/ArrowShape";

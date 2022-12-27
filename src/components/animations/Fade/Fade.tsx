@@ -3,7 +3,6 @@ import './scss/Fade.scss'
 import React, { FC, useEffect, useRef, useState } from 'react'
 import clsx from 'clsx'
 import { fadeIn, fadeOff } from '../../../utils/global.animations'
-import { FadeInConfig } from '../../../utils/global.model'
 import { useLibClass } from '../../../hooks/useLibClass'
 
 import { Props } from '../../../utils/global.model'
