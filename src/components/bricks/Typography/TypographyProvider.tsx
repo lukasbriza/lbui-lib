@@ -1,9 +1,10 @@
 import './scss/Typography.scss'
 
-import React, { createContext, FC } from 'react'
+import React, { createContext, FC, useEffect } from 'react'
+import WebFont from 'webfontloader';
 import { useLibClass } from '../../../hooks/useLibClass'
 
-import { TypographyContextProps, TypographyChildren } from './types/model'
+import { CustomClassesType, TypographyContextProps, TypographyProviderProps } from './types/model'
 
 const COMP_PREFIX = 'Typography'
 const useClass = (className: string) => { return useLibClass(COMP_PREFIX, className) }
@@ -24,8 +25,29 @@ const defaultProps: TypographyContextProps = {
 
 export const TypographyContext = createContext<TypographyContextProps>(defaultProps)
 
-export const TypographyProvider: FC<TypographyChildren> = (props) => {
-    //TODO: make customizable typography provider
+/**
+ * TypographyProvider
+ * @param {Array<string>} fonts - accept name of fonts provided by https://fonts.google.com/ => theese fonts can be accesed in css file via font-family property
+ * @param {Element} children - elements passed to provider
+ */
+
+let loaded = false
+export const TypographyProvider: FC<TypographyProviderProps> = (props) => {
+    const { fonts, settings } = props
+
+    useEffect(() => {
+        if (fonts) {
+            WebFont.load({
+                google: fonts ? { families: fonts } : undefined,
+            })
+            loaded = true
+        }
+    }, [])
+
+    const contextProps = defaultProps
+    contextProps.settings = settings
+
+
     return (
         <TypographyContext.Provider value={defaultProps}>
             {props.children}

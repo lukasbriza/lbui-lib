@@ -15,7 +15,7 @@ const Template: ComponentStory<typeof TypographyProvider> = (args) => (<Typograp
 export const Default = Template.bind({})
 Default.args = {
     children: [
-        <Typography type="h1">h1. Header</Typography>,
+        <Typography type="h1" variant={['bold']}>h1. Header</Typography>,
         <Typography type="h2">h2. Header</Typography>,
         <Typography type="h3">h3. Header</Typography>,
         <Typography type="h4">h4. Header</Typography>,
