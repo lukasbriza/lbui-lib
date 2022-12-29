@@ -1,17 +1,15 @@
 import './scss/Typography.scss'
 
-import React, { FC, useContext } from 'react'
+import React, { FC, useContext, useMemo } from 'react'
 import clsx from 'clsx'
 import { useLibClass } from '../../../hooks/useLibClass'
 import { TypographyContext } from './TypographyProvider'
-
-import { TypographyProps, TypographyChildren } from './types/model'
-import { Props } from '../../../utils/global.model'
+import { TypographyProps } from './types/model'
+import { Props, Variants } from '../../../utils/global.model'
 
 const COMP_PREFIX = 'Typography'
 const useClass = (className: string) => { return useLibClass(COMP_PREFIX, className) }
 
-//TODO: bold underline class - font weight braigl
 /**
  * Typography component
  * @param {h1|h2|h3|h4|h5|h6|subtitle1|subtitle2|body1|body2|buttonText} type - type of typography component
@@ -21,7 +19,7 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
  * @param {string} className - custom class applied to the root component
  * @param {Element} children - element passed to the component 
  */
-export const Typography: FC<TypographyProps & TypographyChildren & Props<HTMLHeadingElement | HTMLBodyElement | HTMLSpanElement | HTMLParagraphElement>> = (props) => {
+export const Typography: FC<TypographyProps & Props<HTMLHeadingElement | HTMLBodyElement | HTMLSpanElement | HTMLParagraphElement>> = (props) => {
     const { type, component, size = "medium", variant = ["default"], className, children, ...otherProps } = props
     const context = useContext(TypographyContext)
 
@@ -53,9 +51,30 @@ export const Typography: FC<TypographyProps & TypographyChildren & Props<HTMLHea
     }
     const TypographyComponent = Component()
 
+    const settingsVariants = context.settings?.variants
+    const settingsTag = context.settings?.type ? context.settings.type[type] : undefined
+    const settingsSize = settingsTag ? settingsTag[size] : undefined
+    const variantsMap = useMemo(() => {
+        const variants: Variants[] = []
+        for (let key in settingsVariants) {
+            variants.push(key as Variants)
+        }
+        return variants
+    }, [])
+
     return (
         <TypographyComponent
-            className={clsx([context[type].class, useClass(size), variant.map(value => useClass(value)), className])}
+            className={clsx([
+                settingsTag?.baseClass ?? context[type].class,
+                settingsSize ?? useClass(size),
+                variant.map(value => {
+                    if (settingsVariants && settingsVariants[value]) {
+                        return settingsVariants[value]
+                    }
+                    return useClass(value)
+                }),
+                className
+            ])}
             {...otherProps}
         >
             {children}
