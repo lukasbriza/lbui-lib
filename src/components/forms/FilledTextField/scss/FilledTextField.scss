@@ -1,0 +1,85 @@
+@use '../../../../utils/global.styles.scss' as g;
+
+.lbui-FilledTextField-root {
+  position: relative;
+  width: fit-content;
+}
+
+.lbui-FilledTextField-input:hover {
+  background: rgba(0, 0, 0, 0.19);
+  border-bottom: 1px rgba(0, 0, 0, 0.697) solid;
+}
+
+.lbui-FilledTextField-input:focus {
+  background: rgba(0, 0, 0, 0.15);
+  border-bottom: 1px rgba(0, 0, 0, 0.3) solid;
+}
+
+.lbui-FilledTextField-input {
+  position: relative;
+  border: none;
+  outline: none;
+  border-bottom: 1px rgba(0, 0, 0, 0.3) solid;
+  border-radius: 6px 6px 0px 0px;
+  background: rgba(0, 0, 0, 0.15);
+  height: 18px;
+  padding: 25px 10px 10px 10px;
+  font-size: 18px;
+  transition: background 0.1s ease-out, border-bottom 0.1s ease-out;
+}
+
+//LABEL
+.lbui-FilledTextField-label {
+  position: absolute;
+  margin-left: 5px;
+  padding-left: 10px;
+  padding-right: 5px;
+  top: 50%;
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.6);
+  transform: translateY(-50%);
+  transition: font-size 0.2s ease-out, top 0.2s ease-out, padding-left 0.2s ease-out, margin-left 0.2s ease-out,
+    color 200ms cubic-bezier(0, 0, 0.2, 1);
+  z-index: +1;
+}
+
+.lbui-FilledTextField-label-focused,
+.lbui-FilledTextField-label-filled {
+  top: 12px;
+  padding-left: 10px;
+  margin-left: 0px;
+  font-size: 12px;
+  opacity: 1;
+}
+
+.lbui-FilledTextField-label-focused-color {
+  color: g.$pallete-primary;
+}
+
+//LINE
+.lbui-FilledTextField-line {
+  position: absolute;
+  bottom: 0px;
+  width: 0%;
+  height: 2px;
+  margin: 0px;
+  padding: 0px;
+  transition: width 0.25s ease-out, height 0.15s ease-out, background 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+.lbui-FilledTextField-line-color {
+  background: g.$pallete-primary;
+}
+.lbui-FilledTextField-line-focused {
+  width: 100%;
+}
+
+.lbui-FilledTextField-line-left {
+  left: 0px;
+}
+.lbui-FilledTextField-line-center {
+  left: 50%;
+  transform: translateX(-50%);
+}
+.lbui-FilledTextField-line-right {
+  right: 0px;
+}

@@ -25,6 +25,7 @@ const defaultProps: TypographyContextProps = {
 export const TypographyContext = createContext<TypographyContextProps>(defaultProps)
 
 export const TypographyProvider: FC<TypographyChildren> = (props) => {
+    //TODO: make customizable typography provider
     return (
         <TypographyContext.Provider value={defaultProps}>
             {props.children}

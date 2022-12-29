@@ -1,0 +1,30 @@
+.lbui-CheckboxSquared-checker {
+  width: 0%;
+  height: 0%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  background: rgb(0, 0, 0);
+}
+
+.lbui-CheckboxSquared-animate {
+  transition: width 0.15s ease-out, height 0.15s ease-out;
+}
+
+.lbui-CheckboxSquared-show {
+  width: 75%;
+  height: 75%;
+}
+
+.lbui-CheckboxSquared-hide {
+  width: 0%;
+  height: 0%;
+}
+
+.lbui-CheckboxSquared-checkbox {
+  width: 12px;
+  height: 12px;
+  border-color: rgb(57, 57, 57);
+  border-width: 1px;
+}

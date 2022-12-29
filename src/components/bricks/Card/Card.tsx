@@ -1,7 +1,7 @@
 import './scss/Card.scss'
 
-import React, { forwardRef, ReactElement, JSXElementConstructor } from 'react'
-import { Paper } from '../../'
+import React, { forwardRef, memo } from 'react'
+import { Paper } from '../Paper/Paper'
 import clsx from 'clsx'
 import { useLibClass } from '../../../hooks/useLibClass'
 
@@ -22,9 +22,21 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
 export const Card = forwardRef<HTMLElement, CardProps & Props<HTMLElement>>((props, ref) => {
     const { className, description, body, ...otherProps } = props
 
-    const StyledChildren = () => {
+    const StyledChildren = memo(() => {
         return React.Children.map(body, (child: any, index) => {
             if (index === 0) {
+                if (typeof child === 'string' && body && !description) {
+                    return (
+                        <div className={useClass('onlyBody-first-child')}>
+                            {child}
+                        </div>)
+                }
+                if (typeof child === 'string' && body && description) {
+                    return (
+                        <div className={useClass('withDescription-first-child')}>
+                            {child}
+                        </div>)
+                }
                 if (body && !description) {
                     return React.cloneElement(child, {
                         className: clsx([useClass('onlyBody-first-child'), child.props.className])
@@ -38,9 +50,10 @@ export const Card = forwardRef<HTMLElement, CardProps & Props<HTMLElement>>((pro
             }
             return child
         })
-    }
+    })
+    StyledChildren.displayName = 'MemoStyledChildren'
 
-    const StyledDescription = () => {
+    const StyledDescription = memo(() => {
         if (description) {
             return React.Children.map(description, (child: any, index) => {
                 if (index === 0) {
@@ -52,7 +65,8 @@ export const Card = forwardRef<HTMLElement, CardProps & Props<HTMLElement>>((pro
             })
         }
         return null
-    }
+    })
+    StyledDescription.displayName = 'MemoStyledDescription'
 
     return (
         <Paper

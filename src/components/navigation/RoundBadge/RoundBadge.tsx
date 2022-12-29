@@ -72,18 +72,16 @@ export const RoundBadge = forwardRef<HTMLElement, RoundBadgeProps & Props<HTMLEl
     const appeared = useRef(false)
 
     const handleTouchStart = (e: React.BaseSyntheticEvent) => {
-        e.preventDefault()
         setHovered(true)
     }
     const handleTouchEnd = (e: React.BaseSyntheticEvent) => {
-        e.preventDefault()
         onClick?.(e)
         setHovered(false)
     }
     const handleMouseEnter = () => setHovered(true)
     const handleMouseLeave = () => setHovered(false)
     const handleTouchCancel = () => setHovered(false)
-    const handleClick = (e: React.BaseSyntheticEvent) => { onClick?.(e) }
+    const handleClick = (e: React.BaseSyntheticEvent) => { e.preventDefault(); onClick?.(e); }
 
     useEffect(() => {
         if (transition && defaultNodeRef.current && hoverNodeRef.current && appeared.current) {

@@ -11,6 +11,7 @@ import { Props } from '../../../utils/global.model'
 const COMP_PREFIX = 'Typography'
 const useClass = (className: string) => { return useLibClass(COMP_PREFIX, className) }
 
+//TODO: bold underline class - font weight braigl
 /**
  * Typography component
  * @param {h1|h2|h3|h4|h5|h6|subtitle1|subtitle2|body1|body2|buttonText} type - type of typography component

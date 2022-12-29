@@ -22,3 +22,6 @@ const Template: ComponentStory<typeof MenuBar> = (args) => (
 );
 
 export const Bar = Template.bind({})
+Bar.args = {
+    className: "test"
+}

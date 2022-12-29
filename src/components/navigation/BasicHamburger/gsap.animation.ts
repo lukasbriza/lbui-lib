@@ -77,7 +77,7 @@ export const crossOff = (line1: ref, line2: ref, line3: ref, config: confOff = {
       line2.current,
       {
         position: "relative",
-        height: "4px",
+        height: config.line2Height ? `${config.line2Height}px` : "4px",
         duration: config.middleDuration ? config.middleDuration : 0.2,
         ease: config.ease ? config.ease : "linear",
         delay: config.middleDelay ? config.middleDelay : 0.3,

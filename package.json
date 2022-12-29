@@ -3,13 +3,19 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/lukasbriza"
   },
-  "version": "0.1.0",
+  "version": "1.0.55",
   "description": "Component library of most used components for my projects, to speed up development.",
   "scripts": {
     "rollup": "rollup -c",
     "test": "jest",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "genAnimations": "node template-cli.js folder=animations",
+    "genBricks": "node template-cli.js folder=bricks",
+    "genButtons": "node template-cli.js folder=buttons",
+    "genForms": "node template-cli.js folder=forms",
+    "genNavigation": "node template-cli.js folder=navigation",
+    "genShapes": "node template-cli.js folder=shapes"
   },
   "keywords": [
     "UI",
@@ -43,9 +49,8 @@
     "@types/react": "^18.0.15",
     "babel-jest": "^27.3.1",
     "babel-loader": "^8.2.3",
-    "clsx": "^1.2.1",
     "css-loader": "^6.5.1",
-    "gsap": "^3.11.0",
+    "generate-react-cli": "^8.1.2",
     "html-webpack-plugin": "^5.5.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^28.1.3",
@@ -62,6 +67,11 @@
     "sass-loader": "^12.3.0",
     "style-loader": "^3.3.1",
     "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "react-hook-form": "^7.37.0",
+    "clsx": "^1.2.1",
+    "gsap": "^3.11.0"
   },
   "peerDependencies": {
     "react": "^18.2.0"

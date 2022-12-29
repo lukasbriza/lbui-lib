@@ -1,6 +1,7 @@
 import gsap, { Power2 } from "gsap";
-import { GsapSelector, FadeInConfig, FadeOffConfig, StretchConfig, ShrinkConfig } from "./global.model";
+import { GsapSelector, FadeInConfig, FadeOffConfig, StretchConfig, ShrinkConfig, TurnToConfig } from "./global.model";
 
+//FN FADE IN ANIMATION
 export const fadeIn = (selector: GsapSelector, config: FadeInConfig = {}) => {
   const conf = {
     duration: config.duration ? config.duration : 0.5,
@@ -16,6 +17,7 @@ export const fadeIn = (selector: GsapSelector, config: FadeInConfig = {}) => {
   });
 };
 
+//FN FADE OFF ANIMATION
 export const fadeOff = (selector: GsapSelector, config: FadeOffConfig = {}) => {
   const conf = {
     duration: config.duration ? config.duration : 0.5,
@@ -31,6 +33,7 @@ export const fadeOff = (selector: GsapSelector, config: FadeOffConfig = {}) => {
   });
 };
 
+//FN STRETCH ANIMATION
 export const stretch = (selector: GsapSelector, config: StretchConfig = {}) => {
   const conf = {
     duration: config.duration ? config.duration : 1,
@@ -45,6 +48,7 @@ export const stretch = (selector: GsapSelector, config: StretchConfig = {}) => {
   });
 };
 
+//FN SHRING ANIMATION
 export const shrink = (selector: GsapSelector, config: ShrinkConfig = {}) => {
   const conf = {
     duration: config.duration ? config.duration : 1,
@@ -53,6 +57,21 @@ export const shrink = (selector: GsapSelector, config: ShrinkConfig = {}) => {
 
   return gsap.to(selector, {
     width: "0%",
+    duration: conf.duration,
+    ease: conf.ease,
+  });
+};
+
+//FN TURN ANIMATION
+export const turnTo = (selector: GsapSelector, to: number, config: TurnToConfig = {}) => {
+  const conf = {
+    to: to,
+    duration: config.duration ? config.duration : 1,
+    ease: config.ease ? config.ease : "linear",
+  };
+
+  return gsap.to(selector, {
+    rotate: conf.to,
     duration: conf.duration,
     ease: conf.ease,
   });

@@ -10,6 +10,21 @@ import { Props } from '../../../utils/global.model'
 const COMP_PREFIX = 'squareButton'
 const useClass = (className: string) => { return useLibClass(COMP_PREFIX, className) }
 
+/**
+ * SquareButton
+ * @param {string} color - define color of background
+ * @param {string} textColor - define color of text
+ * @param {string} size - predefine size of button (small|medium|large)
+ * @param {string} label - define text of button
+ * @param {boolean} disabled - if true button is disabled
+ * @param {string} hoverClass - class applied during hover action
+ * @param {string} modificationClickClass - class applied on click event
+ * @param {number} modificationClickClassDelay - delay after that modificationClickClass is applied on mobiles (default 100)
+ * @param {number} modificationClickClassDelayRemove - time after that modificationClickClass is removed (default 1500)
+ * @param {string} modificationClass - custom class applied to the root of component
+ * @param {element} startIcon - apply element before label
+ * @param {element} endIcon - apply element after label
+ */
 export const SquareButton = React.forwardRef<HTMLButtonElement, SquareButtonProps & Props<HTMLButtonElement>>((props, ref) => {
   const {
     onClick,
@@ -40,8 +55,8 @@ export const SquareButton = React.forwardRef<HTMLButtonElement, SquareButtonProp
   const handleMouseLeave = () => {
     setActiveClass(null)
   }
-  const handleTouchStart = (e: React.BaseSyntheticEvent) => {
-    e.preventDefault()
+
+  const handleTouchStart = () => {
     setActiveClass(hoverClass)
   }
   const handleTouchEnd = (e: React.BaseSyntheticEvent) => {

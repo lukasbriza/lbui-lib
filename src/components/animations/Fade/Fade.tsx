@@ -19,7 +19,7 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
  * @param {FadeOffConfig} configOff - optional configuration for fadeOff method
  * @param {FadeInConfig} configIn - optional configuration for fadeIn method
  * @param {string} className - class applied to the root of component
- * @param {void} onEnd - method called on end of animaiton
+ * @param {void} onEnd - method called on end of animation
  */
 export const Fade: FC<FadeProps & Props<HTMLDivElement>> = (props) => {
     const { on = true, appear = true, configOff, configIn, className, onEnd, ...otherProps } = props

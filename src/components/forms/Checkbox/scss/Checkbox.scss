@@ -1,0 +1,94 @@
+.lbui-Checkbox-root {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+.lbui-Checkbox-wrapper {
+  position: relative;
+  display: block;
+  margin: 0px;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  border: 2px solid #000000;
+}
+
+.lbui-Checkbox-wrapper:hover::before {
+  background: rgba(198, 198, 198, 0.244);
+  opacity: 1;
+}
+
+.lbui-Checkbox-wrapper::before {
+  content: " ";
+  position: absolute;
+  width: calc(100% + 17px);
+  height: calc(100% + 17px);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  border-radius: 50%;
+  background: rgba(183, 183, 183, 0.15);
+  opacity: 0;
+  transition: opacity 0.25s ease-in-out;
+}
+
+.lbui-Checkbox-input {
+  cursor: pointer;
+  position: absolute;
+  appearance: none;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  outline: none;
+}
+
+.lbui-Checkbox-label {
+  margin: 0px;
+  margin-left: 15px;
+  padding: 0px;
+  height: min-content;
+}
+
+.lbui-Checkbox-click::after {
+  content: " ";
+  background-color: rgba(152, 152, 152, 0.504);
+  width: 50%;
+  height: 50%;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  mix-blend-mode: screen;
+  animation: ripple 500ms ease-out, fade 500ms ease-out;
+  z-index: -1;
+}
+
+@keyframes ripple {
+  0% {
+    width: 1%;
+    height: 1%;
+  }
+  80% {
+    width: calc(100% + 17px);
+    height: calc(100% + 17px);
+  }
+  100% {
+    width: calc(100% + 17px);
+    height: calc(100% + 17px);
+    opacity: 0;
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

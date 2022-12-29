@@ -19,8 +19,10 @@ export type TypographyType =
   | "body1"
   | "body2"
   | "buttonText";
+
 export type Props<T> = React.HTMLAttributes<T>;
 
+//BUTTON
 export type DefaultButtonProps = {
   label: string;
   size?: ExtSizes;
@@ -37,18 +39,52 @@ export type DefaultButtonProps = {
   endIcon?: Element;
 };
 
+//CHECKBOX
+export type CheckboxDefaultProps = {
+  name: string;
+  label: Element;
+  checked?: boolean;
+  className?: string;
+  checkboxClass?: string;
+  labelClass?: string;
+  defaultChecked?: boolean;
+};
+
+//INPUT
+export type DefaultInputProps = {
+  rootClass?: string;
+  className?: string;
+  labelClass?: string;
+  labelFocusClass?: string;
+  labelFilledClass?: string;
+  focusIn?: (e: React.BaseSyntheticEvent | FocusEvent) => void;
+  focusOut?: (e: React.BaseSyntheticEvent | FocusEvent) => void;
+  name: string;
+  label: string;
+  value?: string;
+  error?: boolean;
+  errorInputClass?: string;
+  errorLabelClass?: string;
+  autoComplete?: "on" | "off";
+};
+
 //ANIMATION TYPES
 export type FadeInConfig = {
   delay?: number;
   duration?: number;
-  ease?: gsap.EaseFunction;
+  ease?: gsap.EaseFunction | "linear";
 };
 
 export type FadeOffConfig = FadeInConfig;
 
 export type StretchConfig = {
   duration?: number;
-  ease?: gsap.EaseFunction;
+  ease?: gsap.EaseFunction | "linear";
   width?: string;
 };
 export type ShrinkConfig = StretchConfig;
+
+export type TurnToConfig = {
+  duration?: number;
+  ease?: gsap.EaseFunction | "linear";
+};
