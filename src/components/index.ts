@@ -20,6 +20,7 @@ export * from "./bricks/Typography/TypographyProvider";
 export * from "./bricks/Grid/Grid";
 export * from "./bricks/ClassicPageLayout/ClassicPageLayout";
 export * from "./bricks/Modal/ModalProvider";
+export * from "./bricks/BulletText/BulletText";
 
 export * from "./shapes/BulletShape/BulletShape";
 export * from "./shapes/ArrowShape/ArrowShape";

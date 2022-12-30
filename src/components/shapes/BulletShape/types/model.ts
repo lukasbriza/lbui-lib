@@ -1,6 +1,8 @@
 export type BulletProps = {
   className?: string;
-  type?: "round" | "square" | "diamond";
+  type?: BulletType;
   color?: string;
   size?: number;
 };
+
+export type BulletType = "round" | "square" | "diamond";
