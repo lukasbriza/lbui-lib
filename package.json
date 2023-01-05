@@ -3,7 +3,11 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/lukasbriza"
   },
-  "version": "1.0.55",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lukasbriza/lbui-lib.git"
+  },
+  "version": "1.0.57",
   "description": "Component library of most used components for my projects, to speed up development.",
   "scripts": {
     "rollup": "rollup -c",
@@ -83,5 +87,6 @@
   "files": [
     "dist"
   ],
-  "types": "dist/index.d.ts"
+  "types": "dist/index.d.ts",
+  "homepage": "https://github.com/lukasbriza/lbui-lib#readme"
 }
