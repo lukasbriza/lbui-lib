@@ -1,13 +1,10 @@
 {
   "name": "@lukasbriza/lbui-lib",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/lukasbriza"
-  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lukasbriza/lbui-lib.git"
+    "url": "https://github.com/lukasbriza/lbui-lib.git"
   },
-  "version": "1.0.57",
+  "version": "1.0.60",
   "description": "Component library of most used components for my projects, to speed up development.",
   "scripts": {
     "rollup": "rollup -c",
@@ -28,7 +25,7 @@
     "react",
     "nextjs"
   ],
-  "author": "Lukas Briza",
+  "author": "Lukas Briza lukasbriza@seznam.cz",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.16.0",
