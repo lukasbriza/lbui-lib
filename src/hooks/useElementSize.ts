@@ -16,10 +16,15 @@ export const useElementSize = (ref: React.MutableRefObject<any>) => {
   }, 300);
 
   useEffect(() => {
-    window.addEventListener("resize", handleWidth);
-    handleWidth();
+    if (window) {
+      window.addEventListener("resize", handleWidth);
+      handleWidth();
+    }
+
     return () => {
-      window.removeEventListener("resize", handleWidth);
+      if (window) {
+        window.removeEventListener("resize", handleWidth);
+      }
     };
   }, []);
 
