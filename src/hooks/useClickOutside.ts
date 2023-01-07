@@ -19,10 +19,13 @@ export const useClickOutside = (ref: UseClickOutsideProps) => {
         setOutside(false);
       }
     };
-
-    document.addEventListener("click", handleClickOutside, true);
+    if (typeof document !== "undefined") {
+      document.addEventListener("click", handleClickOutside, true);
+    }
     return () => {
-      document.removeEventListener("click", handleClickOutside, true);
+      if (typeof document !== "undefined") {
+        document.removeEventListener("click", handleClickOutside, true);
+      }
     };
   }, [ref]);
 

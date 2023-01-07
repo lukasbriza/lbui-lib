@@ -10,8 +10,10 @@ export const useDisableScroll = (targetElement?: Element) => {
   const [disabled, setDisabled] = useState<boolean>(false);
 
   useEffect(() => {
-    const element = targetElement ?? document.getElementsByTagName("html")[0];
-    disabled ? gsap.set(element, { overflowY: "hidden" }) : gsap.set(element, { overflowY: "initial" });
+    if (typeof document !== "undefined") {
+      const element = targetElement ?? document.getElementsByTagName("html")[0];
+      disabled ? gsap.set(element, { overflowY: "hidden" }) : gsap.set(element, { overflowY: "initial" });
+    }
   }, [disabled]);
 
   return [disabled, setDisabled];
