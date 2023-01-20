@@ -1,7 +1,22 @@
 import gsap, { Power2 } from "gsap";
-import { GsapSelector, FadeInConfig, FadeOffConfig, StretchConfig, ShrinkConfig, TurnToConfig } from "./global.model";
+import {
+  GsapSelector,
+  FadeInConfig,
+  FadeOffConfig,
+  StretchConfig,
+  ShrinkConfig,
+  TurnToConfig,
+  Directions,
+  SlideFromConfig,
+  SlideToConfig,
+} from "./global.model";
 
-//FN FADE IN ANIMATION
+/**
+ * fadeIn
+ * @param selector - ref.current or string class or id representation
+ * @param config - animation config
+ * @returns gsap.core.Tween
+ */
 export const fadeIn = (selector: GsapSelector, config: FadeInConfig = {}) => {
   const conf = {
     duration: config.duration ? config.duration : 0.5,
@@ -17,7 +32,12 @@ export const fadeIn = (selector: GsapSelector, config: FadeInConfig = {}) => {
   });
 };
 
-//FN FADE OFF ANIMATION
+/**
+ * fadeOff
+ * @param selector - ref.current or string class or id representation
+ * @param config - animation config
+ * @returns gsap.core.Tween
+ */
 export const fadeOff = (selector: GsapSelector, config: FadeOffConfig = {}) => {
   const conf = {
     duration: config.duration ? config.duration : 0.5,
@@ -33,7 +53,12 @@ export const fadeOff = (selector: GsapSelector, config: FadeOffConfig = {}) => {
   });
 };
 
-//FN STRETCH ANIMATION
+/**
+ * stretch
+ * @param selector - ref.current or string class or id representation
+ * @param config - animation config
+ * @returns gsap.core.Tween
+ */
 export const stretch = (selector: GsapSelector, config: StretchConfig = {}) => {
   const conf = {
     duration: config.duration ? config.duration : 1,
@@ -48,7 +73,12 @@ export const stretch = (selector: GsapSelector, config: StretchConfig = {}) => {
   });
 };
 
-//FN SHRING ANIMATION
+/**
+ * shrink
+ * @param selector - ref.current or string class or id representation
+ * @param config - animation config
+ * @returns gsap.core.Tween
+ */
 export const shrink = (selector: GsapSelector, config: ShrinkConfig = {}) => {
   const conf = {
     duration: config.duration ? config.duration : 1,
@@ -62,7 +92,12 @@ export const shrink = (selector: GsapSelector, config: ShrinkConfig = {}) => {
   });
 };
 
-//FN TURN ANIMATION
+/**
+ * turnTo
+ * @param selector - ref.current or string class or id representation
+ * @param config - animation config
+ * @returns gsap.core.Tween
+ */
 export const turnTo = (selector: GsapSelector, to: number, config: TurnToConfig = {}) => {
   const conf = {
     to: to,
@@ -75,4 +110,86 @@ export const turnTo = (selector: GsapSelector, to: number, config: TurnToConfig 
     duration: conf.duration,
     ease: conf.ease,
   });
+};
+
+/**
+ * slideFrom
+ * @param selector - ref.current or string class or id representation
+ * @param config - animation config (duration,ease,fromLocation)
+ * @returns gsap.core.Tween
+ */
+export const slideFrom = (selector: GsapSelector, from: Directions, config: SlideFromConfig = {}) => {
+  const conf = {
+    duration: config.duration ? config.duration : 0.75,
+    ease: config.ease ? config.ease : Power2.easeOut,
+    fromLocation: config.fromLocation,
+  };
+
+  switch (from) {
+    case "up":
+      return gsap.fromTo(
+        selector,
+        { y: conf.fromLocation ?? "-70%" },
+        { y: "0%", duration: conf.duration, ease: conf.ease }
+      );
+    case "bottom":
+      return gsap.fromTo(
+        selector,
+        { y: conf.fromLocation ?? "70%" },
+        { y: "0%", duration: conf.duration, ease: conf.ease }
+      );
+    case "left":
+      return gsap.fromTo(
+        selector,
+        { x: conf.fromLocation ?? "-70%" },
+        { x: "0%", duration: conf.duration, ease: conf.ease }
+      );
+    case "right":
+      return gsap.fromTo(
+        selector,
+        { x: conf.fromLocation ?? "70%" },
+        { x: "0%", duration: conf.duration, ease: conf.ease }
+      );
+  }
+};
+
+/**
+ * slideTo
+ * @param selector - ref.current or string class or id representation
+ * @param config - animation config (duration,ease,toLocation)
+ * @returns gsap.core.Tween
+ */
+export const slideTo = (selector: GsapSelector, to: Directions, config: SlideToConfig = {}) => {
+  const conf = {
+    duration: config.duration ? config.duration : 0.75,
+    ease: config.ease ? config.ease : Power2.easeIn,
+    toLocation: config.toLocation,
+  };
+
+  switch (to) {
+    case "up":
+      return gsap.to(selector, {
+        duration: conf.duration,
+        y: conf.toLocation ?? "-70%",
+        ease: config.ease,
+      });
+    case "bottom":
+      return gsap.to(selector, {
+        duration: conf.duration,
+        y: conf.toLocation ?? "70%",
+        ease: config.ease,
+      });
+    case "left":
+      return gsap.to(selector, {
+        duration: conf.duration,
+        x: conf.toLocation ?? "-70%",
+        ease: config.ease,
+      });
+    case "right":
+      return gsap.to(selector, {
+        duration: conf.duration,
+        x: conf.toLocation ?? "70%",
+        ease: config.ease,
+      });
+  }
 };
