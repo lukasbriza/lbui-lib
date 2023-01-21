@@ -1,7 +1,7 @@
-/*import React, { useContext } from 'react';
-import { uniqueId } from 'lodash'
+import React, { useContext } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { PopUpProvider, PopUpContext } from '../../components';
+import { PopUpType } from '../../components/bricks/PopUp/types/model';
 
 export default {
     title: '@lbui/Bricks/PopUp',
@@ -23,8 +23,22 @@ const Children = (props) => {
     const { args } = props
 
 
-    const handleClick = () => {
-        context.show({ hookId: uniqueId('modal') })
+    const handleClick = (type: PopUpType) => {
+        switch (type) {
+            case PopUpType.SUCCESS:
+                context.show({ type: PopUpType.SUCCESS, timeoutOption: { timeoutLine: true } })
+                break;
+            case PopUpType.ERROR:
+                context.show({ type: PopUpType.ERROR, timeoutOption: { timeoutLine: true } })
+                break;
+            case PopUpType.INFO:
+                context.show({ type: PopUpType.INFO, timeoutOption: { timeoutLine: true } })
+                break;
+            case PopUpType.WARNING:
+                context.show({ type: PopUpType.WARNING, timeoutOption: { timeoutLine: true } })
+                break;
+        }
+
     }
     return (
         <div
@@ -32,22 +46,37 @@ const Children = (props) => {
                 height: '100%',
                 width: '100%',
                 position: 'relative',
-                background: '#976734'
+                background: 'grey',
+
             }}
         >
-            <button
-                onClick={handleClick}
+            <div
                 style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
                     position: 'relative',
                     left: '50%',
                     top: '50%',
                     transform: 'translate(-50%,-50%)'
-                }}>
-                Modal
-            </button>
+                }}
+            >
+                <button style={{ width: '100px' }} onClick={() => handleClick(PopUpType.SUCCESS)}>
+                    Success
+                </button>
+                <button style={{ width: '100px' }} onClick={() => handleClick(PopUpType.WARNING)}>
+                    Warning
+                </button>
+                <button style={{ width: '100px' }} onClick={() => handleClick(PopUpType.INFO)}>
+                    Info
+                </button>
+                <button style={{ width: '100px' }} onClick={() => handleClick(PopUpType.ERROR)}>
+                    Error
+                </button>
+            </div>
+
         </div>
     )
 }
 
 export const Default = Template.bind({});
-*/

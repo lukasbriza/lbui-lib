@@ -2,6 +2,7 @@ import React, { ReactNode } from "react";
 
 export type GsapSelector = string | HTMLElement;
 
+export type Directions = "up" | "bottom" | "left" | "right";
 export type Element = ReactNode;
 export type Sizes = "small" | "medium" | "large";
 export type ExtSizes = "small" | "medium" | "large" | number;
@@ -69,22 +70,34 @@ export type DefaultInputProps = {
 };
 
 //ANIMATION TYPES
+type easeType = gsap.EaseFunction | string;
+
 export type FadeInConfig = {
   delay?: number;
   duration?: number;
-  ease?: gsap.EaseFunction | "linear";
+  ease?: easeType;
 };
 
 export type FadeOffConfig = FadeInConfig;
 
 export type StretchConfig = {
   duration?: number;
-  ease?: gsap.EaseFunction | "linear";
+  ease?: easeType;
   width?: string;
 };
 export type ShrinkConfig = StretchConfig;
 
 export type TurnToConfig = {
   duration?: number;
-  ease?: gsap.EaseFunction | "linear";
+  ease?: easeType;
 };
+
+export type SlideFromConfig = {
+  duration?: number;
+  ease?: easeType;
+  fromLocation?: string;
+};
+
+export type SlideToConfig = {
+  toLocation?: string;
+} & Pick<SlideFromConfig, "duration" | "ease">;

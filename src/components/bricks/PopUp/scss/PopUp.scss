@@ -1,0 +1,209 @@
+@use '../../../../utils/global.styles.scss' as g;
+
+.lbui-PopUp-portal {
+  position: fixed;
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-columns: min-content;
+  row-gap: 10px;
+  z-index: +1;
+  margin: 10px;
+}
+
+//POPUP
+.lbui-PopUp-popUp {
+  cursor: pointer;
+  min-width: 250px;
+  height: auto;
+  opacity: 0;
+  background: g.$default-color2;
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  grid-template-rows: 1fr min-content;
+  grid-template-areas: "icon content" "line line";
+  overflow: hidden;
+}
+.lbui-PopUp-leave-left {
+  position: relative;
+  opacity: 0 !important;
+  transform: scale(1) translateX(-100%) !important;
+  transition: all 1s ease-out;
+}
+.lbui-PopUp-leave-right {
+  position: relative;
+  opacity: 0 !important;
+  transform: scale(1) translateX(100%) !important;
+  transform: scale(1);
+  transition: all 1s ease-out;
+}
+.lbui-PopUp-leave-up {
+  opacity: 0 !important;
+  transform: scale(1) translateY(100%);
+  transition: all 1s ease-out;
+}
+.lbui-PopUp-leave-bottom {
+  opacity: 0 !important;
+  transform: scale(1) translateY(-100%);
+  transition: all 1s ease-out;
+}
+
+//ICON
+.lbui-PopUp-iconWrapper {
+  grid-area: icon;
+  align-self: center;
+  justify-self: center;
+  align-self: center;
+}
+
+$sizeIcon: 22px;
+.lbui-PopUp-icon {
+  width: $sizeIcon !important;
+  padding-top: $sizeIcon !important;
+}
+.lbui-PopUp-icon-success {
+  path {
+    fill: g.$success-color;
+  }
+}
+.lbui-PopUp-icon-info {
+  path {
+    fill: g.$info-color;
+  }
+}
+.lbui-PopUp-icon-warning {
+  path {
+    fill: g.$warning-color;
+  }
+}
+.lbui-PopUp-icon-error {
+  path {
+    fill: g.$error-color;
+  }
+}
+
+//CONTENT
+$gap: 10px;
+.lbui-PopUp-contentWrapper {
+  grid-area: content;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: $gap min-content min-content $gap;
+  grid-template-columns: 1fr 30px;
+  grid-template-areas: ". ." "header ." "text ." ". .";
+  flex-direction: column;
+  background: g.$default-color2;
+
+  overflow: hidden;
+  * {
+    overflow: hidden;
+  }
+}
+.lbui-PopUp-header {
+  grid-area: header;
+  padding-left: 10px;
+  font-weight: 600;
+}
+.lbui-PopUp-text {
+  grid-area: text;
+  padding-left: 10px;
+  font-weight: 400;
+  font-size: g.$small-size;
+}
+
+//CROSS
+.lbui-PopUp-crossWrapper {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-52%);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+.lbui-PopUp-line {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 3px;
+  width: 100%;
+  height: 2px;
+  background: rgb(26, 26, 26);
+}
+.lbui-PopUp-line:first-of-type {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.lbui-PopUp-line:last-of-type {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+//TIMELINE
+.lbui-PopUp-timeoutLine {
+  grid-area: line;
+  height: 3px;
+  width: 100%;
+}
+.lbui-PopUp-timeoutLine::after {
+  content: "";
+  background: rgba(255, 255, 255, 0.315);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.lbui-PopUp-timeoutLine-SUCCESS {
+  background: g.$success-color;
+  left: 0px;
+  width: 100%;
+}
+.lbui-PopUp-timeoutLine-ERROR {
+  background: g.$error-color;
+  left: 0px;
+  width: 100%;
+}
+.lbui-PopUp-timeoutLine-INFO {
+  background: g.$info-color;
+  left: 0px;
+  width: 100%;
+}
+.lbui-PopUp-timeoutLine-WARNING {
+  background: g.$warning-color;
+  left: 0px;
+  width: 100%;
+}
+
+//X DIRECTIONS
+.lbui-PopUp-x-left {
+  left: 0px;
+}
+
+.lbui-PopUp-x-right {
+  right: 0px;
+}
+
+.lbui-PopUp-x-center {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+//Y DIRECTIONS
+.lbui-PopUp-y-up {
+  top: 0px;
+}
+
+.lbui-PopUp-y-bottom {
+  bottom: 0px;
+}
+
+.lbui-PopUp-y-center {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+//CETER
+.lbui-PopUp-center {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
