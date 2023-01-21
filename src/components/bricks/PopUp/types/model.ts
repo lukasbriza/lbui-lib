@@ -15,7 +15,7 @@ export type PopUpProviderProps = {
   portalClass?: string;
 };
 
-export type ShowPopUpProps = Omit<PopUpProps, "hookId">;
+export type ShowPopUpProps = Omit<PopUpProps, "hookId" | "unMount" | "portalPosition">;
 
 export type PopUpContextProps = {
   show: (props?: ShowPopUpProps) => void;

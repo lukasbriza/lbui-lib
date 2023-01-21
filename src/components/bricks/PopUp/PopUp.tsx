@@ -16,6 +16,23 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
 
 /**
  * PopUp
+ * @param {void} unMount - method with id of popup as parameter
+ * @param {} portalPosition - ["center" | "left" | "right", "center" | "up" | "bottom"] - information about portal position
+ * @param {string} leaveDirection - direction of leave animation (left|right|up|bottom) 
+ * @param {string} enterDirection - direction of enter animation (left|right|up|bottom) 
+ * @param {string} hookId - id of popup passed as property from popup provider
+ * @param {header} header - header text defined by show() fn
+ * @param {string} text - body text defined by show() fn
+ * @param {string} className - define custom class to the root of component
+ * @param {object} typeClassOption -{ERROR:string ,SUCCESS:string ,INFO:string ,INFO:string} - define custom class to every type of popup
+ * @param {string} type - define type of popup
+ * @param {object} typeIcon - {ERROR:element ,SUCCESS:element ,INFO:element ,INFO:element} - define own icon for every popup type
+ * @param {object} timeoutOption - {enable:boolean ,timeout:number ,timeoutLineclass:string} - timeout option setup
+ * @param {boolean} closeOnclick - if true popup will be closing on click
+ * @param {boolean} cross - if true cross component will be visible
+ * @param {string} crossClass - apply custom class to cross component
+ * @param {void} onClose - callback called on close event
+ * @param {void} onClick -callback called on click event
  */
 export const PopUp: FC<PopUpProps> = (props) => {
     const {
@@ -32,12 +49,12 @@ export const PopUp: FC<PopUpProps> = (props) => {
         typeIcon,
         timeoutOption,
         closeOnClick = true,
-        cross,
+        cross = true,
         crossClass,
         onClose,
         onClick
     } = props
-    const { enable = true, timeout = 5000, timeoutLine = true, timeoutLineClass } = timeoutOption ?? {}
+    const { enable = false, timeout = 5000, timeoutLine = true, timeoutLineClass } = timeoutOption ?? {}
     const xPos = portalPosition[0]
     const ref = useRef<HTMLDivElement>(null)
     const lineRef = useRef<HTMLSpanElement>(null)
@@ -143,8 +160,9 @@ export const PopUp: FC<PopUpProps> = (props) => {
                 useClass(`timeoutLine-${type}`),
                 timeoutLineClass])}
         ></span>) : null
+
     const crossComp = cross ? (
-        <div className={clsx([useClass('crossWrapper'), crossClass])}>
+        <div className={clsx([useClass('crossWrapper'), crossClass])} onClick={handleClose}>
             <div className={useClass('line')}></div>
             <div className={useClass('line')}></div>
         </div>) :

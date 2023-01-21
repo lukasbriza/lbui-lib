@@ -4,7 +4,7 @@ import ReactDOM from "react-dom/client";
 import { PopUp } from './PopUp'
 import clsx from 'clsx'
 
-import { PopUpContextProps, PopUpProviderProps } from './types/model'
+import { OwncomponentType, PopUpContextProps, PopUpProviderProps } from './types/model'
 import { useLibClass } from '../../../hooks/useLibClass';
 
 //TODO:Předělat na Portal řešení?
@@ -23,6 +23,10 @@ export const PopUpContext = createContext(defaultValue)
 
 /**
  * PopUpProvider
+ * @param {} portalPosition - ["center" | "left" | "right", "center" | "up" | "bottom"] - define [X,Y] position of portal
+ * @param {element} children - children passed to the element
+ * @param {OwncomponentType} OwnComponent - set up own popUp component (React element with PopUpProps passed into that element)
+ * @param {string} portalclass - custom class applied to the root of portal element
  */
 export const PopUpProvider: FC<PopUpProviderProps> = (props) => {
     const { children, portalPosition = ["right", "up"], OwnComponent, portalClass } = props
@@ -68,12 +72,10 @@ export const PopUpProvider: FC<PopUpProviderProps> = (props) => {
                 } else {
                     root.render(React.createElement(PopUp, { ...props, hookId: hookId, portalPosition: portalPosition, unMount: context.unMount }))
                 }
-                console.log(portal)
             }
         },
         unMount: (id) => {
             if (document) {
-                console.log(id)
                 const element = getElement(id)
                 element?.remove()
             }
