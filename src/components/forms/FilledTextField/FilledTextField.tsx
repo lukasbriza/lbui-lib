@@ -13,16 +13,21 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
 /**
  * FilledTextField component
  * @param {string} rootClass - class applied to the root div element
+ * @param {string} rootFilledClass - class applied to the root div element when input is filled
+ * @param {string} rootFocusedClass - class applied to the root div element when input is focused
  * @param {string} className - class applied to the input element
+ * @param {string} inputFocusClass - class applied to the input element when is focused
+ * @param {string} inputFilledClass - class applied to the input element when is filled
  * @param {string} labelClass - class applied to the label element
  * @param {string} lineClass - class applied to the line element
  * @param {string} lineFocusClass - class applied to the line on focus event
  * @param {string} lineFilledClass - class applied to the line if input is filled
  * @param {string} labelFocusClass - class applied to the label during focusIn event
  * @param {string} labelFilledClass - class applied to the label during focusOut event when input is not empty
- * @param {string} errorLabelClass - class applied to the label if error props is true
- * @param {string} errorInputClass - class applied to the input if error props is true
- * @param {string} errorLineClass - class applied to the line if error props is true
+ * @param {string} errorRootClass - class applied to the root div when error props is true
+ * @param {string} errorLabelClass - class applied to the label when error props is true
+ * @param {string} errorInputClass - class applied to the input when error props is true
+ * @param {string} errorLineClass - class applied to the line when error props is true
  * @param {boolean} error - defines if apply error class (default is set to false)
  * @param {focusIn} focusIn - callback called on focusIn event
  * @param {focusOut} focusOut - callback called on focusOut event
@@ -37,6 +42,8 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
 export const FilledTextField = forwardRef<HTMLInputElement, FilledTextFieldProps & Props<HTMLInputElement>>((props, ref) => {
     const {
         rootClass,
+        rootFilledClass,
+        rootFocusedClass,
         className,
         labelClass,
         name,
@@ -44,6 +51,8 @@ export const FilledTextField = forwardRef<HTMLInputElement, FilledTextFieldProps
         value = "",
         focusIn,
         focusOut,
+        inputFocusClass,
+        inputFilledClass,
         labelFocusClass,
         labelFilledClass,
         lineClass,
@@ -52,11 +61,13 @@ export const FilledTextField = forwardRef<HTMLInputElement, FilledTextFieldProps
         errorLineClass,
         errorLabelClass,
         errorInputClass,
+        errorRootClass,
         lineOrigin = "center",
         error = false,
         autoComplete = "off",
         defaultValue,
         password = false,
+        onInput,
         ...otherProps
     } = props
 
@@ -65,8 +76,13 @@ export const FilledTextField = forwardRef<HTMLInputElement, FilledTextFieldProps
 
     const divRef = useRef<HTMLInputElement>(null)
 
+    const handleOnInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.value.length !== 0 && !filled) {
+            setFilled(true)
+        }
+        onInput?.(e)
+    }
 
-    //HANDLE FOCUS
     useEffect(() => {
         const focusInFn = (e: React.BaseSyntheticEvent | FocusEvent) => {
             focusIn?.(e)
@@ -94,7 +110,13 @@ export const FilledTextField = forwardRef<HTMLInputElement, FilledTextFieldProps
 
     return (
         <div
-            className={clsx([useClass('root'), rootClass])}
+            className={clsx([
+                useClass('root'),
+                rootClass,
+                error && errorRootClass,
+                filled && rootFilledClass,
+                focused && rootFocusedClass
+            ])}
             ref={divRef}
         >
             <label
@@ -113,7 +135,7 @@ export const FilledTextField = forwardRef<HTMLInputElement, FilledTextFieldProps
                 {label}
             </label>
             <input
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => { props.onChange?.(e) }}
+                onInput={handleOnInput}
                 type={password ? "password" : "text"}
                 ref={ref}
                 id={name}
@@ -121,7 +143,13 @@ export const FilledTextField = forwardRef<HTMLInputElement, FilledTextFieldProps
                 autoComplete={autoComplete}
                 value={value}
                 defaultValue={defaultValue}
-                className={clsx([useClass('input'), className, error && errorInputClass])}
+                className={clsx([
+                    useClass('input'),
+                    className,
+                    error && errorInputClass,
+                    focused && inputFocusClass,
+                    filled && inputFilledClass
+                ])}
                 {...otherProps}
             />
             <p className={clsx([

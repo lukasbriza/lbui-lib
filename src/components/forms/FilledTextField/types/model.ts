@@ -7,6 +7,11 @@ export type FilledTextFieldProps = {
   lineFocusClass?: string;
   lineFilledClass?: string;
   errorLineClass?: string;
+  rootFilledClass?: string;
+  rootFocusedClass?: string;
+  inputFocusClass?: string;
+  inputFilledClass?: string;
+  errorRootClass?: string;
   lineOrigin?: "center" | "left" | "right";
 } & DefaultInputProps;
 

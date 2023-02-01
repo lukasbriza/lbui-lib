@@ -13,10 +13,15 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
 /**
  * BasicTextField component
  * @param {string} rootClass - class applied to the root div element
+ * @param {string} rootFilledClass - class applied to the root div element when input is filled
+ * @param {string} rootFocusedClass - class applied to the root div element when input is focused
  * @param {string} className - class applied to the input element
+ * @param {string} inputFocusClass - class applied to the input element when is focused
+ * @param {string} inputFilledClass - class applied to the input element when is filled
  * @param {string} labelClass - class applied to the label element
  * @param {string} labelFocusClass - class applied to the label during focusIn event
  * @param {string} labelFilledClass - class applied to the label during focusOut event when input is not empty
+ * @param {string} errorRootClass - class applied to the root div when error props is true
  * @param {string} errorLabelClass - class applied to the label if error props is true
  * @param {string} errorInputClass - class applied to the input if error props is true
  * @param {boolean} error - defines if apply error class (default is set to false)
@@ -32,21 +37,27 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
 export const BasicTextField = forwardRef<HTMLInputElement, BasicTextFieldProps & Props<HTMLInputElement>>((props, ref) => {
     const {
         rootClass,
+        rootFilledClass,
+        rootFocusedClass,
         className,
+        inputFocusClass,
+        inputFilledClass,
         labelClass,
+        labelFocusClass,
+        labelFilledClass,
         name,
         label,
         value = "",
         focusIn,
         focusOut,
-        labelFocusClass,
-        labelFilledClass,
         errorLabelClass,
         errorInputClass,
+        errorRootClass,
         error = false,
         autoComplete = "off",
         defaultValue,
         password = false,
+        onInput,
         ...otherProps
     } = props
 
@@ -55,8 +66,13 @@ export const BasicTextField = forwardRef<HTMLInputElement, BasicTextFieldProps &
 
     const divRef = useRef<HTMLInputElement>(null)
 
+    const handleOnInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.value.length !== 0 && !filled) {
+            setFilled(true)
+        }
+        onInput?.(e)
+    }
 
-    //HANDLE FOCUS
     useEffect(() => {
         const focusInFn = (e: React.BaseSyntheticEvent | FocusEvent) => {
             focusIn?.(e)
@@ -84,7 +100,13 @@ export const BasicTextField = forwardRef<HTMLInputElement, BasicTextFieldProps &
 
     return (
         <div
-            className={clsx([useClass('root'), rootClass])}
+            className={clsx([
+                useClass('root'),
+                rootClass,
+                filled && rootFilledClass,
+                focused && rootFocusedClass,
+                error && errorRootClass
+            ])}
             ref={divRef}
         >
             <label
@@ -103,7 +125,7 @@ export const BasicTextField = forwardRef<HTMLInputElement, BasicTextFieldProps &
                 {label}
             </label>
             <input
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => { props.onChange?.(e) }}
+                onInput={handleOnInput}
                 type={password ? "password" : "text"}
                 ref={ref}
                 id={name}

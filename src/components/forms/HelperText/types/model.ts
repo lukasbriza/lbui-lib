@@ -5,6 +5,7 @@ export type HelperTextProps = {
   text: string;
   errorText?: string;
   show?: boolean;
+  showTextOnError?: boolean;
   showWithanimation?: boolean;
   className?: string;
   helperClass?: string;
