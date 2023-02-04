@@ -72,6 +72,7 @@
     "clsx": "^1.2.1",
     "gsap": "^3.11.0",
     "react-hook-form": "^7.37.0",
+    "rollup-plugin-visualizer": "^5.9.0",
     "webfontloader": "^1.6.28"
   },
   "peerDependencies": {
