@@ -63,7 +63,9 @@ export const PopUp: FC<PopUpProps> = (props) => {
     const [leaveClass, setLeaveClass] = useState<string>()
 
     const startTimer = () => {
-        animation.current = gsap.to(lineRef.current, { width: '0%', ease: 'linear', duration: timeout / 1000, onComplete: handleClose })
+        if (window) {
+            animation.current = gsap.to(lineRef.current, { width: '0%', ease: 'linear', duration: timeout / 1000, onComplete: handleClose })
+        }
     }
 
     //CLICK

@@ -35,7 +35,7 @@ export const PopUpProvider: FC<PopUpProviderProps> = (props) => {
     const yPos = portalPosition[1]
 
     const popUpId = () => useClass(uniqueId() + Math.random().toString())
-    const getElement = (id: string) => document ? document.getElementById(id) : null;
+    const getElement = (id: string) => { if (document && window) { return document.getElementById(id) } }
     const setupPortalClasses = () => {
         const arr: string[] = []
         arr.push(useClass('portal'))
@@ -57,7 +57,7 @@ export const PopUpProvider: FC<PopUpProviderProps> = (props) => {
     //CONTEXT
     const context = useMemo<PopUpContextProps>(() => ({
         show: (props) => {
-            if (document) {
+            if (document && window) {
                 const hookId = popUpId()
                 const element = document.createElement('div')
                 element.classList.add('lbui-PopUp-hook')
@@ -75,7 +75,7 @@ export const PopUpProvider: FC<PopUpProviderProps> = (props) => {
             }
         },
         unMount: (id) => {
-            if (document) {
+            if (document && window) {
                 const element = getElement(id)
                 element?.remove()
             }

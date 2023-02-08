@@ -67,10 +67,12 @@ export const BasicTextField = forwardRef<HTMLInputElement, BasicTextFieldProps &
     const divRef = useRef<HTMLInputElement>(null)
 
     const handleOnInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.value.length !== 0 && !filled) {
-            setFilled(true)
+        if (typeof document !== "undefined") {
+            if (e.target.value.length !== 0 && !filled) {
+                setFilled(true)
+            }
+            onInput?.(e)
         }
-        onInput?.(e)
     }
 
     useEffect(() => {
@@ -90,11 +92,11 @@ export const BasicTextField = forwardRef<HTMLInputElement, BasicTextFieldProps &
 
         (value?.length > 0 || defaultValue && defaultValue?.toString().length > 0) && setFilled(true)
 
-        divRef.current?.addEventListener('focusin', focusInFn)
-        divRef.current?.addEventListener('focusout', focuseOutFn)
+        document && divRef.current?.addEventListener('focusin', focusInFn)
+        document && divRef.current?.addEventListener('focusout', focuseOutFn)
         return () => {
-            divRef.current?.removeEventListener('focusin', focusInFn)
-            divRef.current?.removeEventListener('focusout', focuseOutFn)
+            document && divRef.current?.removeEventListener('focusin', focusInFn)
+            document && divRef.current?.removeEventListener('focusout', focuseOutFn)
         }
     }, [])
 
