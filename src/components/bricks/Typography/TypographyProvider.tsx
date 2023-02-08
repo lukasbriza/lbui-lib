@@ -1,10 +1,8 @@
 import './scss/Typography.scss'
 
 import React, { createContext, FC, useEffect } from 'react'
-import WebFont from 'webfontloader';
 import { useLibClass } from '../../../hooks/useLibClass'
-
-import { CustomClassesType, TypographyContextProps, TypographyProviderProps } from './types/model'
+import { TypographyContextProps, TypographyProviderProps } from './types/model'
 
 const COMP_PREFIX = 'Typography'
 const useClass = (className: string) => { return useLibClass(COMP_PREFIX, className) }
@@ -31,16 +29,15 @@ export const TypographyContext = createContext<TypographyContextProps>(defaultPr
  * @param {Element} children - elements passed to provider
  */
 
-let loaded = false
 export const TypographyProvider: FC<TypographyProviderProps> = (props) => {
     const { fonts, settings } = props
 
     useEffect(() => {
-        if (fonts) {
-            WebFont.load({
+        if (typeof window === "object") {
+            const WebFont = require('webfontloader');
+            fonts ? WebFont.load({
                 google: fonts ? { families: fonts } : undefined,
-            })
-            loaded = true
+            }) : null
         }
     }, [])
 

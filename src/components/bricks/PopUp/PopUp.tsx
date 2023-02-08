@@ -62,11 +62,7 @@ export const PopUp: FC<PopUpProps> = (props) => {
     const animation = useRef<gsap.core.Tween | undefined>(undefined)
     const [leaveClass, setLeaveClass] = useState<string>()
 
-    const startTimer = () => {
-        if (window) {
-            animation.current = gsap.to(lineRef.current, { width: '0%', ease: 'linear', duration: timeout / 1000, onComplete: handleClose })
-        }
-    }
+    const startTimer = () => animation.current = gsap.to(lineRef.current, { width: '0%', ease: 'linear', duration: timeout / 1000, onComplete: handleClose })
 
     //CLICK
     const handleClick = (e: React.SyntheticEvent) => {

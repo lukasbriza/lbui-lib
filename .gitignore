@@ -3,3 +3,5 @@ node_modules
 .vscode
 storybook-static
 template-cli.js
+*.tgz
+src-test

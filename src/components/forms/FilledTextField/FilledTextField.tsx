@@ -77,12 +77,10 @@ export const FilledTextField = forwardRef<HTMLInputElement, FilledTextFieldProps
     const divRef = useRef<HTMLInputElement>(null)
 
     const handleOnInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (document) {
-            if (e.target.value.length !== 0 && !filled) {
-                setFilled(true)
-            }
-            onInput?.(e)
+        if (e.target.value.length !== 0 && !filled) {
+            setFilled(true)
         }
+        onInput?.(e)
     }
 
     useEffect(() => {
@@ -93,7 +91,7 @@ export const FilledTextField = forwardRef<HTMLInputElement, FilledTextFieldProps
         const focuseOutFn = (e: React.BaseSyntheticEvent | FocusEvent) => {
             focusOut?.(e)
             setFocused(false)
-            if (e.target?.value) {
+            if (typeof document !== "undefined" && e?.target?.value) {
                 setFilled(true)
                 return
             }
@@ -102,11 +100,11 @@ export const FilledTextField = forwardRef<HTMLInputElement, FilledTextFieldProps
 
         (value?.length > 0 || defaultValue && defaultValue?.toString().length > 0) && setFilled(true)
 
-        document && divRef.current?.addEventListener('focusin', focusInFn)
-        document && divRef.current?.addEventListener('focusout', focuseOutFn)
+        divRef.current?.addEventListener('focusin', focusInFn)
+        divRef.current?.addEventListener('focusout', focuseOutFn)
         return () => {
-            document && divRef.current?.removeEventListener('focusin', focusInFn)
-            document && divRef.current?.removeEventListener('focusout', focuseOutFn)
+            divRef.current?.removeEventListener('focusin', focusInFn)
+            divRef.current?.removeEventListener('focusout', focuseOutFn)
         }
     }, [])
 
