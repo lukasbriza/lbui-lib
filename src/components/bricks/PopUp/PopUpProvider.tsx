@@ -1,10 +1,10 @@
-import React, { createContext, FC, useMemo, useState } from 'react'
+import React, { createContext, FC, useContext, useMemo, useState } from 'react'
 import { uniqueId } from 'lodash'
 import ReactDOM from "react-dom/client";
 import { PopUp } from './PopUp'
 import clsx from 'clsx'
 
-import { OwncomponentType, PopUpContextProps, PopUpProviderProps } from './types/model'
+import { OwncomponentType, PopUpContextProps, PopUpProviderProps, PopUpType, ShowPopUpProps } from './types/model'
 import { useLibClass } from '../../../hooks/useLibClass';
 
 //TODO:Předělat na Portal řešení?
@@ -21,6 +21,30 @@ const defaultValue: PopUpContextProps = {
 //CONTEXT INIT
 export const PopUpContext = createContext(defaultValue)
 
+//DEFAULT READY TO USE
+/**
+ * usePopUpService
+ * Default props for each type: { type: {TYPE}, timeoutOption: { timeoutLine: true, enable: true, timeout: 5 }}  
+ */
+export const usePopUpService = () => {
+    const context = useContext(PopUpContext)
+    const success = (props?: ShowPopUpProps) => {
+        context.show({ type: PopUpType.SUCCESS, timeoutOption: { timeoutLine: true, enable: true, timeout: 5 }, ...props })
+    }
+    const error = (props?: ShowPopUpProps) => {
+        context.show({ type: PopUpType.ERROR, timeoutOption: { timeoutLine: true, enable: true, timeout: 5 }, ...props })
+    }
+    const info = (props?: ShowPopUpProps) => {
+        context.show({ type: PopUpType.INFO, timeoutOption: { timeoutLine: true, enable: true, timeout: 5 }, ...props })
+    }
+    const warning = (props?: ShowPopUpProps) => {
+        context.show({ type: PopUpType.WARNING, timeoutOption: { timeoutLine: true, enable: true, timeout: 5 }, ...props })
+    }
+
+    return {
+        success, error, info, warning
+    }
+}
 /**
  * PopUpProvider
  * @param {} portalPosition - ["center" | "left" | "right", "center" | "up" | "bottom"] - define [X,Y] position of portal

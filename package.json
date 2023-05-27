@@ -4,20 +4,21 @@
     "type": "git",
     "url": "https://github.com/lukasbriza/lbui-lib.git"
   },
-  "version": "1.0.65",
+  "version": "1.0.66",
   "description": "Component library of most used components for my projects, to speed up development.",
   "scripts": {
     "testPackage": "rollup -c && npm pack",
+    "publishs": "rollup -c && node ./scripts/publish-cli.js",
     "rollup": "rollup -c",
     "test": "jest",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "genAnimations": "node template-cli.js folder=animations",
-    "genBricks": "node template-cli.js folder=bricks",
-    "genButtons": "node template-cli.js folder=buttons",
-    "genForms": "node template-cli.js folder=forms",
-    "genNavigation": "node template-cli.js folder=navigation",
-    "genShapes": "node template-cli.js folder=shapes"
+    "genAnimations": "node ./scripts/template-cli.js folder=animations",
+    "genBricks": "node ./scripts/template-cli.js folder=bricks",
+    "genButtons": "node ./scripts/template-cli.js folder=buttons",
+    "genForms": "node ./scripts/template-cli.js folder=forms",
+    "genNavigation": "node ./scripts/template-cli.js folder=navigation",
+    "genShapes": "node ./scripts/template-cli.js folder=shapes"
   },
   "keywords": [
     "UI",

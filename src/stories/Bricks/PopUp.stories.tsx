@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { PopUpProvider, PopUpContext } from '../../components';
+import { PopUpProvider, usePopUpService } from '../../components';
 import { PopUpType } from '../../components/bricks/PopUp/types/model';
 
 export default {
@@ -19,27 +19,8 @@ const Template: ComponentStory<any> = (args: any) => {
 };
 
 const Children = (props) => {
-    const context = useContext(PopUpContext);
-    const { args } = props
+    const { success, error, info, warning } = usePopUpService()
 
-
-    const handleClick = (type: PopUpType) => {
-        switch (type) {
-            case PopUpType.SUCCESS:
-                context.show({ type: PopUpType.SUCCESS, timeoutOption: { timeoutLine: true } })
-                break;
-            case PopUpType.ERROR:
-                context.show({ type: PopUpType.ERROR, timeoutOption: { timeoutLine: true } })
-                break;
-            case PopUpType.INFO:
-                context.show({ type: PopUpType.INFO, timeoutOption: { timeoutLine: true } })
-                break;
-            case PopUpType.WARNING:
-                context.show({ type: PopUpType.WARNING, timeoutOption: { timeoutLine: true } })
-                break;
-        }
-
-    }
     return (
         <div
             style={{
@@ -61,16 +42,16 @@ const Children = (props) => {
                     transform: 'translate(-50%,-50%)'
                 }}
             >
-                <button style={{ width: '100px' }} onClick={() => handleClick(PopUpType.SUCCESS)}>
+                <button style={{ width: '100px' }} onClick={() => success()}>
                     Success
                 </button>
-                <button style={{ width: '100px' }} onClick={() => handleClick(PopUpType.WARNING)}>
+                <button style={{ width: '100px' }} onClick={() => warning()}>
                     Warning
                 </button>
-                <button style={{ width: '100px' }} onClick={() => handleClick(PopUpType.INFO)}>
+                <button style={{ width: '100px' }} onClick={() => info()}>
                     Info
                 </button>
-                <button style={{ width: '100px' }} onClick={() => handleClick(PopUpType.ERROR)}>
+                <button style={{ width: '100px' }} onClick={() => error()}>
                     Error
                 </button>
             </div>

@@ -54,7 +54,7 @@ export const PopUp: FC<PopUpProps> = (props) => {
         onClose,
         onClick
     } = props
-    const { enable = false, timeout = 5000, timeoutLine = true, timeoutLineClass } = timeoutOption ?? {}
+    const { enable = false, timeout = 5, timeoutLine = true, timeoutLineClass } = timeoutOption ?? {}
     const xPos = portalPosition[0]
     const ref = useRef<HTMLDivElement>(null)
     const lineRef = useRef<HTMLSpanElement>(null)
@@ -62,7 +62,7 @@ export const PopUp: FC<PopUpProps> = (props) => {
     const animation = useRef<gsap.core.Tween | undefined>(undefined)
     const [leaveClass, setLeaveClass] = useState<string>()
 
-    const startTimer = () => animation.current = gsap.to(lineRef.current, { width: '0%', ease: 'linear', duration: timeout / 1000, onComplete: handleClose })
+    const startTimer = () => animation.current = gsap.to(lineRef.current, { width: '0%', ease: 'linear', duration: timeout, onComplete: handleClose })
 
     //CLICK
     const handleClick = (e: React.SyntheticEvent) => {
@@ -75,8 +75,6 @@ export const PopUp: FC<PopUpProps> = (props) => {
     const handleClose = () => {
         const { current } = ref
         if (current) {
-            enable && timer.current && clearTimeout(timer.current)
-
             handleLeaveClass()
 
             setTimeout(() => {
