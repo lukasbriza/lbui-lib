@@ -1,5 +1,5 @@
 import React from "react";
-import { Directions, Element } from "../../../../utils";
+import { Directions, Element, GsapSelector, Props } from "../../../../utils";
 
 export enum PopUpType {
   SUCCESS = "SUCCESS",
@@ -20,6 +20,7 @@ export type ShowPopUpProps = Omit<PopUpProps, "hookId" | "unMount" | "portalPosi
 export type PopUpContextProps = {
   show: (props?: ShowPopUpProps) => void;
   unMount: (id: string) => void;
+  ids: string[];
 };
 
 export type OwncomponentType =
@@ -31,6 +32,8 @@ export type PopUpProps = {
   header?: string;
   text?: string;
   className?: string;
+  leaveAnimation?: (selector: GsapSelector, from: Directions) => gsap.core.Tween;
+  enterAnimation?: (selector: GsapSelector, from: Directions) => gsap.core.Tween;
   type?: PopUpType;
   typeClassOption?: {
     [PopUpType.SUCCESS]?: string;
@@ -59,4 +62,5 @@ export type PopUpProps = {
   onClick?: (e?: React.SyntheticEvent) => void;
   portalPosition: ["center" | "left" | "right", "center" | "up" | "bottom"];
   hookId: string;
-} & Pick<PopUpContextProps, "unMount">;
+} & Pick<PopUpContextProps, "unMount"> &
+  Props<HTMLElement>;

@@ -16,7 +16,7 @@ exec("npm config set @lukasbriza:registry=https://npm.pkg.github.com/", (err) =>
         if (err) throw Error(err.message);
         console.log("Publish...");
       }).on("exit", () => {
-        consolelog("DONE");
+        console.log("DONE");
       });
     });
   });

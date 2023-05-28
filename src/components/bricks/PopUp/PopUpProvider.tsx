@@ -16,6 +16,7 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
 const defaultValue: PopUpContextProps = {
     show: () => { throw new Error('Context does not have a matching provider!') },
     unMount: () => { throw new Error('Context does not have a matching provider!') },
+    ids: []
 }
 
 //CONTEXT INIT
@@ -29,7 +30,7 @@ export const PopUpContext = createContext(defaultValue)
 export const usePopUpService = () => {
     const context = useContext(PopUpContext)
     const success = (props?: ShowPopUpProps) => {
-        context.show({ type: PopUpType.SUCCESS, timeoutOption: { timeoutLine: true, enable: true, timeout: 5 }, ...props })
+        context.show({ type: PopUpType.SUCCESS, timeoutOption: { timeoutLine: true, enable: true, timeout: 5 }, leaveDirection: "up", enterDirection: "up", ...props })
     }
     const error = (props?: ShowPopUpProps) => {
         context.show({ type: PopUpType.ERROR, timeoutOption: { timeoutLine: true, enable: true, timeout: 5 }, ...props })
@@ -42,7 +43,7 @@ export const usePopUpService = () => {
     }
 
     return {
-        success, error, info, warning
+        success, error, info, warning, unMount: context.unMount, ids: context.ids
     }
 }
 /**
@@ -55,6 +56,7 @@ export const usePopUpService = () => {
 export const PopUpProvider: FC<PopUpProviderProps> = (props) => {
     const { children, portalPosition = ["right", "up"], OwnComponent, portalClass } = props
     const [portalId] = useState<string>(uniqueId('popUp-portal-'))
+    const [ids, setIds] = useState<string[]>([])
     const xPos = portalPosition[0]
     const yPos = portalPosition[1]
 
@@ -87,6 +89,8 @@ export const PopUpProvider: FC<PopUpProviderProps> = (props) => {
                 element.classList.add('lbui-PopUp-hook')
                 element.id = hookId
 
+                setIds((value) => [...value, hookId])
+
                 const portal = getElement(portalId)
                 portal?.append(element)
 
@@ -102,9 +106,12 @@ export const PopUpProvider: FC<PopUpProviderProps> = (props) => {
             if (typeof window === "object" && typeof document === "object") {
                 const element = getElement(id)
                 element?.remove()
+
+                setIds((value) => value.filter((el: string) => el !== id))
             }
         },
-    }), [])
+        ids: ids
+    }), [ids])
 
     return (
         <PopUpContext.Provider value={context}>

@@ -23,29 +23,6 @@
   grid-template-areas: "icon content" "line line";
   overflow: hidden;
 }
-.lbui-PopUp-leave-left {
-  position: relative;
-  opacity: 0 !important;
-  transform: scale(1) translateX(-100%) !important;
-  transition: all 1s ease-out;
-}
-.lbui-PopUp-leave-right {
-  position: relative;
-  opacity: 0 !important;
-  transform: scale(1) translateX(100%) !important;
-  transform: scale(1);
-  transition: all 1s ease-out;
-}
-.lbui-PopUp-leave-up {
-  opacity: 0 !important;
-  transform: scale(1) translateY(100%);
-  transition: all 1s ease-out;
-}
-.lbui-PopUp-leave-bottom {
-  opacity: 0 !important;
-  transform: scale(1) translateY(-100%);
-  transition: all 1s ease-out;
-}
 
 //ICON
 .lbui-PopUp-iconWrapper {

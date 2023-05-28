@@ -6,7 +6,7 @@ import { useLibClass } from '../../../hooks/useLibClass'
 import clsx from 'clsx'
 
 import { PopUpProps, PopUpType } from './types/model'
-import { fadeIn, slideFrom } from '../../../utils/global.animations'
+import { fadeIn, fadeOff, slideFrom, slideTo } from '../../../utils/global.animations'
 import { Paper } from '../Paper/Paper'
 import { Success, Error, Info, Warning } from '../../../lib'
 
@@ -18,8 +18,10 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
  * PopUp
  * @param {void} unMount - method with id of popup as parameter
  * @param {} portalPosition - ["center" | "left" | "right", "center" | "up" | "bottom"] - information about portal position
- * @param {string} leaveDirection - direction of leave animation (left|right|up|bottom) 
+ * @param {string} leaveDirection - direction of leave animation (left|right|up|bottom)
+ * @param {function} leaveAnimation - animation applied on leaving animation 
  * @param {string} enterDirection - direction of enter animation (left|right|up|bottom) 
+ * @param {function} enterAnimation - animation applied on entered popUp
  * @param {string} hookId - id of popup passed as property from popup provider
  * @param {header} header - header text defined by show() fn
  * @param {string} text - body text defined by show() fn
@@ -40,10 +42,12 @@ export const PopUp: FC<PopUpProps> = (props) => {
         portalPosition,
         leaveDirection = "right",
         enterDirection = "right",
+        enterAnimation,
         hookId,
         header = 'Header',
         text = 'Content',
         className,
+        leaveAnimation,
         typeClassOption,
         type = PopUpType.WARNING,
         typeIcon,
@@ -52,15 +56,15 @@ export const PopUp: FC<PopUpProps> = (props) => {
         cross = true,
         crossClass,
         onClose,
-        onClick
+        onClick,
+        ...otherProps
     } = props
     const { enable = false, timeout = 5, timeoutLine = true, timeoutLineClass } = timeoutOption ?? {}
     const xPos = portalPosition[0]
     const ref = useRef<HTMLDivElement>(null)
     const lineRef = useRef<HTMLSpanElement>(null)
-    const timer = useRef<NodeJS.Timer | undefined>()
     const animation = useRef<gsap.core.Tween | undefined>(undefined)
-    const [leaveClass, setLeaveClass] = useState<string>()
+
 
     const startTimer = () => animation.current = gsap.to(lineRef.current, { width: '0%', ease: 'linear', duration: timeout, onComplete: handleClose })
 
@@ -71,12 +75,15 @@ export const PopUp: FC<PopUpProps> = (props) => {
     }
 
     //CLOSE
-    const handleLeaveClass = () => setLeaveClass(useClass(`leave-${leaveDirection}`))
     const handleClose = () => {
         const { current } = ref
         if (current) {
-            handleLeaveClass()
-
+            if (leaveAnimation) {
+                leaveAnimation(current, leaveDirection)
+            } else {
+                slideTo(current, leaveDirection)
+                fadeOff(current)
+            }
             setTimeout(() => {
                 unMount(hookId)
                 onClose?.()
@@ -136,7 +143,7 @@ export const PopUp: FC<PopUpProps> = (props) => {
     useEffect(() => {
         const { current } = ref
         if (current) {
-            slideFrom(current, enterDirection)
+            enterAnimation ? enterAnimation(current, enterDirection) : slideFrom(current, enterDirection)
             fadeIn(current)
         }
     }, [])
@@ -169,10 +176,11 @@ export const PopUp: FC<PopUpProps> = (props) => {
             square={false}
             elevation={5}
             ref={ref}
-            className={clsx([useClass('popUp'), useClass(`popUp-${type}`), leaveClass, className])}
+            className={clsx([useClass('popUp'), useClass(`popUp-${type}`), className])}
             onClick={handleClick}
             onMouseEnter={handleHoverOn}
             onMouseLeave={handleHoverOff}
+            {...otherProps}
         >
 
             <div className={clsx([

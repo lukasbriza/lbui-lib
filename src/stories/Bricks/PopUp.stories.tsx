@@ -19,7 +19,7 @@ const Template: ComponentStory<any> = (args: any) => {
 };
 
 const Children = (props) => {
-    const { success, error, info, warning } = usePopUpService()
+    const { success, error, info, warning, ids } = usePopUpService()
 
     return (
         <div
@@ -55,7 +55,7 @@ const Children = (props) => {
                     Error
                 </button>
             </div>
-
+            <div style={{ position: "absolute", left: "10px", bottom: "40px" }}>ID´s:{ids.join(",")}</div>
         </div>
     )
 }
