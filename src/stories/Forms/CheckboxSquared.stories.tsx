@@ -1,7 +1,7 @@
-import React, { useRef } from 'react'
-import { useForm, FieldValues } from 'react-hook-form'
+import React from 'react'
+import { useForm } from 'react-hook-form'
 import { ComponentStory, ComponentMeta } from '@storybook/react'
-import { CheckboxSquared, CheckboxSquaredHF } from '../../components'
+import { CheckboxSquared } from '../../components'
 
 
 export default {
@@ -17,29 +17,19 @@ const Template: ComponentStory<typeof CheckboxSquared> = (args) => {
     )
 };
 
-type FormInputs = {
-    checkbox: boolean
-}
-
-const HookForms: ComponentStory<typeof CheckboxSquared> = (args) => {
-    const { handleSubmit, control } = useForm<FormInputs>({
-        defaultValues: {
-            checkbox: true
-        }
-    })
-    const ref = useRef<HTMLInputElement>(null)
+const HookForm: ComponentStory<typeof CheckboxSquared> = (args) => {
+    const { handleSubmit, register } = useForm({ defaultValues: { input: "" } })
+    const submit = (data: { input: string }) => {
+        console.log(data)
+    }
 
     return (
-        <form onSubmit={handleSubmit((e: FieldValues) => {
-            console.log(e);
-            console.log(ref)
-        })}>
-            <CheckboxSquaredHF control={control} ref={ref} {...args} />
-            <input style={{ marginTop: '20px' }} type="submit" />
+        <form onSubmit={handleSubmit(submit)}>
+            <CheckboxSquared {...args} {...register("input")} />
+            <button style={{ marginTop: "15px" }} type="submit">submit</button>
         </form>
     )
 }
-
 
 
 export const Default = Template.bind({});
@@ -51,7 +41,8 @@ Default.args = {
 export const Animated = Template.bind({});
 Animated.args = {
     label: "label",
-    animate: true
+    animate: true,
+    clickEffect: false,
 }
 
 export const WithClickEffect = Template.bind({})
@@ -62,10 +53,13 @@ WithClickEffect.args = {
     clickEffectClass: 'clickEffectClass'
 }
 
-export const HookFormCheckbox = HookForms.bind({})
-HookFormCheckbox.args = {
-    name: "checkbox",
-    label: "name of checkbox"
+export const ReactHookForm = HookForm.bind({})
+ReactHookForm.args = {
+    label: "label",
+    animate: true,
+    clickEffect: true,
+    clickEffectClass: 'clickEffectClass'
 }
+
 
 

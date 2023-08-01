@@ -1,8 +1,3 @@
 TODO:
-    TILT an
-    ON VIEW hook
-    SLIDE IN
-    SORTER (masonry use)
-    POP UP
-    POP UP MENU
+optimize for next typeof document !== undefined
     

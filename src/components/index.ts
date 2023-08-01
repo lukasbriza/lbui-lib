@@ -29,10 +29,7 @@ export * from "./shapes/BulletShape/BulletShape";
 export * from "./shapes/ArrowShape/ArrowShape";
 
 export * from "./forms/BasicTextField/BasicTextField";
-export * from "./forms/BasicTextField/BasicTextFieldHF";
 export * from "./forms/FilledTextField/FilledTextField";
-export * from "./forms/FilledTextField/FilledTextFieldHF";
 export * from "./forms/HelperText/HelperText";
 export * from "./forms/Checkbox/Checkbox";
 export * from "./forms/CheckboxSquared/CheckboxSquared";
-export * from "./forms/CheckboxSquared/CheckboxSquaredHF";

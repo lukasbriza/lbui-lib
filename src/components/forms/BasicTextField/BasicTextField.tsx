@@ -1,11 +1,12 @@
-import './scss/BasicTextField.scss'
+import './BasicTextField.scss'
 
 import React, { forwardRef, useRef, useState, useEffect } from 'react'
 import clsx from 'clsx'
 import { useLibClass } from '../../../hooks/useLibClass'
 
 import { Props } from '../../../utils/global.model'
-import { BasicTextFieldProps } from './types/model'
+import { BasicTextFieldProps } from './model'
+import { useEffectOnce } from '../../../hooks'
 
 const COMP_PREFIX = 'BasicTextField'
 const useClass = (className: string) => { return useLibClass(COMP_PREFIX, className) }
@@ -47,7 +48,6 @@ export const BasicTextField = forwardRef<HTMLInputElement, BasicTextFieldProps &
         labelFilledClass,
         name,
         label,
-        value = "",
         focusIn,
         focusOut,
         errorLabelClass,
@@ -57,23 +57,24 @@ export const BasicTextField = forwardRef<HTMLInputElement, BasicTextFieldProps &
         autoComplete = "off",
         defaultValue,
         password = false,
-        onInput,
+        onChange,
+        value,
         ...otherProps
     } = props
-
     const [focused, setFocused] = useState<boolean>(false)
     const [filled, setFilled] = useState<boolean>(false)
 
     const divRef = useRef<HTMLInputElement>(null)
 
-    const handleOnInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.value.length !== 0 && !filled) {
             setFilled(true)
         }
-        onInput?.(e)
+        onChange?.(e)
     }
 
     useEffect(() => {
+        const { current } = divRef
         const focusInFn = (e: React.BaseSyntheticEvent | FocusEvent) => {
             focusIn?.(e)
             setFocused(true)
@@ -81,20 +82,21 @@ export const BasicTextField = forwardRef<HTMLInputElement, BasicTextFieldProps &
         const focuseOutFn = (e: React.BaseSyntheticEvent | FocusEvent) => {
             focusOut?.(e)
             setFocused(false)
-            if (e.target?.value) {
+            if (typeof document !== "undefined" && e?.target?.value) {
                 setFilled(true)
                 return
             }
             setFilled(false)
         }
 
-        (value?.length > 0 || defaultValue && defaultValue?.toString().length > 0) && setFilled(true)
+        ((value && value?.length > 0) || defaultValue && defaultValue?.toString().length > 0) && setFilled(true)
 
-        divRef.current?.addEventListener('focusin', focusInFn)
-        divRef.current?.addEventListener('focusout', focuseOutFn)
+        current?.addEventListener('focusin', focusInFn)
+        current?.addEventListener('focusout', focuseOutFn)
         return () => {
-            divRef.current?.removeEventListener('focusin', focusInFn)
-            divRef.current?.removeEventListener('focusout', focuseOutFn)
+            const { current } = divRef
+            current?.removeEventListener('focusin', focusInFn)
+            current?.removeEventListener('focusout', focuseOutFn)
         }
     }, [])
 
@@ -125,13 +127,14 @@ export const BasicTextField = forwardRef<HTMLInputElement, BasicTextFieldProps &
                 {label}
             </label>
             <input
-                onInput={handleOnInput}
+                onChange={handleOnChange}
                 type={password ? "password" : "text"}
                 ref={ref}
                 id={name}
                 name={name}
+                value={value ? value : defaultValue}
+                defaultValue={defaultValue}
                 autoComplete={autoComplete}
-                value={value}
                 className={clsx([
                     useClass('input'),
                     className,

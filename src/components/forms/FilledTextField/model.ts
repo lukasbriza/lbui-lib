@@ -1,5 +1,5 @@
 import { Control } from "react-hook-form";
-import { DefaultInputProps } from "../../../../utils/global.model";
+import { DefaultInputProps } from "../../../utils/global.model";
 
 export type FilledTextFieldProps = {
   password?: boolean;
@@ -13,8 +13,5 @@ export type FilledTextFieldProps = {
   inputFilledClass?: string;
   errorRootClass?: string;
   lineOrigin?: "center" | "left" | "right";
+  value?: string;
 } & DefaultInputProps;
-
-export type FilledTextFieldHRProps = {
-  control: Control<any, any>;
-} & FilledTextFieldProps;

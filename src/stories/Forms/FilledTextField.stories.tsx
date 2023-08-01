@@ -1,7 +1,7 @@
-import React, { useRef, useEffect } from 'react';
-import { FieldValues, useForm } from 'react-hook-form'
+import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { FilledTextField, FilledTextFieldHF } from '../../components';
+import { FilledTextField } from '../../components';
+import { useForm } from 'react-hook-form';
 
 
 export default {
@@ -55,37 +55,28 @@ export default {
 
 const Template: ComponentStory<typeof FilledTextField> = (args) => <FilledTextField {...args} />;
 
-type FormInputs = {
-    input: string
-}
-
-const HookForms: ComponentStory<typeof FilledTextField> = (args) => {
-    const { handleSubmit, control } = useForm<FormInputs>({
-        defaultValues: {
-
-        }
-    })
-    const ref = useRef<HTMLInputElement>(null)
+const HookForm: ComponentStory<typeof FilledTextField> = (args) => {
+    const { handleSubmit, register } = useForm({ defaultValues: { input: "" } })
+    const submit = (data: { input: string }) => {
+        console.log(data)
+    }
 
     return (
-        <form onSubmit={handleSubmit((e: FieldValues) => {
-            console.log(e);
-            console.log(ref)
-        })}>
-            <FilledTextFieldHF control={control} ref={ref} {...args} />
-            <input style={{ marginTop: '20px' }} type="submit" />
+        <form onSubmit={handleSubmit(submit)}>
+            <FilledTextField {...args} {...register("input")} />
+            <button style={{ marginTop: "15px" }} type="submit">submit</button>
         </form>
     )
 }
 
+
 export const Default = Template.bind({});
 Default.args = {
     name: "TextField",
-    label: "LabelLabel"
+    label: "label"
 }
 
-export const HookFormInput = HookForms.bind({})
-HookFormInput.args = {
-    name: "input",
-    label: "Label"
+export const ReactHookForm = HookForm.bind({})
+ReactHookForm.args = {
+    label: "label"
 }

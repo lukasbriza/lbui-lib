@@ -62,7 +62,6 @@ export type DefaultInputProps = {
   focusOut?: (e: React.BaseSyntheticEvent | FocusEvent) => void;
   name: string;
   label: string;
-  value?: string;
   error?: boolean;
   errorInputClass?: string;
   errorLabelClass?: string;

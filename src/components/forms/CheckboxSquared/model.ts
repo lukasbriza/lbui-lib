@@ -1,4 +1,4 @@
-import { CheckboxDefaultProps } from "../../../../utils/global.model";
+import { CheckboxDefaultProps } from "../../../utils/global.model";
 import { Control } from "react-hook-form";
 
 export type CheckboxSquaredProps = {

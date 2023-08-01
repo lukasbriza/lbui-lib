@@ -1,11 +1,11 @@
-import './scss/FilledTextField.scss'
+import './FilledTextField.scss'
 
 import React, { forwardRef, useRef, useState, useEffect } from 'react'
 import clsx from 'clsx'
 import { useLibClass } from '../../../hooks/useLibClass'
 
 import { Props } from '../../../utils/global.model'
-import { FilledTextFieldProps } from './types/model'
+import { FilledTextFieldProps } from './model'
 
 const COMP_PREFIX = 'FilledTextField'
 const useClass = (className: string) => { return useLibClass(COMP_PREFIX, className) }
@@ -38,7 +38,6 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
  * @param {boolean} password - if true, input have type "password", else input have type "text" (default is false)
  */
 
-//TODO: on 1st render - recognize value > apply filled state + padding - left text
 export const FilledTextField = forwardRef<HTMLInputElement, FilledTextFieldProps & Props<HTMLInputElement>>((props, ref) => {
     const {
         rootClass,
@@ -48,7 +47,7 @@ export const FilledTextField = forwardRef<HTMLInputElement, FilledTextFieldProps
         labelClass,
         name,
         label,
-        value = "",
+        value,
         focusIn,
         focusOut,
         inputFocusClass,
@@ -67,7 +66,7 @@ export const FilledTextField = forwardRef<HTMLInputElement, FilledTextFieldProps
         autoComplete = "off",
         defaultValue,
         password = false,
-        onInput,
+        onChange,
         ...otherProps
     } = props
 
@@ -80,7 +79,7 @@ export const FilledTextField = forwardRef<HTMLInputElement, FilledTextFieldProps
         if (e.target.value.length !== 0 && !filled) {
             setFilled(true)
         }
-        onInput?.(e)
+        onChange?.(e)
     }
 
     useEffect(() => {
@@ -98,7 +97,7 @@ export const FilledTextField = forwardRef<HTMLInputElement, FilledTextFieldProps
             setFilled(false)
         }
 
-        (value?.length > 0 || defaultValue && defaultValue?.toString().length > 0) && setFilled(true)
+        ((value && value?.length > 0) || defaultValue && defaultValue?.toString().length > 0) && setFilled(true)
 
         divRef.current?.addEventListener('focusin', focusInFn)
         divRef.current?.addEventListener('focusout', focuseOutFn)
@@ -135,14 +134,13 @@ export const FilledTextField = forwardRef<HTMLInputElement, FilledTextFieldProps
                 {label}
             </label>
             <input
-                onInput={handleOnInput}
+                onChange={handleOnInput}
                 type={password ? "password" : "text"}
                 ref={ref}
                 id={name}
                 name={name}
                 autoComplete={autoComplete}
-                value={value}
-                defaultValue={defaultValue}
+                value={value ? value : defaultValue}
                 className={clsx([
                     useClass('input'),
                     className,

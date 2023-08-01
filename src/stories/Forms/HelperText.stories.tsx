@@ -13,7 +13,7 @@ export default {
 const Template: ComponentStory<typeof HelperText> = (args) => {
     return (
         <HelperText {...args} >
-            <FilledTextField name="FilledInput" label="FilledInput" value="default" />
+            <FilledTextField name="FilledInput" label="label" />
         </HelperText>
     )
 };
@@ -23,7 +23,8 @@ const Template: ComponentStory<typeof HelperText> = (args) => {
 export const Default = Template.bind({});
 Default.args = {
     text: "helpertext",
-    position: "top"
+    position: "bottom",
+    show: true
 }
 
 export const Error = Template.bind({});

@@ -1,11 +1,11 @@
-import './scss/CheckboxSquared.scss'
+import './CheckboxSquared.scss'
 
 import React, { forwardRef, useState, useEffect } from 'react'
 import clsx from 'clsx'
 import { useLibClass } from '../../../hooks/useLibClass'
 import { Checkbox } from '../Checkbox/Checkbox'
 
-import { CheckboxSquaredProps } from './types/model'
+import { CheckboxSquaredProps } from './model'
 import { Props } from '../../../utils/global.model'
 
 const COMP_PREFIX = 'CheckboxSquared'
@@ -34,6 +34,7 @@ export const CheckboxSquared = forwardRef<HTMLInputElement, CheckboxSquaredProps
         animate = true,
         clickEffect,
         clickEffectClass,
+        onChange,
         ...otherProps
     } = props
     const [isChecked, setIsChecked] = useState<boolean>(defaultChecked)
@@ -46,7 +47,7 @@ export const CheckboxSquared = forwardRef<HTMLInputElement, CheckboxSquaredProps
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setIsChecked(e.target.checked)
-        otherProps.onChange?.(e)
+        onChange?.(e)
     }
 
     const checker = (

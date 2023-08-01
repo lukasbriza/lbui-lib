@@ -1,10 +1,10 @@
-import './scss/HelperText.scss'
+import './HelperText.scss'
 
 import React, { forwardRef, useMemo } from 'react'
 import clsx from 'clsx'
 import { useLibClass } from '../../../hooks/useLibClass'
 
-import { HelperTextProps } from './types/model'
+import { HelperTextProps } from './model'
 import { Props } from '../../../utils/global.model'
 
 const COMP_PREFIX = 'Helpertext'
@@ -33,20 +33,19 @@ export const HelperText = forwardRef<HTMLDivElement, HelperTextProps & Props<HTM
         helperClass,
         show = true,
         showWithanimation = false,
-        showTextOnError = true,
         error = false,
         errorClass,
         ...otherProps
     } = props
 
-    const resolveErrorText = useMemo(() => {
+    const resolveHelperText = useMemo(() => {
         if (error && errorText) {
             return errorText
         }
-        if (error && errorText === undefined) {
-            return showTextOnError ? text : null
+        if (!error) {
+            return text
         }
-    }, [error, errorText, showTextOnError])
+    }, [error, errorText])
 
     return (
         <div
@@ -63,7 +62,7 @@ export const HelperText = forwardRef<HTMLDivElement, HelperTextProps & Props<HTM
                 error && useClass('error'),
                 error && errorClass,
                 helperClass
-            ])}>{resolveErrorText}</p>
+            ])}>{resolveHelperText}</p>
         </div>
     )
 })
