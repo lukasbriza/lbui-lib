@@ -1,39 +1,41 @@
-import './scss/Card.scss'
+import './Card.scss'
 
 import React, { forwardRef, memo } from 'react'
 import { Paper } from '../Paper/Paper'
 import clsx from 'clsx'
-import { useLibClass } from '../../../hooks/useLibClass'
+import { useLibClass } from '../../../hooks'
 
-import { Props } from '../../../utils/global.model'
-import { CardProps } from './types/model'
+import { Props } from '../../../utils'
+import { CardProps } from './model'
 
 const COMP_PREFIX = 'Card'
 const useClass = (className: string) => { return useLibClass(COMP_PREFIX, className) }
 
 /**
  * Card
- * @param {string} className - Class applied to the root of the component
- * @param {number} elevation - Level of surface elevation
- * @param {boolean} square - If true, rounded corners are disabled 
+ * @param {StyleClassType} [styleClass] - className definition for component
+ * @param {StyleClassType} [styleClass.root] - className applied to the root of component
+ * @param {StyleClassType} [styleClass.childrenWrapper] - className applied to wrapper over childrens (if is applied)
+ * @param {number} [elevation] - Level of surface elevation
+ * @param {boolean} [square] - If true, rounded corners are disabled 
  * @param {element} body - Element applied to the body section
- * @param {element} description - Element applied to the description section under body
+ * @param {element} [description] - Element applied to the description section under body
  */
 export const Card = forwardRef<HTMLElement, CardProps & Props<HTMLElement>>((props, ref) => {
-    const { className, description, body, ...otherProps } = props
+    const { className, styleClass, description, body, ...otherProps } = props
 
     const StyledChildren = memo(() => {
         return React.Children.map(body, (child: any, index) => {
             if (index === 0) {
                 if (typeof child === 'string' && body && !description) {
                     return (
-                        <div className={useClass('onlyBody-first-child')}>
+                        <div className={clsx([useClass('onlyBody-first-child'), styleClass?.childrenWrapper])}>
                             {child}
                         </div>)
                 }
                 if (typeof child === 'string' && body && description) {
                     return (
-                        <div className={useClass('withDescription-first-child')}>
+                        <div className={clsx([useClass('withDescription-first-child'), styleClass?.childrenWrapper])}>
                             {child}
                         </div>)
                 }
@@ -74,7 +76,7 @@ export const Card = forwardRef<HTMLElement, CardProps & Props<HTMLElement>>((pro
             className={clsx([
                 useClass('root'),
                 description ? useClass('withDescription') : useClass('onlyBody'),
-                className
+                styleClass?.root
             ])}
             {...otherProps}
         >

@@ -1,15 +1,13 @@
-import './scss/Modal.scss'
+import './Modal.scss'
 
 import React, { createContext, useMemo, useState, FC, useEffect, useRef, useContext, } from 'react'
 import { SquareButton } from '../../buttons/SquareButton/SquareButton'
 import { Paper } from '../Paper/Paper'
-import { fadeIn, fadeOff } from '../../../utils/global.animations'
-import { useLibClass } from '../../../hooks/useLibClass'
-import { useClickOutside } from '../../../hooks'
+import { fadeIn, fadeOff, Element } from '../../../utils'
+import { useClickOutside, useEffectOnce, useLibClass } from '../../../hooks'
 import clsx from 'clsx'
 
-import { ModalProviderProps, ModalContextProps, ModalProps, ModalCompProps } from './types/model'
-import { Element } from '../../../utils/global.model'
+import { ModalProviderProps, ModalContextProps, ModalProps, ModalCompProps } from './model'
 
 const COMP_PREFIX = 'Modal'
 const useClass = (className: string) => { return useLibClass(COMP_PREFIX, className) }
@@ -36,26 +34,27 @@ let timer: NodeJS.Timeout
  * @param {void} show - called to show modal, as property takes modal modification props
  * @param {void} close - close modal
  * @param {vopid} setComponent - set custom modal component
- * @param {element | undefined} - return custom modal element, if defined
+ * @param {element | undefined} [component] - return custom modal element, if defined
  * @param {boolean} isActive  - return whether modal is active or not
  * MODIFICATION PROPS
- * @param {string} header - defines header of modal
- * @param {string} text - defines text in body of modal
- * @param {string} buttonText - defines text inside of button
- * @param {boolean} button - define, if button is visible ( default is true)
- * @param {number} timeout - set timeout when modal will be closed after opening
- * @param {element} headerComponent - set custom header component of modal
- * @param {element} textComponent - set custom text component of modal
- * @param {element} buttonComponent - set custom button component of modal
- * @param {string} rootClass - defines custom class applied to root
- * @param {string} modalClass - class applied to the modal body
- * @param {string} buttonClass - class applied to the button of modal
- * @param {string} textClass - class applied to the text element of modal
- * @param {string} headerClass - class applied to the header component of modal
- * @param {boolean} rounded - define if corners are rounded (default true)
- * @param {boolean} transition - define if fade in and out transition is applied (default is false)
- * @param {boolean} closeOnOutsideClick - if true, modal will be closed on click outside of modal body (works only with default component) (default value is false)
- * @param {void} onClick - fn called on click on button, event is passed   
+ * @param {StyleClassType} [styleClass] - className definition for component
+ * @param {StyleClassType} [styleClass.root] - apply custom class to root of component
+ * @param {StyleClassType} [styleClass.modal] - class applied to the modal body
+ * @param {StyleClassType} [styleClass.button] - class applied to the button of modal
+ * @param {StyleClassType} [styleClass.text] - class applied to the text element of modal
+ * @param {StyleClassType} [styleClass.header] - class applied to the header component of modal
+ * @param {string} [header] - defines header of modal
+ * @param {string} [text] - defines text in body of modal
+ * @param {string} [buttonText] - defines text inside of button
+ * @param {boolean} [button=true] - define, if button is visible ( default is true)
+ * @param {number} [timeout] - set timeout when modal will be closed after opening
+ * @param {element} [headerComponent] - set custom header component of modal
+ * @param {element} [textComponent] - set custom text component of modal
+ * @param {element} [buttonComponent] - set custom button component of modal
+ * @param {boolean} [rounded=true] - define if corners are rounded (default true)
+ * @param {boolean} [transition=false] - define if fade in and out transition is applied (default is false)
+ * @param {boolean} [closeOnOutsideClick=false] - if true, modal will be closed on click outside of modal body (works only with default component) (default value is false)
+ * @param {void} [onClick] - fn called on click on button, event is passed   
  * */
 export const ModalProvider: FC<ModalProviderProps> = (props) => {
     const { children } = props
@@ -92,6 +91,7 @@ export const ModalProvider: FC<ModalProviderProps> = (props) => {
 
 const Modal: FC<ModalCompProps> = (props) => {
     const {
+        styleClass,
         text,
         header,
         button = true,
@@ -100,11 +100,6 @@ const Modal: FC<ModalCompProps> = (props) => {
         textComponent,
         buttonComponent,
         buttonText,
-        rootClass,
-        modalClass,
-        buttonClass,
-        textClass,
-        headerClass,
         closeOnOutsideClick = false,
         transition = false,
         onClick
@@ -117,7 +112,7 @@ const Modal: FC<ModalCompProps> = (props) => {
     }
     const timeout = transitionOptions.duration * 1000
 
-    useEffect(() => {
+    useEffectOnce(() => {
         const { current } = ref
         if (transition && current) {
             fadeIn(current, transitionOptions)
@@ -152,7 +147,7 @@ const Modal: FC<ModalCompProps> = (props) => {
     }
 
     return (
-        <section className={clsx([useClass('root'), rootClass])}>
+        <section className={clsx([useClass('root'), styleClass?.root])}>
 
             <Paper
                 ref={ref}
@@ -161,15 +156,15 @@ const Modal: FC<ModalCompProps> = (props) => {
                     useClass('body'),
                     transition && useClass('body-transition'),
                     rounded && useClass('rounded'),
-                    modalClass
+                    styleClass?.modal
                 ])}
             >
                 <div
-                    className={clsx([useClass('header'), headerClass])}
+                    className={clsx([useClass('header'), styleClass?.header])}
                 >
                     {headerComponent ? headerComponent : header}
                 </div>
-                <div className={clsx([useClass('text'), textClass])}>
+                <div className={clsx([useClass('text'), styleClass?.text])}>
                     {textComponent ? textComponent : text}
                 </div>
                 {
@@ -178,7 +173,7 @@ const Modal: FC<ModalCompProps> = (props) => {
                         (button ?
                             <SquareButton
                                 label={buttonText ?? 'Button'}
-                                className={clsx([useClass('button'), buttonClass])}
+                                className={clsx([useClass('button'), styleClass?.button])}
                                 onClick={handleClick}
                             /> :
                             null)

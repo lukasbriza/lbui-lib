@@ -1,33 +1,34 @@
-import './scss/BulletText.scss'
+import './BulletText.scss'
 
 import React, { forwardRef } from 'react'
 import { BulletShape } from '../../shapes/BulletShape/BulletShape'
-import { useLibClass } from '../../../hooks/useLibClass'
+import { useLibClass } from '../../../hooks'
 import clsx from 'clsx'
 
-import { BulletTextProps } from './types/model'
-import { Props } from '../../../utils/global.model'
+import { BulletTextProps } from './model'
+import { Props, StyleClassType } from '../../../utils'
 
 const COMP_PREFIX = 'BulletText'
 const useClass = (className: string) => { return useLibClass(COMP_PREFIX, className) }
 
 /**
  * BulletText
- * @param {string} className - apply custom class to the root of element
- * @param {string} bulletClass - apply custom class to the bullet component
- * @param {number} bulletSize - size * 2px applied to the with and height of bullet (default 3)
- * @param {string} bulletType - define type of bullet (round|square|diamond)(default round)
+ * @param {StyleClassType} [styleClass] - className definition for component
+ * @param {StyleClassType} [styleClass.root] - className applied to the root of component
+ * @param {StyleClassType} [styleClass.bullet] - className applied to the bullet
+ * @param {number} [bulletSize] - size * 2px applied to the with and height of bullet (default 3)
+ * @param {string} [bulletType=round] - define type of bullet (round|square|diamond)(default round)
  * @param {Element} children - alements passed as text for bullet component
  */
 export const BulletText = forwardRef<HTMLDivElement, BulletTextProps & Props<HTMLDivElement>>((props, ref) => {
-    const { className, bulletClass, bulletSize = 3, bulletType = 'round', children } = props
+    const { className, styleClass, bulletSize = 3, bulletType = 'round', children } = props
 
     return (
-        <div className={clsx([useClass('root'), className])} ref={ref}>
+        <div className={clsx([useClass('root'), className, styleClass?.root])} ref={ref}>
             <BulletShape
                 type={bulletType}
                 size={bulletSize}
-                className={clsx([useClass('bullet'), bulletClass])}
+                className={clsx([useClass('bullet'), styleClass?.bullet])}
             />
             {children}
         </div>

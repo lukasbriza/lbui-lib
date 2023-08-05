@@ -2,9 +2,9 @@ import './FilledTextField.scss'
 
 import React, { forwardRef, useRef, useState, useEffect } from 'react'
 import clsx from 'clsx'
-import { useLibClass } from '../../../hooks/useLibClass'
+import { useLibClass } from '../../../hooks'
 
-import { Props } from '../../../utils/global.model'
+import { Props } from '../../../utils'
 import { FilledTextFieldProps } from './model'
 
 const COMP_PREFIX = 'FilledTextField'

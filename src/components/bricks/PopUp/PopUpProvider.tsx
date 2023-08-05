@@ -4,8 +4,9 @@ import ReactDOM from "react-dom/client";
 import { PopUp } from './PopUp'
 import clsx from 'clsx'
 
-import { OwncomponentType, PopUpContextProps, PopUpProviderProps, PopUpType, ShowPopUpProps } from './types/model'
-import { useLibClass } from '../../../hooks/useLibClass';
+import { OwncomponentType, PopUpContextProps, PopUpProviderProps, PopUpType, ShowPopUpProps } from './model'
+import { useLibClass } from '../../../hooks';
+import { StyleClassType } from '../../../utils';
 
 //TODO:Předělat na Portal řešení?
 
@@ -51,10 +52,11 @@ export const usePopUpService = () => {
  * @param {} portalPosition - ["center" | "left" | "right", "center" | "up" | "bottom"] - define [X,Y] position of portal
  * @param {element} children - children passed to the element
  * @param {OwncomponentType} OwnComponent - set up own popUp component (React element with PopUpProps passed into that element)
- * @param {string} portalclass - custom class applied to the root of portal element
+ * @param {StyleClassType} [styleClass] - className definition for component
+ * @param {StyleClassType} [styleClass.portal] - custom className applied to the root of portal element
  */
 export const PopUpProvider: FC<PopUpProviderProps> = (props) => {
-    const { children, portalPosition = ["right", "up"], OwnComponent, portalClass } = props
+    const { children, portalPosition = ["right", "up"], OwnComponent, styleClass } = props
     const [portalId] = useState<string>(uniqueId('popUp-portal-'))
     const [ids, setIds] = useState<string[]>([])
     const xPos = portalPosition[0]
@@ -74,8 +76,8 @@ export const PopUpProvider: FC<PopUpProviderProps> = (props) => {
         if (xPos === "center" && yPos === "center") {
             arr.push(useClass(`center`))
         }
-        if (portalClass) {
-            arr.push(portalClass)
+        if (styleClass?.portal) {
+            arr.push(styleClass?.portal)
         }
         return clsx([...arr])
     }

@@ -1,9 +1,9 @@
-import './scss/RoundBadge.scss'
+import './RoundBadge.scss'
 
 import React, { useState, useEffect, forwardRef, useRef } from 'react'
 import clsx from 'clsx'
-import gsap from 'gsap'
-import { useLibClass } from '../../../hooks/useLibClass'
+import { gsap } from 'gsap'
+import { useLibClass } from '../../../hooks'
 import {
     badgeFadeIn,
     badgeFadeOff,
@@ -15,33 +15,32 @@ import {
     slideLeftOff,
     slideRightIn,
     slideRightOff
-} from './RoudBadge.animation'
+} from './RoundBadge.animation'
 
-import { Props } from '../../../utils/global.model'
-import { RoundBadgeProps } from './types/model'
+import { Props } from '../../../utils'
+import { RoundBadgeProps } from './model'
 
 const COMP_PREFIX = 'RoundBadge'
 const useClass = (className: string) => { return useLibClass(COMP_PREFIX, className) }
 
 /**
  * RoundBadge component
- * @constructor
- * @param {boolean} transiiton - allow transition - default true
- * @param {string} transitionStyle - define transition type
+ * @param {StyleClassType} [styleClass] - className definition for component
+ * @param {StyleClassType} [styleClass.root] - class applied to the root of the component
+ * @param {StyleClassType} [styleClass.node] - class passed to the root of defaultNode container
+ * @param {StyleClassType} [styleClass.hoverNode] - class passed to the root of hoverNode container
+ * @param {boolean} [transition=true] - allow transition - default true
+ * @param {string} [transitionStyle=fade] - define transition type
  * @param {ReactNode} defaultNode - initial displayed node
  * @param {ReactNode} hoverNode - node displayed on hover action
- * @param {string} defaultNodeclass - class passed to the root of defaultNode container
- * @param {string} hoverNodeClass - class passed to the root of hoverNode container
- * @param {string} transitionClass - class passed to the root, is positioned before className param,
- * @param {string} className - class pased to the root of component container
- * @param {number} transitionDuration - define duration of transiiton animations, not applied to fade (in seconds)
- * @param {void} onClick - passing base synthetic event object on event call
- * @param {void} onHover - passing base synthetic event object on event call
- * @param {void} onMouseEnter - passing base synthetic event object on event call
- * @param {void} onMouseLeave - passing base synthetic event object on event call
- * @param {void} onTouchStart - passing base synthetic event object on event call
- * @param {void} onTouchEnd - passing base synthetic event object on event call
- * @param {void} onTouchCancel - passing base synthetic event object on event call
+ * @param {number} [transitionDuration] - define duration of transiiton animations, not applied to fade (in seconds)
+ * @param {void} [onClick] - passing base synthetic event object on event call
+ * @param {void} [onHover] - passing base synthetic event object on event call
+ * @param {void} [onMouseEnter] - passing base synthetic event object on event call
+ * @param {void} [onMouseLeave] - passing base synthetic event object on event call
+ * @param {void} [onTouchStart] - passing base synthetic event object on event call
+ * @param {void} [onTouchEnd] - passing base synthetic event object on event call
+ * @param {void} [onTouchCancel] - passing base synthetic event object on event call
  */
 
 export const RoundBadge = forwardRef<HTMLElement, RoundBadgeProps & Props<HTMLElement>>((props, ref) => {
@@ -53,14 +52,12 @@ export const RoundBadge = forwardRef<HTMLElement, RoundBadgeProps & Props<HTMLEl
         onTouchStart,
         onTouchEnd,
         onTouchCancel,
+        styleClass,
         defaultNode,
-        defaultNodeclass,
         hoverNode,
-        hoverNodeClass,
         transition = true,
         transitionStyle = "fade",
         className,
-        transitionClass,
         transitionDuration,
         ...otherProps
     } = props
@@ -121,7 +118,11 @@ export const RoundBadge = forwardRef<HTMLElement, RoundBadgeProps & Props<HTMLEl
     return (
         <section
             ref={ref}
-            className={clsx([useClass('root'), , transitionClass, className])}
+            className={clsx([
+                useClass('root'), ,
+                className,
+                styleClass?.root
+            ])}
 
             onMouseEnter={(e) => { handleMouseEnter(); onMouseEnter?.(e); onHover?.(e) }}
             onMouseLeave={(e) => { handleMouseLeave(); onMouseLeave?.(e) }}
@@ -138,7 +139,7 @@ export const RoundBadge = forwardRef<HTMLElement, RoundBadgeProps & Props<HTMLEl
                     !transition && hovered && useClass('node-hide'),
                     !transition && !hovered && useClass('node-show'),
                     transition && useClass(`defaultNode-${transitionStyle}`),
-                    defaultNodeclass
+                    styleClass?.node
                 ])}
                 ref={defaultNodeRef}
             >
@@ -150,7 +151,7 @@ export const RoundBadge = forwardRef<HTMLElement, RoundBadgeProps & Props<HTMLEl
                     !transition && hovered && useClass('node-show'),
                     !transition && !hovered && useClass('node-hide'),
                     transition && useClass(`hoverNode-${transitionStyle}`),
-                    hoverNodeClass
+                    styleClass?.hoverNode
                 ])}
                 ref={hoverNodeRef}
             >

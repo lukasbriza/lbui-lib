@@ -22,7 +22,7 @@ export * from "./bricks/ClassicPageLayout/ClassicPageLayout";
 export * from "./bricks/Modal/ModalProvider";
 export * from "./bricks/BulletText/BulletText";
 export * from "./bricks/PopUp/PopUpProvider";
-export * from "./bricks/PopUp/types/model";
+export * from "./bricks/PopUp/model";
 export * from "./bricks/PopUp/PopUp";
 
 export * from "./shapes/BulletShape/BulletShape";

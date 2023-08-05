@@ -1,6 +1,5 @@
-import gsap, { Power2 } from "gsap";
+import gsap, { Power2, } from "gsap";
 import {
-  GsapSelector,
   FadeInConfig,
   FadeOffConfig,
   StretchConfig,
@@ -17,7 +16,7 @@ import {
  * @param config - animation config
  * @returns gsap.core.Tween
  */
-export const fadeIn = (selector: GsapSelector, config: FadeInConfig = {}) => {
+export const fadeIn = (selector: GSAPTweenTarget, config: FadeInConfig = {}) => {
   const conf = {
     duration: config.duration ? config.duration : 0.5,
     ease: config.ease ? config.ease : Power2.easeIn,
@@ -38,7 +37,7 @@ export const fadeIn = (selector: GsapSelector, config: FadeInConfig = {}) => {
  * @param config - animation config
  * @returns gsap.core.Tween
  */
-export const fadeOff = (selector: GsapSelector, config: FadeOffConfig = {}) => {
+export const fadeOff = (selector: GSAPTweenTarget, config: FadeOffConfig = {}) => {
   const conf = {
     duration: config.duration ? config.duration : 0.5,
     ease: config.ease ? config.ease : Power2.easeOut,
@@ -59,7 +58,7 @@ export const fadeOff = (selector: GsapSelector, config: FadeOffConfig = {}) => {
  * @param config - animation config
  * @returns gsap.core.Tween
  */
-export const stretch = (selector: GsapSelector, config: StretchConfig = {}) => {
+export const stretch = (selector: GSAPTweenTarget, config: StretchConfig = {}) => {
   const conf = {
     duration: config.duration ? config.duration : 1,
     ease: config.ease ? config.ease : Power2.easeOut,
@@ -79,7 +78,7 @@ export const stretch = (selector: GsapSelector, config: StretchConfig = {}) => {
  * @param config - animation config
  * @returns gsap.core.Tween
  */
-export const shrink = (selector: GsapSelector, config: ShrinkConfig = {}) => {
+export const shrink = (selector: GSAPTweenTarget, config: ShrinkConfig = {}) => {
   const conf = {
     duration: config.duration ? config.duration : 1,
     ease: config.ease ? config.ease : Power2.easeOut,
@@ -98,7 +97,7 @@ export const shrink = (selector: GsapSelector, config: ShrinkConfig = {}) => {
  * @param config - animation config
  * @returns gsap.core.Tween
  */
-export const turnTo = (selector: GsapSelector, to: number, config: TurnToConfig = {}) => {
+export const turnTo = (selector: GSAPTweenTarget, to: number, config: TurnToConfig = {}) => {
   const conf = {
     to: to,
     duration: config.duration ? config.duration : 1,
@@ -118,7 +117,7 @@ export const turnTo = (selector: GsapSelector, to: number, config: TurnToConfig 
  * @param config - animation config (duration,ease,fromLocation)
  * @returns gsap.core.Tween
  */
-export const slideFrom = (selector: GsapSelector, from: Directions, config: SlideFromConfig = {}) => {
+export const slideFrom = (selector: GSAPTweenTarget, from: Directions, config: SlideFromConfig = {}) => {
   const conf = {
     duration: config.duration ? config.duration : 0.75,
     ease: config.ease ? config.ease : Power2.easeOut,
@@ -159,7 +158,7 @@ export const slideFrom = (selector: GsapSelector, from: Directions, config: Slid
  * @param config - animation config (duration,ease,toLocation)
  * @returns gsap.core.Tween
  */
-export const slideTo = (selector: GsapSelector, to: Directions, config: SlideToConfig = {}) => {
+export const slideTo = (selector: GSAPTweenTarget, to: Directions, config: SlideToConfig = {}) => {
   const conf = {
     duration: config.duration ? config.duration : 0.75,
     ease: config.ease ? config.ease : Power2.easeIn,

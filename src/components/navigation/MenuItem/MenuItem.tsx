@@ -1,29 +1,30 @@
-import './scss/MenuItem.scss'
+import './MenuItem.scss'
 
 import React, { useState } from 'react'
 import clsx from 'clsx'
-import { useLibClass } from '../../../hooks/useLibClass'
+import { useLibClass } from '../../../hooks'
 
-import { Props } from '../../../utils/global.model'
-import { MenuItemProps } from './types/model'
+import { Props } from '../../../utils'
+import { MenuItemProps } from './model'
 
 const COMP_PREFIX = 'MenuItem'
 const useClass = (className: string) => { return useLibClass(COMP_PREFIX, className) }
 
 /**
  * MenuItem component
- * @param {Element} icon - element passed to the component as icon
- * @param {string} iconPosition - set icon position (left|top|right|bottom)
- * @param {string} iconclass - class passed to the root of icon component
- * @param {string} clasSName - class passed to the root of the component
- * @param {string} labelClass - class passed to the root of label component
+ * @param {StyleClassType} [styleClass] - className definition for component
+ * @param {StyleClassType} [styleClass.root] - define custom class to the root of component
+ * @param {StyleClassType} [styleClass.label] - class passed to the root of label component
+ * @param {StyleClassType} [styleClass.icon] - class passed to the root of icon component
+ * @param {StyleClassType} [styleClass.underliner] - class passed to the root of underliner component
+ * @param {StyleClassType} [styleClass.onClick] - class applied to the root element on click event
+ * @param {Element} [icon] - element passed to the component as icon
+ * @param {string} [iconPosition=left] - set icon position (left|top|right|bottom)
  * @param {string} label - text passed as label 
  * @param {boolean} underliner - turn on|off underliner
  * @param {string} underlinerOrigin - set origin of underliner animation (center|left|right)
- * @param {string} underlinerClass - class passed to the root of underliner component
  * @param {boolean} uppercase - turn on|off uppercase text transform
  * @param {number} animationDuration - duration of underline animation (for mobile opt)
- * @param {string} clickClass - class applied to the root element on click event
  * @param {void} onClick
  * @param {void} onTouchStart
  * @param {void} onTouchEnd
@@ -33,15 +34,13 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
  * */
 export const MenuItem = React.forwardRef<HTMLDivElement, MenuItemProps & Props<HTMLDivElement>>((props, ref) => {
     const {
+        styleClass,
         icon,
         iconPosition = "left",
-        iconClass,
         className,
-        labelClass,
         label,
         underliner = false,
         underlinerOrigin = 'center',
-        underlinerClass,
         uppercase = true,
         onClick,
         onTouchStart,
@@ -50,7 +49,6 @@ export const MenuItem = React.forwardRef<HTMLDivElement, MenuItemProps & Props<H
         onMouseLeave,
         onTouchCancel,
         animationDuration,
-        clickClass,
         ...otherProps
     } = props
     const [active, setActive] = useState<boolean>(false)
@@ -78,7 +76,13 @@ export const MenuItem = React.forwardRef<HTMLDivElement, MenuItemProps & Props<H
     return (
         <div
             ref={ref}
-            className={clsx([useClass('root'), icon && useClass(`icon-${iconPosition}`), active && useClass('root-hover'), clicked && clickClass, className])}
+            className={clsx([
+                useClass('root'),
+                icon && useClass(`icon-${iconPosition}`),
+                active && useClass('root-hover'),
+                clicked && styleClass?.onClick,
+                className,
+                styleClass?.root])}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             onClick={handleClick}
@@ -87,17 +91,17 @@ export const MenuItem = React.forwardRef<HTMLDivElement, MenuItemProps & Props<H
             onTouchEnd={handleTouchEnd}
             {...otherProps}
         >
-            <div className={clsx([useClass('icon'), iconClass])}>
+            <div className={clsx([useClass('icon'), styleClass?.icon])}>
                 {icon}
             </div>
-            <div className={clsx([useClass('label'), uppercase && useClass('label-upperCase'), labelClass])}>
+            <div className={clsx([useClass('label'), uppercase && useClass('label-upperCase'), styleClass?.label])}>
                 {label}
             </div>
             <p className={clsx([
                 useClass('underliner'),
                 underliner && useClass(`underline-${underlinerOrigin}`),
                 underliner ? useClass('underliner-show') : useClass('underliner-hide'),
-                underlinerClass])}
+                styleClass?.undeliner])}
             ></p>
         </div>
     )

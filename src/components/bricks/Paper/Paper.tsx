@@ -1,30 +1,34 @@
-import './scss/Paper.scss'
+import './Paper.scss'
 
 import React, { forwardRef } from 'react'
-import { useLibClass } from '../../../hooks/useLibClass'
+import { useLibClass } from '../../../hooks'
 import clsx from 'clsx'
 
-import { PaperProps } from './types/model'
-import { Props } from '../../../utils/global.model'
+import { PaperProps } from './model'
+import { Props, StyleClassType } from '../../../utils'
 
 const COMP_PREFIX = 'Paper'
 const useClass = (className: string) => { return useLibClass(COMP_PREFIX, className) }
 
 /**
  * Paper
- * @param {string} className - Class applied to the root of the component
- * @param {number} elevation - Level of surface elevation
- * @param {boolean} square - If true, rounded corners are disabled 
+ * @param {StyleClassType} [styleClass] - className definition for component 
+ * @param {StyleClassType} [styleClass.root] - class applied to the root of the component
+ * @param {number} [elevation=2] - level of surface elevation
+ * @param {boolean} [square=false] - if true, rounded corners are disabled 
  */
 export const Paper = forwardRef<HTMLElement, PaperProps & Props<HTMLElement>>((props, ref) => {
-    const { className, children, elevation = 2, square = false, ...otherProps } = props
+    const { className, styleClass, children, elevation = 2, square = false, ...otherProps } = props
     return (
         <section
             className={clsx(
-                [useClass('root'),
-                useClass(String(elevation)),
-                square ? useClass('squared') : useClass('rounded'),
-                    className]
+                [
+                    useClass('root'),
+                    useClass(String(elevation)),
+                    square ? useClass('squared') : useClass('rounded'),
+                    className,
+                    styleClass?.root
+                ]
             )}
             ref={ref}
             {...otherProps}

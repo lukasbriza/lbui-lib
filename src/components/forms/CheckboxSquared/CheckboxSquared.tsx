@@ -2,11 +2,11 @@ import './CheckboxSquared.scss'
 
 import React, { forwardRef, useState, useEffect } from 'react'
 import clsx from 'clsx'
-import { useLibClass } from '../../../hooks/useLibClass'
+import { useLibClass } from '../../../hooks'
 import { Checkbox } from '../Checkbox/Checkbox'
 
 import { CheckboxSquaredProps } from './model'
-import { Props } from '../../../utils/global.model'
+import { Props } from '../../../utils'
 
 const COMP_PREFIX = 'CheckboxSquared'
 const useClass = (className: string) => { return useLibClass(COMP_PREFIX, className) }

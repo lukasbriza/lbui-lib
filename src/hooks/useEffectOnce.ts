@@ -12,7 +12,7 @@ export const useEffectOnce = (effect: EffectCallback, deps?: DependencyList) => 
   const extendedEffect = () => {
     if (rendered.current === false) {
       rendered.current = true;
-      effect();
+      return effect();
     }
   };
   useEffect(extendedEffect, deps);

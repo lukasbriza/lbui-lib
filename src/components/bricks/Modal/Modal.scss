@@ -1,0 +1,54 @@
+@use '../../../utils/global.styles.scss' as g;
+
+.lbui-Modal-root {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.341);
+  width: 100vw;
+  height: 100vh;
+  top: 0px;
+  left: 0px;
+}
+
+.lbui-Modal-body {
+  opacity: 1;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: g.$default-color2;
+  width: min-content;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  min-width: 250px;
+  padding: 15px;
+}
+
+.lbui-Modal-body-transition {
+  opacity: 0;
+}
+
+.lbui-Modal-rounded {
+  border-radius: 10px;
+}
+
+.lbui-Modal-header {
+  margin-bottom: 10px;
+}
+
+.lbui-Modal-text {
+  margin-bottom: 10px;
+}
+
+.lbui-Modal-button {
+  cursor: pointer;
+  background: g.$pallete-primary;
+  color: g.$default-color2;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border: none;
+  p {
+    margin: 0px;
+  }
+}

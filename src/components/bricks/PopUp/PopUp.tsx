@@ -1,43 +1,45 @@
-import './scss/PopUp.scss'
+import './PopUp.scss'
 
-import React, { FC, useEffect, useRef, useState } from 'react'
+import React, { FC, useEffect, useRef } from 'react'
 import gsap, { Power2 } from 'gsap'
-import { useLibClass } from '../../../hooks/useLibClass'
+import { useLibClass } from '../../../hooks'
 import clsx from 'clsx'
 
-import { PopUpProps, PopUpType } from './types/model'
+import { PopUpProps, PopUpType } from './model'
 import { fadeIn, fadeOff, slideFrom, slideTo } from '../../../utils/global.animations'
 import { Paper } from '../Paper/Paper'
 import { Success, Error, Info, Warning } from '../../../lib'
+import { StyleClassType } from '../../../utils'
 
 const COMP_PREFIX = 'PopUp'
 const useClass = (className: string) => { return useLibClass(COMP_PREFIX, className) }
-
 
 /**
  * PopUp
  * @param {void} unMount - method with id of popup as parameter
  * @param {} portalPosition - ["center" | "left" | "right", "center" | "up" | "bottom"] - information about portal position
- * @param {string} leaveDirection - direction of leave animation (left|right|up|bottom)
- * @param {function} leaveAnimation - animation applied on leaving animation 
- * @param {string} enterDirection - direction of enter animation (left|right|up|bottom) 
- * @param {function} enterAnimation - animation applied on entered popUp
+ * @param {string} [leaveDirection=right] - direction of leave animation (left|right|up|bottom)
+ * @param {function} [leaveAnimation] - animation applied on leaving animation 
+ * @param {string} [enterDirection=right] - direction of enter animation (left|right|up|bottom) 
+ * @param {function} [enterAnimation] - animation applied on entered popUp
  * @param {string} hookId - id of popup passed as property from popup provider
- * @param {header} header - header text defined by show() fn
- * @param {string} text - body text defined by show() fn
- * @param {string} className - define custom class to the root of component
- * @param {object} typeClassOption -{ERROR:string ,SUCCESS:string ,INFO:string ,INFO:string} - define custom class to every type of popup
- * @param {string} type - define type of popup
- * @param {object} typeIcon - {ERROR:element ,SUCCESS:element ,INFO:element ,INFO:element} - define own icon for every popup type
- * @param {object} timeoutOption - {enable:boolean ,timeout:number ,timeoutLineclass:string} - timeout option setup
- * @param {boolean} closeOnclick - if true popup will be closing on click
- * @param {boolean} cross - if true cross component will be visible
- * @param {string} crossClass - apply custom class to cross component
- * @param {void} onClose - callback called on close event
- * @param {void} onClick -callback called on click event
+ * @param {header} [header="Header"] - header text defined by show() fn
+ * @param {string} [text="content"] - body text defined by show() fn
+ * @param {StyleClassType} [styleClass] - className definition for component
+ * @param {StyleClassType} [styleClass.root] - define custom class to the root of component
+ * @param {StyleClassType} [styleClass.cross] - define custom class to cross component
+ * @param {StyleClassType} [styleClass.type] -{ERROR:string ,SUCCESS:string ,INFO:string ,INFO:string} - define custom class to every type of popup
+ * @param {PopUpType} [type=PopUpType.WARNING] - define type of popup
+ * @param {object} [typeIcon] - {ERROR:element ,SUCCESS:element ,INFO:element ,INFO:element} - define own icon for every popup type
+ * @param {object} [timeoutOption] - {enable:boolean ,timeout:number ,timeoutLineclass:string} - timeout option setup
+ * @param {boolean} [closeOnClick=true] - if true popup will be closing on click
+ * @param {boolean} [cross=true] - if true cross component will be visible
+ * @param {void} [onClose] - callback called on close event
+ * @param {void} [onClick] -callback called on click event
  */
 export const PopUp: FC<PopUpProps> = (props) => {
     const {
+        styleClass,
         unMount,
         portalPosition,
         leaveDirection = "right",
@@ -48,13 +50,11 @@ export const PopUp: FC<PopUpProps> = (props) => {
         text = 'Content',
         className,
         leaveAnimation,
-        typeClassOption,
         type = PopUpType.WARNING,
         typeIcon,
         timeoutOption,
         closeOnClick = true,
         cross = true,
-        crossClass,
         onClose,
         onClick,
         ...otherProps
@@ -91,7 +91,6 @@ export const PopUp: FC<PopUpProps> = (props) => {
             return
         }
     }
-
 
     //HOVER
     const handleHoverOn = () => {
@@ -165,7 +164,7 @@ export const PopUp: FC<PopUpProps> = (props) => {
         ></span>) : null
 
     const crossComp = cross ? (
-        <div className={clsx([useClass('crossWrapper'), crossClass])} onClick={handleClose}>
+        <div className={clsx([useClass('crossWrapper'), styleClass?.cross])} onClick={handleClose}>
             <div className={useClass('line')}></div>
             <div className={useClass('line')}></div>
         </div>) :
@@ -176,7 +175,7 @@ export const PopUp: FC<PopUpProps> = (props) => {
             square={false}
             elevation={5}
             ref={ref}
-            className={clsx([useClass('popUp'), useClass(`popUp-${type}`), className])}
+            className={clsx([useClass('popUp'), useClass(`popUp-${type}`), className, styleClass?.root])}
             onClick={handleClick}
             onMouseEnter={handleHoverOn}
             onMouseLeave={handleHoverOff}
@@ -185,11 +184,11 @@ export const PopUp: FC<PopUpProps> = (props) => {
 
             <div className={clsx([
                 useClass('iconWrapper'),
-                type && typeClassOption && typeClassOption[type]
+                type && styleClass?.type && styleClass.type[type]
             ])}>
                 {getIcon()}
             </div>
-            <div className={useClass('contentWrapper')}>
+            <div className={clsx([useClass('contentWrapper'), styleClass?.content])}>
                 <div className={useClass('header')}>{header}</div>
                 {text ? <div className={useClass('text')}>{text}</div> : null}
                 {crossComp}

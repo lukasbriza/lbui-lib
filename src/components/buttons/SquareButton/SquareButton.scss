@@ -1,0 +1,100 @@
+@use '../../../utils/global.styles.scss' as g;
+
+//ROOT
+.lbui-squareButton-root {
+  border: none;
+  overflow: hidden;
+  position: relative;
+  min-width: g.$btn-min-width;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  cursor: pointer;
+  background: g.$btn-bckg;
+  color: white;
+  box-shadow: rgb(0 0 0 / 20%) 0px 3px 1px -2px, rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 12%) 0px 1px 5px 0px;
+
+  transition-property: background;
+  transition-timing-function: ease-in;
+  transition-duration: 0.1s;
+}
+.lbui-squareButton-root:hover {
+  background: g.$btn-bckg-hover;
+}
+//LABEL
+.lbui-squareButton-label {
+  position: relative;
+  font-weight: 700;
+  line-height: 1.75;
+  text-transform: uppercase;
+  appearance: none;
+  padding: 5px 10px;
+}
+//SIZES
+.lbui-squareButton-small {
+  padding: g.$btn-root-padding-small;
+  p {
+    font-size: g.$small-size;
+    padding: g.$btn-label-padding-small;
+  }
+}
+.lbui-squareButton-medium {
+  padding: g.$btn-root-padding-medium;
+  p {
+    font-size: g.$medium-size;
+    padding: g.$btn-label-padding-medium;
+  }
+}
+.lbui-squareButton-large {
+  padding: g.$btn-root-padding-large;
+  p {
+    font-size: g.$large-size;
+    padding: g.$btn-label-padding-large;
+  }
+}
+
+//DISABLED
+.lbui-squareButton-disabled {
+  background: rgb(208, 208, 208) !important;
+}
+
+//CLICK STATE
+.lbui-squareButton-click::after {
+  content: " ";
+  background-color: rgba(255, 255, 255, 0.162);
+  width: 1rem;
+  height: 1rem;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  mix-blend-mode: screen;
+  animation: ripple 1250ms ease-out, fade 1500ms ease-out;
+}
+
+@keyframes ripple {
+  0% {
+    transform: translate(-100%, -100%);
+  }
+  80% {
+    transform: translate(-100%, -100%) scale(50);
+  }
+  100% {
+    transform: translate(-100%, -100%) scale(50);
+    opacity: 0;
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

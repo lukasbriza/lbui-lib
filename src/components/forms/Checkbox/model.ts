@@ -1,4 +1,4 @@
-import { CheckboxDefaultProps, Element } from "../../../utils/global.model";
+import { CheckboxDefaultProps, Element } from "../../../utils";
 
 export type CheckboxProps = {
   checker: Element;
