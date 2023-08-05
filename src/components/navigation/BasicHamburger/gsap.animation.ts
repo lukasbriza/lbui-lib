@@ -1,5 +1,5 @@
 import gsap from "gsap";
-import { ref, confOn, confOff } from "./types/model";
+import { ref, confOn, confOff } from "./model";
 
 export const crossOn = (line1: ref, line2: ref, line3: ref, config: confOn = {}) => {
   let on = gsap.timeline();

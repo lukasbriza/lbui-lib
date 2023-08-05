@@ -1,11 +1,11 @@
-import './scss/TemplateName.scss'
+import './TemplateName.scss'
 
 import React, { forwardRef } from 'react'
-import { useLibClass } from '../../../hooks/useLibClass'
+import { useLibClass } from '../../../hooks'
 import clsx from 'clsx'
 
-import { TemplateNameProps } from './types/model'
-import { Props } from '../../../utils/global.model'
+import { TemplateNameProps } from './model'
+import { Props } from '../../../utils'
 
 const COMP_PREFIX = 'TemplateName'
 const useClass = (className: string) => { return useLibClass(COMP_PREFIX, className) }

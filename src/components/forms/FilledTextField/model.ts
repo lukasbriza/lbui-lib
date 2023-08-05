@@ -1,5 +1,4 @@
-import { Control } from "react-hook-form";
-import { DefaultInputProps } from "../../../utils/global.model";
+import { DefaultInputProps } from "../../../utils";
 
 export type FilledTextFieldProps = {
   password?: boolean;

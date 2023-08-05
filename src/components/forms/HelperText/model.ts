@@ -1,4 +1,4 @@
-import { Element } from "../../../utils/global.model";
+import { Element } from "../../../utils";
 
 export type HelperTextProps = {
   children: Element;

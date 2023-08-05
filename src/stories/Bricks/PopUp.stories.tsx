@@ -1,7 +1,7 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { PopUpProvider, usePopUpService } from '../../components';
-import { PopUpType } from '../../components/bricks/PopUp/types/model';
+import { PopUpType } from '../../components/bricks/PopUp/model';
 
 export default {
     title: '@lbui/Bricks/PopUp',

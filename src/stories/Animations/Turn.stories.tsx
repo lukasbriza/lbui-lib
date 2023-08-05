@@ -55,6 +55,7 @@ export const Appear = Template.bind({})
 Appear.args = {
 
     appear: true,
-    base: 0,
+    on: true,
     to: 360,
+    base: 0,
 }

@@ -1,12 +1,11 @@
 import './BasicTextField.scss'
 
-import React, { forwardRef, useRef, useState, useEffect } from 'react'
+import React, { forwardRef, useRef, useState } from 'react'
 import clsx from 'clsx'
-import { useLibClass } from '../../../hooks/useLibClass'
 
-import { Props } from '../../../utils/global.model'
+import { Props } from '../../../utils'
 import { BasicTextFieldProps } from './model'
-import { useEffectOnce } from '../../../hooks'
+import { useEffectOnce, useLibClass } from '../../../hooks'
 
 const COMP_PREFIX = 'BasicTextField'
 const useClass = (className: string) => { return useLibClass(COMP_PREFIX, className) }
@@ -73,7 +72,7 @@ export const BasicTextField = forwardRef<HTMLInputElement, BasicTextFieldProps &
         onChange?.(e)
     }
 
-    useEffect(() => {
+    useEffectOnce(() => {
         const { current } = divRef
         const focusInFn = (e: React.BaseSyntheticEvent | FocusEvent) => {
             focusIn?.(e)

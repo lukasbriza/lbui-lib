@@ -1,13 +1,13 @@
-import './scss/Underlining.scss';
+import './Underlining.scss';
 
-import React, { FC, useRef, useEffect } from 'react'
+import React, { useRef, useEffect, forwardRef } from 'react'
 import gsap from 'gsap'
-import { useLibClass } from '../../../hooks/useLibClass'
+import { useLibClass } from '../../../hooks'
 import clsx from 'clsx'
 import { stretch, shrink } from '../../../utils/global.animations'
 
-import { Props } from '../../../utils/global.model'
-import { UnderliningProps } from './types/model'
+import { Props, StretchConfig } from '../../../utils'
+import { UnderliningProps } from './model'
 
 
 const COMP_PREFIX = 'Underlining'
@@ -15,16 +15,23 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
 
 /**
  * Underlining component
- * @param {string} className - class applied to the root of component
- * @param {string} lineClass - class applied to the line component
- * @param {boolean} on - trigger stretch or shrink animation (works only if param hoverable is false)
- * @param {boolean} hoverable - define if animation is played on hover (if true, param on dont work)
- * @param {StretchConfig} stretchConfig - configurate stretch animation
- * @param {ShrinkConfig} shrinkConfig - configurate shrink animation 
- * @param {string} origin - sets origin of animation
+ * @param {StyleClassType} [styleClass] - className definition for component
+ * @param {string} [styleClass.root] - className applied to the root of component
+ * @param {string} [styleClass.line] - className applied to the line of component
+ * @param {boolean} [on] - trigger stretch or shrink animation (works only if param hoverable is false)
+ * @param {boolean} [hoverable=true] - define if animation is played on hover (if true, param on dont work)
+ * @param {StretchConfig} [stretchConfig] - configurate stretch animation
+ * @param {number} [stretchConfig.width] - animation target width
+ * @param {number} [stretchConfig.duration] - duration of animation
+ * @param {string} [stretchConfig.ease] - definition of ease function from gsap
+ * @param {ShrinkConfig} [shrinkConfig] - configurate shrink animation 
+ * @param {number} [shrinkConfig.width] - animation target width
+ * @param {number} [shrinkConfig.duration] - duration of animation
+ * @param {string} [shrinkConfig.ease] - definition of ease function from gsap
+ * @param {string} [origin=center] - sets origin of animation
  */
-export const Underlining: FC<UnderliningProps & Props<HTMLDivElement>> = (props) => {
-    const { className, lineClass, hoverable = true, on, children, shrinkConfig, stretchConfig, origin = 'center', ...otherProps } = props
+export const Underlining = forwardRef<HTMLDivElement, UnderliningProps & Props<HTMLDivElement>>((props, ref) => {
+    const { className, styleClass, hoverable = true, on, children, shrinkConfig, stretchConfig, origin = 'center', ...otherProps } = props
     const lineRef = useRef<HTMLDivElement>(null)
     const playing = useRef<boolean>(false)
 
@@ -57,7 +64,8 @@ export const Underlining: FC<UnderliningProps & Props<HTMLDivElement>> = (props)
 
     return (
         <div
-            className={clsx([useClass('root'), className])}
+            ref={ref}
+            className={clsx([useClass('root'), className, styleClass?.root])}
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
             onMouseEnter={handleHoverOn}
@@ -65,7 +73,7 @@ export const Underlining: FC<UnderliningProps & Props<HTMLDivElement>> = (props)
             {...otherProps}
         >
             {children}
-            <div className={clsx([useClass('line'), useClass(`origin-${origin}`), lineClass])} ref={lineRef}></div>
+            <div className={clsx([useClass('line'), useClass(`origin-${origin}`), styleClass?.line])} ref={lineRef}></div>
         </div>
     )
-}
+})

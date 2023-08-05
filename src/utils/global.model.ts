@@ -1,7 +1,5 @@
 import React, { ReactNode } from "react";
 
-export type GsapSelector = string | HTMLElement;
-
 export type Directions = "up" | "bottom" | "left" | "right";
 export type Element = ReactNode;
 export type Sizes = "small" | "medium" | "large";
@@ -21,6 +19,31 @@ export type TypographyType =
   | "body2"
   | "buttonText";
 
+export type StyleClassType = {
+  root?: string;
+  line?: string;
+  bullet?: string;
+  childrenWrapper?: string;
+  footer?: string;
+  menu?: string;
+  body?: string;
+  modal?: string;
+  header?: string;
+  text?: string;
+  button?: string;
+  layer?: string;
+  image?: string;
+  portal?: string;
+  cross?: string;
+  content?: string;
+  underliner?: string;
+  hover?: string;
+  onClick?: string;
+  label?: string;
+  icon?: string;
+  node?: string;
+}
+
 export type Props<T> = React.HTMLAttributes<T>;
 
 //BUTTON
@@ -28,9 +51,12 @@ export type DefaultButtonProps = {
   label: string;
   size?: ExtSizes;
   onClick: (e: React.BaseSyntheticEvent) => void;
-  hoverClass?: string;
-  modificationClass?: string;
-  modificationClickClass?: string;
+  styleClass?: {
+    root?: StyleClassType["root"]
+    label?: StyleClassType["label"]
+    hover?: StyleClassType["hover"]
+    onClick?: StyleClassType["onClick"]
+  }
   modificationClickClassDelay?: number;
   modificationClickClassDelayRemove?: number;
   disabled?: boolean;

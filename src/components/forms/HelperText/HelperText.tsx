@@ -2,10 +2,10 @@ import './HelperText.scss'
 
 import React, { forwardRef, useMemo } from 'react'
 import clsx from 'clsx'
-import { useLibClass } from '../../../hooks/useLibClass'
+import { useLibClass } from '../../../hooks'
 
 import { HelperTextProps } from './model'
-import { Props } from '../../../utils/global.model'
+import { Props } from '../../../utils'
 
 const COMP_PREFIX = 'Helpertext'
 const useClass = (className: string) => { return useLibClass(COMP_PREFIX, className) }

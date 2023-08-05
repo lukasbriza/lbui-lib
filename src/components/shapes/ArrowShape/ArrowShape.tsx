@@ -1,26 +1,26 @@
-import './scss/ArrowShape.scss'
+import './ArrowShape.scss'
 
 import React from 'react';
-import { useLibClass } from '../../../hooks/useLibClass'
+import { useLibClass } from '../../../hooks'
 import clsx from 'clsx'
 
-import { ArrowShapeProps } from './types/model'
-import { Props } from '../../../utils/global.model'
+import { ArrowShapeProps } from './model'
+import { Props } from '../../../utils'
 
 const COMP_PREFIX = 'ArrowShape'
 const useClass = (className: string) => { return useLibClass(COMP_PREFIX, className) }
 
 /**
  * ArrowShape component
- * @constructor
- * @param {string} className - class pased to the root of component container
+ * @param {StyleClassType} [styleClass] - className definition for component 
+ * @param {StyleClassType} [styleClass.root] - class applied to the root of the component
  * @param {number} lineWidth - define width of line in px
  * @param {number} lineHeight - define height of line in px
  * @param {boolean} rounded - allow rounded corners of lines
  * @param {string} color - define color of lines
  */
 export const ArrowShape = React.forwardRef<HTMLDivElement, ArrowShapeProps & Props<HTMLDivElement>>((props, ref) => {
-    const { className, color, rounded = true, lineWidth, lineHeight, ...otherProps } = props
+    const { className, styleClass, color, rounded = true, lineWidth, lineHeight, ...otherProps } = props
 
     const styles1 = {
         background: color && color,
@@ -38,7 +38,7 @@ export const ArrowShape = React.forwardRef<HTMLDivElement, ArrowShapeProps & Pro
     }
     return (
         <div
-            className={clsx([useClass('root'), className])}
+            className={clsx([useClass('root'), className, styleClass?.root])}
             style={stylesRoot}
             ref={ref}
             {...otherProps}
