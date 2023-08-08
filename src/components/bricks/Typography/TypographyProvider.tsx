@@ -39,7 +39,7 @@ export const TypographyProvider: FC<TypographyProviderProps> = (props) => {
                 google: fonts ? { families: fonts } : undefined,
             }) : null
         }
-    }, [])
+    })
 
     const contextProps = defaultProps
     contextProps.settings = settings

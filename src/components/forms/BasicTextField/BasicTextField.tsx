@@ -97,7 +97,7 @@ export const BasicTextField = forwardRef<HTMLInputElement, BasicTextFieldProps &
             current?.removeEventListener('focusin', focusInFn)
             current?.removeEventListener('focusout', focuseOutFn)
         }
-    }, [])
+    })
 
     return (
         <div

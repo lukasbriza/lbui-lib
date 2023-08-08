@@ -117,7 +117,7 @@ const Modal: FC<ModalCompProps> = (props) => {
         if (transition && current) {
             fadeIn(current, transitionOptions)
         }
-    }, [])
+    })
 
     useEffect(() => {
         if (outside && closeOnOutsideClick) {

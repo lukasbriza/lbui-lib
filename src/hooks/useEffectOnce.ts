@@ -7,13 +7,13 @@ import { DependencyList, EffectCallback, useEffect, useRef } from "react";
  * @param {EffectCallback} effect - effect callback
  * @param {DependencyList} deps - dependency list
  */
-export const useEffectOnce = (effect: EffectCallback, deps?: DependencyList) => {
+export const useEffectOnce = (effect: EffectCallback) => {
   const rendered = useRef(false);
-  const extendedEffect = () => {
+
+  useEffect(() => {
     if (rendered.current === false) {
       rendered.current = true;
-      return effect();
+      effect()
     }
-  };
-  useEffect(extendedEffect, deps);
+  }, []);
 };

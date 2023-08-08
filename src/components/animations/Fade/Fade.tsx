@@ -42,7 +42,7 @@ export const Fade: FC<FadeProps & Props<HTMLDivElement>> = (props) => {
             })
         }
         appeared.current = true
-    }, [ref])
+    })
 
     useEffect(() => {
         if (appeared.current) {

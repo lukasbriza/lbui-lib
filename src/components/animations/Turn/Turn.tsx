@@ -39,7 +39,7 @@ export const Turn: FC<TurnProps & Props<HTMLDivElement>> = (props) => {
             })
         }
         appeared.current = true
-    }, [])
+    })
 
     useEffect(() => {
         if (appeared.current) {
