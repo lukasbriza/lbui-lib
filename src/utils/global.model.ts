@@ -42,6 +42,11 @@ export type StyleClassType = {
   label?: string;
   icon?: string;
   node?: string;
+  error?: string;
+  input?: string;
+  focus?: string;
+  fill?: string;
+  blur?: string;
 }
 
 export type Props<T> = React.HTMLAttributes<T>;

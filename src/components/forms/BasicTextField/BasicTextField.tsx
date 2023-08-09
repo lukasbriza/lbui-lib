@@ -6,6 +6,7 @@ import clsx from 'clsx'
 import { Props } from '../../../utils'
 import { BasicTextFieldProps } from './model'
 import { useEffectOnce, useLibClass } from '../../../hooks'
+import { BasicInput } from '../BasicInput/BasicInput'
 
 const COMP_PREFIX = 'BasicTextField'
 const useClass = (className: string) => { return useLibClass(COMP_PREFIX, className) }
@@ -60,6 +61,7 @@ export const BasicTextField = forwardRef<HTMLInputElement, BasicTextFieldProps &
         value,
         ...otherProps
     } = props
+    /*
     const [focused, setFocused] = useState<boolean>(false)
     const [filled, setFilled] = useState<boolean>(false)
 
@@ -102,25 +104,25 @@ export const BasicTextField = forwardRef<HTMLInputElement, BasicTextFieldProps &
     return (
         <div
             className={clsx([
-                useClass('root'),
-                rootClass,
-                filled && rootFilledClass,
-                focused && rootFocusedClass,
-                error && errorRootClass
+                useClass('root'), ok
+                rootClass, ok
+                filled && rootFilledClass, ok
+                focused && rootFocusedClass, ok
+                error && errorRootClass ok
             ])}
             ref={divRef}
         >
             <label
                 htmlFor={name}
                 className={clsx([
-                    useClass('label'),
-                    focused && useClass('label-focused-color'),
+                    useClass('label'), ok
+                    focused && useClass('label-focused-color'), ok
                     focused && !filled && useClass('label-focused'),
-                    filled && useClass('label-filled'),
-                    labelClass,
+                    filled && useClass('label-filled'), ok
+                    labelClass, ok
                     focused && !filled && labelFocusClass,
-                    filled && labelFilledClass,
-                    error && errorLabelClass
+                    filled && labelFilledClass, ok
+                    error && errorLabelClass ok
                 ])}
             >
                 {label}
@@ -135,12 +137,35 @@ export const BasicTextField = forwardRef<HTMLInputElement, BasicTextFieldProps &
                 defaultValue={defaultValue}
                 autoComplete={autoComplete}
                 className={clsx([
-                    useClass('input'),
-                    className,
+                    useClass('input'), ok
+                    className, ok
                     error && errorInputClass,
                 ])}
                 {...otherProps}
             />
         </div>
+    )*/
+
+    return (
+        <BasicInput
+            name={name}
+            label={label}
+            type={password ? "password" : "text"}
+            inputProps={{
+
+            }}
+            styleClass={{
+                root: clsx([useClass('root'), rootClass]),
+                fillRoot: rootFilledClass,
+                focusRoot: rootFocusedClass,
+                errorRoot: errorRootClass,
+                input: clsx([useClass('input'), className]),
+                errorInput: errorInputClass,
+                label: clsx([useClass('label'), labelClass]),
+                fillLabel: clsx([useClass('label-filled'), labelFilledClass]),
+                focusLabel: clsx([useClass('label-focused-color')]),
+                errorLabel: errorLabelClass
+            }}
+        />
     )
 })
