@@ -3,7 +3,7 @@ import React, { ReactNode } from "react";
 export type Directions = "up" | "bottom" | "left" | "right";
 export type Element = ReactNode;
 export type Sizes = "small" | "medium" | "large";
-export type ExtSizes = "small" | "medium" | "large" | number;
+export type ExtSizes = Sizes | number;
 export type Variants = "bold" | "italic" | "underline" | "default";
 export type TypographyTag = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "body" | "span" | "p";
 export type TypographyType =
@@ -47,8 +47,8 @@ export type StyleClassType = {
   focus?: string;
   fill?: string;
   blur?: string;
+  checkBox?: string;
 }
-
 export type Props<T> = React.HTMLAttributes<T>;
 
 //BUTTON
@@ -71,33 +71,7 @@ export type DefaultButtonProps = {
   endIcon?: Element;
 };
 
-//CHECKBOX
-export type CheckboxDefaultProps = {
-  name: string;
-  label: Element;
-  checked?: boolean;
-  className?: string;
-  checkboxClass?: string;
-  labelClass?: string;
-  defaultChecked?: boolean;
-};
 
-//INPUT
-export type DefaultInputProps = {
-  rootClass?: string;
-  className?: string;
-  labelClass?: string;
-  labelFocusClass?: string;
-  labelFilledClass?: string;
-  focusIn?: (e: React.BaseSyntheticEvent | FocusEvent) => void;
-  focusOut?: (e: React.BaseSyntheticEvent | FocusEvent) => void;
-  name: string;
-  label: string;
-  error?: boolean;
-  errorInputClass?: string;
-  errorLabelClass?: string;
-  autoComplete?: "on" | "off";
-};
 
 //ANIMATION TYPES
 type easeType = gsap.EaseFunction | string;

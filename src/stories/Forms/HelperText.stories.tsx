@@ -30,11 +30,11 @@ Default.args = {
 export const Error = Template.bind({});
 Error.args = {
     text: "helpertext",
-    error: true,
+    isError: true,
 }
 
 export const Animated = Template.bind({})
 Animated.args = {
     text: "helpertext",
-    showWithanimation: true
+    options: { animation: true }
 }

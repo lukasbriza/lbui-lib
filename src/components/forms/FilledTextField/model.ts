@@ -1,16 +1,18 @@
-import { DefaultInputProps } from "../../../utils";
+import { StyleClassType } from "../../../utils";
+import { BasicInputProps } from "../BasicInput/model";
 
 export type FilledTextFieldProps = {
+  name: string;
+  label: string;
   password?: boolean;
-  lineClass?: string;
-  lineFocusClass?: string;
-  lineFilledClass?: string;
-  errorLineClass?: string;
-  rootFilledClass?: string;
-  rootFocusedClass?: string;
-  inputFocusClass?: string;
-  inputFilledClass?: string;
-  errorRootClass?: string;
-  lineOrigin?: "center" | "left" | "right";
+  styleClass?: {
+    line?: StyleClassType["line"],
+    focusLine?: StyleClassType["line"]
+    fillLine?: StyleClassType["line"]
+    errorLine?: StyleClassType["line"]
+  } & BasicInputProps["styleClass"]
   value?: string;
-} & DefaultInputProps;
+  lineOrigin?: "center" | "left" | "right";
+  autoComplete?: "on" | "off";
+  isError?: boolean;
+} & Omit<BasicInputProps, "label" | "type" | "children">

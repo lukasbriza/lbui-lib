@@ -8,35 +8,11 @@ export default {
     title: '@lbui/Forms/FilledTextField',
     component: FilledTextField,
     argTypes: {
-        rootClass: {
-            description: "class applied to the root div element"
+        styleClass: {
+            description: "define applied classNames of diferent part of component in different states"
         },
-        className: {
-            description: "class applied to the input element"
-        },
-        labelClass: {
-            description: "class applied to the label element"
-        },
-        labelFocusClass: {
-            description: "class applied to the label during focusIn event"
-        },
-        labelFilledClass: {
-            description: "class applied to the label during focusOut event when input is not empty"
-        },
-        errorLabelClass: {
-            description: "class applied to the label if error props is true"
-        },
-        errorInputClass: {
-            description: "class applied to the input if error props is true"
-        },
-        error: {
+        isError: {
             description: "defines if apply error class (default is set to false)"
-        },
-        focusIn: {
-            description: "callback called on focusIn event"
-        },
-        focusOut: {
-            description: "callback called on focusOut event"
         },
         name: {
             description: "value applied to the htmlFor props of label and to the id of input"

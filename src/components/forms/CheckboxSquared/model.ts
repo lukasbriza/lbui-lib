@@ -1,13 +1,21 @@
-import { CheckboxDefaultProps } from "../../../utils";
+
 import { Control } from "react-hook-form";
+import { CheckboxProps } from "../Checkbox/model";
+import { StyleClassType } from "../../../utils";
 
 export type CheckboxSquaredProps = {
-  checkerClass?: string;
+  name: string;
+  label: string;
   animate?: boolean;
   clickEffect?: boolean;
-  clickEffectClass?: string;
-} & CheckboxDefaultProps;
-
-export type CheckboxSquaredHFProps = {
-  control: Control<any, any>;
-} & CheckboxSquaredProps;
+  styleClass?: {
+    root?: StyleClassType["root"],
+    input?: StyleClassType["input"]
+    checkBox?: StyleClassType["checkBox"],
+    text?: StyleClassType["text"]
+    click?: StyleClassType["onClick"]
+    checker?: StyleClassType["body"]
+  }
+  checked: CheckboxProps["checked"]
+  labelSensitive?: boolean
+}

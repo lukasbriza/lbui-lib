@@ -1,14 +1,18 @@
-import { Element } from "../../../utils";
+import { Element, StyleClassType } from "../../../utils";
 
 export type HelperTextProps = {
+  styleClass?: {
+    root: StyleClassType["root"],
+    text: StyleClassType["text"],
+    errorText: StyleClassType["text"]
+  }
+  options?: {
+    animation?: boolean;
+  }
   children: Element;
   text: string;
   errorText?: string;
   show?: boolean;
-  showWithanimation?: boolean;
-  className?: string;
-  helperClass?: string;
   position?: "left" | "top" | "right" | "bottom";
-  error?: boolean;
-  errorClass?: string;
+  isError?: boolean;
 };

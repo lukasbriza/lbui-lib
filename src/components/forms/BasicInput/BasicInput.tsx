@@ -1,10 +1,10 @@
 import "./BasicInput.scss"
 
-import React, { ChangeEvent, FocusEvent, forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
+import React, { ChangeEvent, FocusEvent, forwardRef, useEffect, useState } from "react";
 import { nextEffectSanitized } from "../../../utils";
 import clsx from "clsx";
 import { useLibClass } from "../../../hooks";
-import { BasicInputImperative, BasicInputProps } from "./model";
+import { BasicInputProps } from "./model";
 
 
 const COMP_PREFIX = 'BasicInput'
@@ -14,7 +14,7 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
  * BasicInput component
  */
 
-export const BasicInput = forwardRef<BasicInputImperative, BasicInputProps>((props, ref) => {
+export const BasicInput = forwardRef<HTMLInputElement, BasicInputProps>((props, ref) => {
     const {
         type = "text",
         name,
@@ -28,11 +28,8 @@ export const BasicInput = forwardRef<BasicInputImperative, BasicInputProps>((pro
         onChange,
         onBlur,
         onStateChange,
-        children
+        children,
     } = props
-    const labelRef = useRef<HTMLLabelElement>(null)
-    const inputRef = useRef<HTMLInputElement>(null)
-    const wrapperRef = useRef<HTMLDivElement>(null)
 
     const [focused, setFocused] = useState<boolean>(false)
     const [filled, setFilled] = useState<boolean>(false)
@@ -54,27 +51,25 @@ export const BasicInput = forwardRef<BasicInputImperative, BasicInputProps>((pro
     }
 
 
-    useImperativeHandle<BasicInputImperative, BasicInputImperative>(ref, () => {
-        return {
-            label: labelRef,
-            input: inputRef,
-            wrapper: wrapperRef,
-            state: {
-                focused: focused,
-                filled: filled
-            }
-        }
-    }, [labelRef, inputRef, wrapperRef, focused, filled])
-
     useEffect(() => {
         if (nextEffectSanitized()) {
             onStateChange?.({ filled, focused })
         }
     }, [filled, focused])
 
+    useEffect(() => {
+        if (nextEffectSanitized()) {
+            if (inputProps?.defaultValue) {
+                String(inputProps.defaultValue).length > 0 && setFilled(true)
+            }
+            if (inputProps?.value) {
+                String(inputProps.value).length > 0 && setFilled(true)
+            }
+        }
+    }, [])
+
     return (
         <div
-            ref={wrapperRef}
             className={clsx([
                 useClass("root"),
                 styleClass?.root,
@@ -87,7 +82,6 @@ export const BasicInput = forwardRef<BasicInputImperative, BasicInputProps>((pro
             {
                 label &&
                 <label
-                    ref={labelRef}
                     htmlFor={name}
                     className={clsx([
                         useClass("label"),
@@ -102,8 +96,10 @@ export const BasicInput = forwardRef<BasicInputImperative, BasicInputProps>((pro
                 </label>
             }
             <input
+                {...inputProps}
+                name={name}
                 type={type}
-                ref={inputRef}
+                ref={ref}
                 onFocus={handleInputFocus}
                 onChange={handleInputChange}
                 onBlur={handleInputBlur}
@@ -114,9 +110,8 @@ export const BasicInput = forwardRef<BasicInputImperative, BasicInputProps>((pro
                     focused && styleClass?.focusInput,
                     filled && styleClass?.fillInput
                 ])}
-                {...inputProps}
             />
-            {children}
+            {children && children({ filled, isError, focused })}
         </div>
     )
 })

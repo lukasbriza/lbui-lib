@@ -1,5 +1,9 @@
-import { ReactNode, FocusEvent, ChangeEvent } from "react";
-import { Props, StyleClassType } from "../../../utils";
+import { ReactNode, FocusEvent, ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, LabelHTMLAttributes, HTMLAttributes } from "react";
+import { StyleClassType } from "../../../utils";
+
+type DetailedInputProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
+type DetailedLabelProps = DetailedHTMLProps<LabelHTMLAttributes<HTMLLabelElement>, HTMLLabelElement>
+type DetailedDivElement = DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
 
 export type BasicInputProps = {
     name: string;
@@ -9,9 +13,9 @@ export type BasicInputProps = {
     onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
     onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
     onStateChange?: (params: { focused: boolean, filled: boolean }) => void
-    rootProps?: Omit<Props<HTMLDivElement>, "ref" | "className">;
-    labelProps?: Omit<Props<HTMLLabelElement>, "ref" | "htmlFor" | "className">;
-    inputProps?: Omit<Props<HTMLInputElement>, "ref" | "name" | "onFocus" | "onChange" | "onBlur" | "type">;
+    rootProps?: Omit<DetailedDivElement, "ref" | "className">;
+    labelProps?: Omit<DetailedLabelProps, "ref" | "htmlFor" | "className">;
+    inputProps?: Omit<DetailedInputProps, "ref" | "name" | "onFocus" | "onChange" | "onBlur" | "type">;
     styleClass?: {
         root?: StyleClassType["root"],
         label?: StyleClassType["label"],
@@ -27,15 +31,5 @@ export type BasicInputProps = {
         fillRoot?: StyleClassType["fill"]
     }
     isError?: boolean;
-    children?: ReactNode;
-}
-
-export type BasicInputImperative = {
-    label: { current: HTMLLabelElement | null }
-    input: { current: HTMLInputElement | null }
-    wrapper: { current: HTMLDivElement | null }
-    state: {
-        focused: boolean;
-        filled: boolean;
-    }
+    children?: (state: { isError?: boolean, filled: boolean, focused: boolean }) => ReactNode;
 }
