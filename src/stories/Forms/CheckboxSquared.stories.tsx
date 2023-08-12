@@ -18,8 +18,8 @@ const Template: ComponentStory<typeof CheckboxSquared> = (args) => {
 };
 
 const HookForm: ComponentStory<typeof CheckboxSquared> = (args) => {
-    const { handleSubmit, register } = useForm({ defaultValues: { input: "" } })
-    const submit = (data: { input: string }) => {
+    const { handleSubmit, register } = useForm({ defaultValues: { input: false } })
+    const submit = (data: { input: boolean }) => {
         console.log(data)
     }
 
@@ -50,7 +50,7 @@ WithClickEffect.args = {
     label: "label",
     animate: true,
     clickEffect: true,
-    clickEffectClass: 'clickEffectClass'
+    styleClass: { click: 'clickEffectClass' }
 }
 
 export const ReactHookForm = HookForm.bind({})
@@ -58,7 +58,7 @@ ReactHookForm.args = {
     label: "label",
     animate: true,
     clickEffect: true,
-    clickEffectClass: 'clickEffectClass'
+    styleClass: { click: 'clickEffectClass' }
 }
 
 

@@ -28,8 +28,10 @@ export * from "./bricks/PopUp/PopUp";
 export * from "./shapes/BulletShape/BulletShape";
 export * from "./shapes/ArrowShape/ArrowShape";
 
+export * from "./forms/BasicInput/BasicInput";
 export * from "./forms/BasicTextField/BasicTextField";
 export * from "./forms/FilledTextField/FilledTextField";
 export * from "./forms/HelperText/HelperText";
 export * from "./forms/Checkbox/Checkbox";
 export * from "./forms/CheckboxSquared/CheckboxSquared";
+export * from "./forms/BasicInput/BasicInput";

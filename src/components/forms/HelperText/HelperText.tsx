@@ -1,9 +1,8 @@
 import './HelperText.scss'
 
-import React, { forwardRef, useMemo } from 'react'
+import React, { forwardRef } from 'react'
 import clsx from 'clsx'
 import { useLibClass } from '../../../hooks'
-
 import { HelperTextProps } from './model'
 import { Props } from '../../../utils'
 
@@ -12,57 +11,47 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
 
 /**
  * Helpertext component
+ * @param {StyleClassType} [styleClass] - object defining apllied classes in diferent component states and parts
  * @param {string} text - define text of helper
- * @param {string} errorText - define text if error props is true
- * @param {string} position - set position of text (top|left|right|bottom) - default is bottom
- * @param {string} className - apply custom class to the root component
- * @param {string} helperClass - apply custom class to the helper component
- * @param {boolean} show - define if show|hide helpertext - default true
- * @param {boolean} showTextOnError -if true, text prop will not be displayed on error (default is true) => will not show on error if errorText is defined
- * @param {boolean} showWithanimation - define if animation will be applied during show event
- * @param {boolean} error - if true, errorText and errorClass is applied
+ * @param {string} [errorText] - define text if error props is true
+ * @param {string} [position=bottom] - set position of text (top|left|right|bottom) - default is bottom
+ * @param {boolean} [show=true] - define if show|hide helpertext - default true
+ * @param {object} [options] - define component options
+ * @param {boolean} [options.animation] - apply animation on helper text
+ * @param {boolean} [isError=false] - if true, errorText and errorClass is applied
  */
 
 export const HelperText = forwardRef<HTMLDivElement, HelperTextProps & Props<HTMLDivElement>>((props, ref) => {
     const {
+        styleClass,
         children,
         text,
         errorText,
         position = "bottom",
         className,
-        helperClass,
         show = true,
-        showWithanimation = false,
-        error = false,
-        errorClass,
+        options,
+        isError = false,
         ...otherProps
     } = props
-
-    const resolveHelperText = useMemo(() => {
-        if (error && errorText) {
-            return errorText
-        }
-        if (!error) {
-            return text
-        }
-    }, [error, errorText])
+    const { animation = false } = options ?? {}
 
     return (
         <div
-            className={clsx([useClass('root'), useClass(position), className])}
+            className={clsx([useClass('root'), useClass(position), className, styleClass?.root])}
             ref={ref}
             {...otherProps}
         >
             {children}
             <p className={clsx([
                 useClass('text'),
-                !show && !showWithanimation && useClass('hide'),
-                !show && showWithanimation && useClass('hide-animated'),
-                show && showWithanimation && useClass('show-animated'),
-                error && useClass('error'),
-                error && errorClass,
-                helperClass
-            ])}>{resolveHelperText}</p>
+                !show && !animation && useClass('hide'),
+                !show && animation && useClass('hide-animated'),
+                show && animation && useClass('show-animated'),
+                isError && useClass('error'),
+                isError && styleClass?.errorText,
+                styleClass?.text
+            ])}>{isError && errorText ? errorText : !isError ? text : null}</p>
         </div>
     )
 })

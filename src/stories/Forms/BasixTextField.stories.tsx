@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { BasicTextField } from '../../components';
@@ -9,35 +9,17 @@ export default {
     title: '@lbui/Forms/BasicTextField',
     component: BasicTextField,
     argTypes: {
-        rootClass: {
-            description: "class applied to the root div element"
+        styleClass: {
+            description: "define applied classNames of diferent part of component in different states"
         },
-        className: {
-            description: "class applied to the input element"
-        },
-        labelClass: {
-            description: "class applied to the label element"
-        },
-        labelFocusClass: {
-            description: "class applied to the label during focusIn event"
-        },
-        labelFilledClass: {
-            description: "class applied to the label during focusOut event when input is not empty"
-        },
-        errorLabelClass: {
-            description: "class applied to the label if error props is true"
-        },
-        errorInputClass: {
-            description: "class applied to the input if error props is true"
-        },
-        error: {
+        isError: {
             description: "defines if apply error class (default is set to false)"
         },
-        focusIn: {
-            description: "callback called on focusIn event"
+        onFocus: {
+            description: "callback called on focus event"
         },
-        focusOut: {
-            description: "callback called on focusOut event"
+        onBlur: {
+            description: "callback called on blur event"
         },
         name: {
             description: "value applied to the htmlFor props of label and to the id of input"
@@ -62,6 +44,7 @@ const HookForm: ComponentStory<typeof BasicTextField> = (args) => {
         console.log(data)
     }
 
+
     return (
         <form onSubmit={handleSubmit(submit)}>
             <BasicTextField {...args} {...register("input")} />
@@ -78,8 +61,16 @@ Default.args = {
     label: "Label",
 }
 
+export const DefaultValue = Template.bind({});
+DefaultValue.args = {
+    name: "TextField",
+    label: "Label",
+    defaultValue: "SomeDefaultValue"
+}
+
 export const ReactHookForm = HookForm.bind({})
 ReactHookForm.args = {
     name: "TextField",
     label: "Label"
 }
+

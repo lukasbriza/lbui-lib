@@ -12,37 +12,42 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
 
 /**
  * Checkbox component - frame for custom checkboxes
+ * @param {StyleClassType} [styleClass] - object defining apllied classes in diferent component states and parts
+ * @param {StyleClassType} [styleClass.click] - class applied on click event if clickEffect is allowed
+ * @param {StyleClassType} [styleClass.root] - class applied to the root component
+ * @param {StyleClassType} [styleClass.input] - class applied to the input component
+ * @param {StyleClassType} [styleClass.checkBox] - class applied to the styled wrapper of input
+ * @param {StyleClassType} [styleClass.text] - class applied to the label/text component
  * @param {string} label - text applied to the label component
- * @param {string} className - class applied to the root component
- * @param {string} checkboxClass - class applied to the styled wrapper of input
- * @param {string} labelClass - class applied to the label component
+ * @param {string} name - name for inpúut component
  * @param {object} checker - child passed as checker object
- * @param {boolean} clickEffect - define if click effect will be visible
- * @param {string} clickEffectClass - class applied on click event if clickEffect is allowed
+ * @param {boolean} [clickEffect=true] - define if click effect will be visible
  */
 
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps & Props<HTMLInputElement>>((props, ref) => {
     const {
-        label,
+        styleClass,
         className,
-        checkboxClass,
-        labelClass,
+        label,
         clickEffect = true,
-        clickEffectClass,
         checker,
         onChange,
+        onClick,
+        name,
+        labelProps,
         ...otherProps
     } = props
 
     const wrapper = useRef<HTMLDivElement>(null)
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (clickEffect && e.target.checked) {
-            wrapper.current?.classList.add(useClass('click'))
-            clickEffectClass && wrapper.current?.classList.add(clickEffectClass)
+            const { current } = wrapper
+            current?.classList.add(useClass('click'))
+            styleClass?.click && current?.classList.add(styleClass?.click)
 
             setTimeout(() => {
-                wrapper.current?.classList.remove(useClass('click'))
-                clickEffectClass && wrapper.current?.classList.remove(clickEffectClass)
+                current?.classList.remove(useClass('click'))
+                styleClass?.click && current?.classList.remove(styleClass?.click)
             }, 600)
         }
         onChange?.(e)
@@ -50,21 +55,27 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps & Props<HTMLI
 
 
     return (
-        <label className={clsx([useClass('root'), className])}>
+        <label
+            htmlFor={name}
+            className={clsx([useClass('root'), className, styleClass?.root])}
+            {...labelProps}
+        >
             <div
-                className={clsx([useClass('wrapper'), checkboxClass])}
+                className={clsx([useClass('wrapper'), styleClass?.checkBox])}
+                onClick={onClick}
                 ref={wrapper}
             >
                 <input
+                    name={name}
                     type="checkbox"
-                    className={clsx([useClass('input')])}
+                    className={clsx([useClass('input'), styleClass?.input])}
                     ref={ref}
                     onChange={handleChange}
                     {...otherProps}
                 />
                 {checker}
             </div>
-            <div className={clsx([useClass('label'), labelClass])}>{label}</div>
+            <div className={clsx([useClass('label'), styleClass?.text])}>{label}</div>
         </label>
     )
 })
