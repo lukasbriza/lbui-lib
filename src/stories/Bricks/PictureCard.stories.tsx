@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 import { PictureCard } from '../../components';
 
 export default {
@@ -7,9 +7,9 @@ export default {
     component: PictureCard,
     argTypes: {
     }
-} as ComponentMeta<typeof PictureCard>;
+} as Meta<typeof PictureCard>;
 
-const Template: ComponentStory<typeof PictureCard> = (args) => (
+const Template: StoryFn<typeof PictureCard> = (args) => (
     <PictureCard style={{ width: '200px' }} {...args} />
 );
 

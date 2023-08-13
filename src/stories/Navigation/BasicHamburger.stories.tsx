@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 import { BasicHamburger } from '../../components';
 
 export default {
@@ -26,8 +26,8 @@ export default {
         }
 
     }
-} as ComponentMeta<typeof BasicHamburger>;
+} as Meta<typeof BasicHamburger>;
 
-const Template: ComponentStory<typeof BasicHamburger> = (args) => <BasicHamburger {...args} />;
+const Template: StoryFn<typeof BasicHamburger> = (args) => <BasicHamburger {...args} />;
 
 export const Hamburger = Template.bind({})

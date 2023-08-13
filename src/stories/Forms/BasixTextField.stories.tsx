@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 import { BasicTextField } from '../../components';
 import { useForm } from 'react-hook-form';
 
@@ -34,11 +34,11 @@ export default {
             description: "turn on/off autocomplete (default is off)"
         }
     }
-} as ComponentMeta<typeof BasicTextField>;
+} as Meta<typeof BasicTextField>;
 
-const Template: ComponentStory<typeof BasicTextField> = (args) => <BasicTextField {...args} />;
+const Template: StoryFn<typeof BasicTextField> = (args) => <BasicTextField {...args} />;
 
-const HookForm: ComponentStory<typeof BasicTextField> = (args) => {
+const HookForm: StoryFn<typeof BasicTextField> = (args) => {
     const { handleSubmit, register } = useForm({ defaultValues: { input: "" } })
     const submit = (data: { input: string }) => {
         console.log(data)

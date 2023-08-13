@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 import { MenuBar, BasicHamburger } from '../../components';
 
 export default {
@@ -13,9 +13,9 @@ export default {
             description: "Apply custom class to the root of ocmponent"
         },
     }
-} as ComponentMeta<typeof MenuBar>;
+} as Meta<typeof MenuBar>;
 
-const Template: ComponentStory<typeof MenuBar> = (args) => (
+const Template: StoryFn<typeof MenuBar> = (args) => (
     <MenuBar {...args} >
         <BasicHamburger />
     </MenuBar>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { StoryFn, Meta } from '@storybook/react'
 import { CheckboxSquared } from '../../components'
 
 
@@ -9,15 +9,15 @@ export default {
     component: CheckboxSquared,
     argTypes: {
     }
-} as ComponentMeta<typeof CheckboxSquared>;
+} as Meta<typeof CheckboxSquared>;
 
-const Template: ComponentStory<typeof CheckboxSquared> = (args) => {
+const Template: StoryFn<typeof CheckboxSquared> = (args) => {
     return (
         <CheckboxSquared {...args} />
     )
 };
 
-const HookForm: ComponentStory<typeof CheckboxSquared> = (args) => {
+const HookForm: StoryFn<typeof CheckboxSquared> = (args) => {
     const { handleSubmit, register } = useForm({ defaultValues: { input: false } })
     const submit = (data: { input: boolean }) => {
         console.log(data)

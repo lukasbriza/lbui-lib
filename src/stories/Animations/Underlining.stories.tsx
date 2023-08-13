@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 import { Underlining } from '../../components';
 
 export default {
@@ -31,9 +31,9 @@ export default {
             description: "Configuration of shrink animation"
         }
     }
-} as ComponentMeta<typeof Underlining>;
+} as Meta<typeof Underlining>;
 
-const Template: ComponentStory<typeof Underlining> = (args) => (<Underlining {...args}><div>Component</div></Underlining>);
+const Template: StoryFn<typeof Underlining> = (args) => (<Underlining {...args}><div>Component</div></Underlining>);
 
 export const Hoverable = Template.bind({})
 Hoverable.args = {

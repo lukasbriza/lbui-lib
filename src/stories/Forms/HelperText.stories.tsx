@@ -1,5 +1,5 @@
 import React from 'react'
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { StoryFn, Meta } from '@storybook/react'
 import { HelperText, FilledTextField } from '../../components'
 
 
@@ -8,9 +8,9 @@ export default {
     component: HelperText,
     argTypes: {
     }
-} as ComponentMeta<typeof HelperText>;
+} as Meta<typeof HelperText>;
 
-const Template: ComponentStory<typeof HelperText> = (args) => {
+const Template: StoryFn<typeof HelperText> = (args) => {
     return (
         <HelperText {...args} >
             <FilledTextField name="FilledInput" label="label" />

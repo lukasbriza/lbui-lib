@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 import { SquareButton } from '../../components/buttons/SquareButton/SquareButton';
 import { buttonsBaseDescription } from './buttonsBaseDescription'
 
@@ -9,9 +9,9 @@ export default {
   argTypes: {
     ...buttonsBaseDescription
   }
-} as ComponentMeta<typeof SquareButton>;
+} as Meta<typeof SquareButton>;
 
-const Template: ComponentStory<typeof SquareButton> = (args) => <SquareButton {...args} />;
+const Template: StoryFn<typeof SquareButton> = (args) => <SquareButton {...args} />;
 
 export const Button = Template.bind({});
 Button.args = {

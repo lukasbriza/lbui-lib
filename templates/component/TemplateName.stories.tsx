@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 import { TemplateName } from '../../components';
 
 export default {
@@ -7,6 +7,6 @@ export default {
     component: TemplateName,
     argTypes: {
     }
-} as ComponentMeta<typeof TemplateName>;
+} as Meta<typeof TemplateName>;
 
-const Template: ComponentStory<typeof TemplateName> = (args) => (<TemplateName />);
+const Template: StoryFn<typeof TemplateName> = (args) => (<TemplateName />);

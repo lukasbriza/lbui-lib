@@ -1,0 +1,42 @@
+.lbui-OptionScroller-root {
+  position: absolute;
+  border: 1px solid gray;
+  display: flex;
+  flex-flow: row;
+  max-height: 200px;
+  width: 150px;
+  overflow: hidden;
+}
+.lbui-OptionScroller-option {
+  text-align: center;
+  padding: 5px 15px;
+  cursor: pointer;
+  transition: background 0.1s ease-in;
+  font-size: 18px;
+}
+.lbui-OptionScroller-option:hover {
+  background: rgba(128, 128, 128, 0.428);
+}
+.lbui-OptionScroller-column-section {
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.lbui-OptionScroller-column-section::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+.lbui-OptionScroller-column-section::-webkit-scrollbar:vertical {
+  width: 11px;
+}
+.lbui-OptionScroller-column-section.lbui-OptionScroller-column-section::-webkit-scrollbar:horizontal {
+  height: 11px;
+}
+.lbui-OptionScroller-column-section::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  border: 2px solid white; /* should match background, can't be transparent */
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.lbui-OptionScroller-column-section::-webkit-scrollbar-track {
+  background-color: rgb(255, 255, 255);
+  border-radius: 8px;
+}

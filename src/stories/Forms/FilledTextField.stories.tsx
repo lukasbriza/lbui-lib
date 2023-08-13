@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 import { FilledTextField } from '../../components';
 import { useForm } from 'react-hook-form';
 
@@ -27,11 +27,11 @@ export default {
             description: "turn on/off autocomplete (default is off)"
         }
     }
-} as ComponentMeta<typeof FilledTextField>;
+} as Meta<typeof FilledTextField>;
 
-const Template: ComponentStory<typeof FilledTextField> = (args) => <FilledTextField {...args} />;
+const Template: StoryFn<typeof FilledTextField> = (args) => <FilledTextField {...args} />;
 
-const HookForm: ComponentStory<typeof FilledTextField> = (args) => {
+const HookForm: StoryFn<typeof FilledTextField> = (args) => {
     const { handleSubmit, register } = useForm({ defaultValues: { input: "" } })
     const submit = (data: { input: string }) => {
         console.log(data)

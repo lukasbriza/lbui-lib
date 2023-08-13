@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 import { Paper } from '../../components';
 
 export default {
@@ -16,9 +16,9 @@ export default {
             description: "Define corners of element",
         },
     }
-} as ComponentMeta<typeof Paper>;
+} as Meta<typeof Paper>;
 
-const Template: ComponentStory<typeof Paper> = (args) => (
+const Template: StoryFn<typeof Paper> = (args) => (
     <Paper {...args} >
         <div
             style={{

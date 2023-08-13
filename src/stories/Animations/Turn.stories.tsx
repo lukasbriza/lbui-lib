@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 import { Turn } from '../../components';
 
 export default {
@@ -28,9 +28,9 @@ export default {
             description: "Elements passed through component"
         }
     }
-} as ComponentMeta<typeof Turn>;
+} as Meta<typeof Turn>;
 
-const Template: ComponentStory<typeof Turn> = (args) => (
+const Template: StoryFn<typeof Turn> = (args) => (
     <Turn {...args}>
         <div
             style={{

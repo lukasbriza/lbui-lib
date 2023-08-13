@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 import { ClassicPageLayout } from '../../components';
 
 export default {
@@ -31,9 +31,9 @@ export default {
             description: "Additional options to component"
         }
     }
-} as ComponentMeta<typeof ClassicPageLayout>;
+} as Meta<typeof ClassicPageLayout>;
 
-const Template: ComponentStory<typeof ClassicPageLayout> = (args) => (
+const Template: StoryFn<typeof ClassicPageLayout> = (args) => (
     <ClassicPageLayout {...args}>
         <div style={{ height: '200vh' }}>Children</div>
     </ClassicPageLayout>

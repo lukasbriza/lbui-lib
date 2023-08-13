@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 import { Underliner } from '../../components';
 
 export default {
@@ -26,8 +26,8 @@ export default {
             control: 'color'
         },
     }
-} as ComponentMeta<typeof Underliner>;
+} as Meta<typeof Underliner>;
 
-const Template: ComponentStory<typeof Underliner> = (args) => (<Underliner {...args}><div>Element</div></Underliner>);
+const Template: StoryFn<typeof Underliner> = (args) => (<Underliner {...args}><div>Element</div></Underliner>);
 
 export const Default = Template.bind({})

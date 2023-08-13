@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 import { Grid } from '../../components';
 
 export default {
@@ -8,9 +8,9 @@ export default {
     argTypes: {
 
     }
-} as ComponentMeta<typeof Grid>;
+} as Meta<typeof Grid>;
 
-const Template: ComponentStory<typeof Grid> = (args) => (
+const Template: StoryFn<typeof Grid> = (args) => (
     <Grid {...args}>
         <div style={{ width: '50px', height: '50px', background: 'rgb(227, 95, 33)' }}>1</div>
         <div style={{ width: '50px', height: '50px', background: 'rgb(227, 95, 33)' }}>2</div>

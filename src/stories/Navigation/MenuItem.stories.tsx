@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 import { MenuItem } from '../../components';
 import { Icon } from '../../lib';
 
@@ -17,9 +17,9 @@ export default {
             description: "Added icon"
         }
     }
-} as ComponentMeta<typeof MenuItem>;
+} as Meta<typeof MenuItem>;
 
-const Template: ComponentStory<typeof MenuItem> = (args) => (<MenuItem {...args} />);
+const Template: StoryFn<typeof MenuItem> = (args) => (<MenuItem {...args} />);
 
 export const Default = Template.bind({})
 Default.args = {

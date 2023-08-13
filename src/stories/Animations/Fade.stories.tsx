@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 import { Fade } from '../../components';
 
 export default {
@@ -28,9 +28,9 @@ export default {
             description: "Elements passed through component"
         }
     }
-} as ComponentMeta<typeof Fade>;
+} as Meta<typeof Fade>;
 
-const Template: ComponentStory<typeof Fade> = (args) => (
+const Template: StoryFn<typeof Fade> = (args) => (
     <Fade {...args}>
         <div style={{
             width: '200px',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 import { TypographyProvider, Typography } from '../../components';
 
 export default {
@@ -7,9 +7,9 @@ export default {
     component: TypographyProvider,
     argTypes: {
     }
-} as ComponentMeta<typeof TypographyProvider>;
+} as Meta<typeof TypographyProvider>;
 
-const Template: ComponentStory<typeof TypographyProvider> = (args) => (<TypographyProvider {...args}></TypographyProvider>);
+const Template: StoryFn<typeof TypographyProvider> = (args) => (<TypographyProvider {...args}></TypographyProvider>);
 
 
 export const Default = Template.bind({})

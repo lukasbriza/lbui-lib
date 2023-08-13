@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 import { ModalProvider, ModalContext } from '../../components/bricks/Modal/ModalProvider';
 
 
 export default {
     title: '@lbui/Bricks/Modal',
     component: ModalProvider,
-} as ComponentMeta<typeof ModalProvider>;
+} as Meta<typeof ModalProvider>;
 
-const Template: ComponentStory<any> = (args: any) => {
+const Template: StoryFn<any> = (args: any) => {
     return (
         <section style={{ height: '100vh', width: '100vw', position: 'relative' }}>
             <ModalProvider>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 import { Card } from '../../components';
 
 export default {
@@ -22,9 +22,9 @@ export default {
             description: "Define squared or sharp corners"
         }
     }
-} as ComponentMeta<typeof Card>;
+} as Meta<typeof Card>;
 
-const Template: ComponentStory<typeof Card> = (args) => (
+const Template: StoryFn<typeof Card> = (args) => (
     <Card {...args} />
 );
 

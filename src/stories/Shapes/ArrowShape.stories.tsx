@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 import { ArrowShape } from '../../components';
 
 export default {
@@ -22,8 +22,8 @@ export default {
             description: "Define backgorund color of component"
         }
     }
-} as ComponentMeta<typeof ArrowShape>;
+} as Meta<typeof ArrowShape>;
 
-const Template: ComponentStory<typeof ArrowShape> = (args) => (<ArrowShape {...args} />);
+const Template: StoryFn<typeof ArrowShape> = (args) => (<ArrowShape {...args} />);
 
 export const Default = Template.bind({})

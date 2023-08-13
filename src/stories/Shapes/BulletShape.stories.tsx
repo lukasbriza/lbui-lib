@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 import { BulletShape } from '../../components';
 
 export default {
@@ -16,9 +16,9 @@ export default {
             description: "Change shape to diamond,square or round"
         }
     }
-} as ComponentMeta<typeof BulletShape>;
+} as Meta<typeof BulletShape>;
 
-const Template: ComponentStory<typeof BulletShape> = (args) => (<BulletShape {...args} />);
+const Template: StoryFn<typeof BulletShape> = (args) => (<BulletShape {...args} />);
 
 export const Round = Template.bind({})
 

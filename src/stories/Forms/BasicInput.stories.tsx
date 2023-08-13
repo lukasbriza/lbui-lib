@@ -1,13 +1,13 @@
 import React from 'react';
 import { BasicInput } from '../../components';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 
 export default {
     title: "@lbui/Forms/BasicInput",
     component: BasicInput,
-} as ComponentMeta<typeof BasicInput>;
+} as Meta<typeof BasicInput>;
 
-const Template: ComponentStory<typeof BasicInput> = (args) => {
+const Template: StoryFn<typeof BasicInput> = (args) => {
     return <BasicInput {...args} onStateChange={(state) => console.log(state)} />
 }
 

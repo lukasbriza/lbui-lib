@@ -19,6 +19,7 @@ export type TypographyType =
   | "body2"
   | "buttonText";
 
+export type Option = { key: string; value: string; }
 export type StyleClassType = {
   root?: string;
   line?: string;
@@ -48,8 +49,9 @@ export type StyleClassType = {
   fill?: string;
   blur?: string;
   checkBox?: string;
+  option?: string;
 }
-export type Props<T> = React.HTMLAttributes<T>;
+export type Props<T> = React.HTMLProps<T>;
 
 //BUTTON
 export type DefaultButtonProps = {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 import { RoundBadge } from '../../components';
 import { Icon } from '../../lib'
 
@@ -8,9 +8,9 @@ export default {
     component: RoundBadge,
     argTypes: {
     }
-} as ComponentMeta<typeof RoundBadge>;
+} as Meta<typeof RoundBadge>;
 
-const Template: ComponentStory<typeof RoundBadge> = (args) => <RoundBadge {...args} />
+const Template: StoryFn<typeof RoundBadge> = (args) => <RoundBadge {...args} />
 
 export const Default = Template.bind({})
 Default.args = {

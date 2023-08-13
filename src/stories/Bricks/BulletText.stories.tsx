@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 import { BulletText } from '../../components';
 
 export default {
@@ -19,9 +19,9 @@ export default {
             description: 'define type of bullet (round|square|diamond)(default round)'
         }
     }
-} as ComponentMeta<typeof BulletText>;
+} as Meta<typeof BulletText>;
 
-const Template: ComponentStory<typeof BulletText> = (args) => (
+const Template: StoryFn<typeof BulletText> = (args) => (
     <BulletText {...args}>BulletText</BulletText>
 );
 

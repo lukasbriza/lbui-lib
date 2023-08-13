@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 import { Divider } from '../../components';
 
 export default {
@@ -23,9 +23,9 @@ export default {
             control: 'color'
         },
     }
-} as ComponentMeta<typeof Divider>;
+} as Meta<typeof Divider>;
 
-const Template: ComponentStory<typeof Divider> = (args) => (<Divider {...args} />);
+const Template: StoryFn<typeof Divider> = (args) => (<Divider {...args} />);
 
 export const Default = Template.bind({})
 

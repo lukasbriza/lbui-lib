@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react';
 import { MenuList, MenuItem } from '../../components';
 
 export default {
@@ -16,9 +16,9 @@ export default {
             description: "Custom class applied to MenuList"
         }
     }
-} as ComponentMeta<typeof MenuList>;
+} as Meta<typeof MenuList>;
 
-const Template: ComponentStory<typeof MenuList> = (args) => (
+const Template: StoryFn<typeof MenuList> = (args) => (
     <MenuList {...args} >
         <MenuItem label="MenuItem" underliner={true} />
         <MenuItem label="MenuItem" underliner={true} />
