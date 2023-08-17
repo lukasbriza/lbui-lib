@@ -51,7 +51,7 @@ export type StyleClassType = {
   checkBox?: string;
   option?: string;
 }
-export type Props<T> = React.HTMLProps<T>;
+export type Props<T> = React.HTMLAttributes<T>;
 
 //BUTTON
 export type DefaultButtonProps = {

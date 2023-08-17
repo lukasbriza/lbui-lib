@@ -2,8 +2,8 @@ import { Element, ShrinkConfig, StretchConfig, StyleClassType } from "../../../u
 
 export type UnderliningProps = {
   styleClass?: {
-    root: StyleClassType["root"]
-    line: StyleClassType["line"]
+    root?: StyleClassType["root"]
+    line?: StyleClassType["line"]
   }
   hoverable?: boolean;
   stretchConfig?: StretchConfig;

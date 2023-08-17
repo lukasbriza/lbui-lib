@@ -2,9 +2,9 @@ import { Element, StyleClassType } from "../../../utils";
 
 export type HelperTextProps = {
   styleClass?: {
-    root: StyleClassType["root"],
-    text: StyleClassType["text"],
-    errorText: StyleClassType["text"]
+    root?: StyleClassType["root"],
+    text?: StyleClassType["text"],
+    errorText?: StyleClassType["text"]
   }
   options?: {
     animation?: boolean;

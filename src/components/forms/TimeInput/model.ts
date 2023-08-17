@@ -13,11 +13,11 @@ export type TimeInputProps = {
         closeOnOutsideClick?: boolean;
     }
     styleClass?: BasicInputProps["styleClass"] & {
-        scroller?: StyleClassType["root"]
-        option?: StyleClassType["option"]
-        column?: StyleClassType["option"],
-        errorScroller?: StyleClassType["error"]
-        icon?: StyleClassType["icon"]
+        scroller?: StyleClassType["root"];
+        option?: StyleClassType["option"];
+        column?: StyleClassType["option"];
+        errorScroller?: StyleClassType["error"];
+        icon?: StyleClassType["icon"];
     }
     hours?: {
         from?: number;
@@ -27,8 +27,8 @@ export type TimeInputProps = {
         from?: number;
         to?: number;
     }
-    inputProps?: BasicInputProps["inputProps"],
-    labelProps: BasicInputProps["labelProps"]
+    inputProps?: BasicInputProps["inputProps"];
+    labelProps?: BasicInputProps["labelProps"];
     onFocus?: (e: FocusEvent<HTMLInputElement>) => void;
     onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
     onBlur?: (e: FocusEvent<HTMLInputElement>) => void;

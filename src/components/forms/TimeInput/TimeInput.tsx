@@ -15,7 +15,20 @@ const COMP_PREFIX = 'TimeInput'
 const useClass = (className: string) => { return useLibClass(COMP_PREFIX, className) }
 
 export const TimeInput: FC<TimeInputProps> = forwardRef<TimeInputForwardedref, TimeInputProps>((props, ref) => {
-    const { name, label, styleClass, minutes, hours, options, icon, isError, onBlur, onFocus, inputProps, ...otherProps } = props
+    const {
+        name,
+        label,
+        styleClass,
+        minutes,
+        hours,
+        options,
+        icon,
+        isError,
+        onBlur,
+        onFocus,
+        inputProps,
+        ...otherProps
+    } = props
     const { showOptionsOnfocus = false, closeOnOutsideClick = false } = options ?? {}
     const { scroller, option, column, errorScroller, icon: iconClass, ...restStyleClasses } = styleClass ?? {}
 
@@ -98,6 +111,7 @@ export const TimeInput: FC<TimeInputProps> = forwardRef<TimeInputForwardedref, T
                 onBlur={handleBlur}
                 inputProps={{
                     ...inputProps,
+
                     autoComplete: "off"
                 }}
                 {...otherProps}

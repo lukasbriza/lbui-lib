@@ -16,6 +16,6 @@ export type CheckboxSquaredProps = {
     click?: StyleClassType["onClick"]
     checker?: StyleClassType["body"]
   }
-  checked: CheckboxProps["checked"]
+  checked?: CheckboxProps["checked"]
   labelSensitive?: boolean
 }
