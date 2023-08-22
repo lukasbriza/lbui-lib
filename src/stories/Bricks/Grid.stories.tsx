@@ -1,14 +1,13 @@
 import React from 'react';
-import { StoryFn, Meta } from '@storybook/react';
+import { StoryFn, Meta, StoryObj } from '@storybook/react';
 import { Grid } from '../../components';
 
-export default {
+const meta: Meta<typeof Grid> = {
     title: '@lbui/Bricks/Grid',
     component: Grid,
-    argTypes: {
-
-    }
-} as Meta<typeof Grid>;
+}
+export default meta
+type Story = StoryObj<typeof Grid>
 
 const Template: StoryFn<typeof Grid> = (args) => (
     <Grid {...args}>
@@ -23,7 +22,7 @@ const Template: StoryFn<typeof Grid> = (args) => (
 );
 
 
-export const Default = Template.bind({})
+export const Default: Story = Template.bind({})
 Default.args = {
 
 };

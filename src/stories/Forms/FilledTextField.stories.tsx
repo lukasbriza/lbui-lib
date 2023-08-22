@@ -1,33 +1,14 @@
 import React from 'react';
-import { StoryFn, Meta } from '@storybook/react';
+import { StoryFn, Meta, StoryObj } from '@storybook/react';
 import { FilledTextField } from '../../components';
 import { useForm } from 'react-hook-form';
 
-
-export default {
+const meta: Meta<typeof FilledTextField> = {
     title: '@lbui/Forms/FilledTextField',
-    component: FilledTextField,
-    argTypes: {
-        styleClass: {
-            description: "define applied classNames of diferent part of component in different states"
-        },
-        isError: {
-            description: "defines if apply error class (default is set to false)"
-        },
-        name: {
-            description: "value applied to the htmlFor props of label and to the id of input"
-        },
-        label: {
-            description: "value applied as text for label"
-        },
-        value: {
-            description: "value applied to the input element"
-        },
-        autoComplete: {
-            description: "turn on/off autocomplete (default is off)"
-        }
-    }
-} as Meta<typeof FilledTextField>;
+    component: FilledTextField
+}
+export default meta
+type Story = StoryObj<typeof FilledTextField>
 
 const Template: StoryFn<typeof FilledTextField> = (args) => <FilledTextField {...args} />;
 
@@ -46,13 +27,13 @@ const HookForm: StoryFn<typeof FilledTextField> = (args) => {
 }
 
 
-export const Default = Template.bind({});
+export const Default: Story = Template.bind({});
 Default.args = {
     name: "TextField",
     label: "label"
 }
 
-export const ReactHookForm = HookForm.bind({})
+export const ReactHookForm: Story = HookForm.bind({})
 ReactHookForm.args = {
     label: "label"
 }

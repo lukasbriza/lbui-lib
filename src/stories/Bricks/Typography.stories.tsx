@@ -1,18 +1,17 @@
 import React from 'react';
-import { StoryFn, Meta } from '@storybook/react';
+import { StoryFn, Meta, StoryObj } from '@storybook/react';
 import { TypographyProvider, Typography } from '../../components';
 
-export default {
+const meta: Meta<typeof TypographyProvider> = {
     title: '@lbui/Bricks/Typography',
     component: TypographyProvider,
-    argTypes: {
-    }
-} as Meta<typeof TypographyProvider>;
+}
+export default meta
+type Story = StoryObj<typeof TypographyProvider>
 
 const Template: StoryFn<typeof TypographyProvider> = (args) => (<TypographyProvider {...args}></TypographyProvider>);
 
-
-export const Default = Template.bind({})
+export const Default: Story = Template.bind({})
 Default.args = {
     children: [
         <Typography type="h1" variant={['bold']}>h1. Header</Typography>,
@@ -29,7 +28,7 @@ Default.args = {
     ]
 }
 
-export const Variants = Template.bind({})
+export const Variants: Story = Template.bind({})
 Variants.args = {
     children: [
         <Typography type="h1" variant={["default"]}>h1.default</Typography>,
@@ -39,7 +38,7 @@ Variants.args = {
     ]
 }
 
-export const Sizes = Template.bind({})
+export const Sizes: Story = Template.bind({})
 Sizes.args = {
     children: [
         <Typography type="h1" size="small">h1.small</Typography>,

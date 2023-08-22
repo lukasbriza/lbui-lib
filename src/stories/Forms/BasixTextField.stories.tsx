@@ -1,40 +1,15 @@
 import React, { useEffect, useRef } from 'react';
 
-import { StoryFn, Meta } from '@storybook/react';
+import { StoryFn, Meta, StoryObj } from '@storybook/react';
 import { BasicTextField } from '../../components';
 import { useForm } from 'react-hook-form';
 
-
-export default {
+const meta: Meta<typeof BasicTextField> = {
     title: '@lbui/Forms/BasicTextField',
     component: BasicTextField,
-    argTypes: {
-        styleClass: {
-            description: "define applied classNames of diferent part of component in different states"
-        },
-        isError: {
-            description: "defines if apply error class (default is set to false)"
-        },
-        onFocus: {
-            description: "callback called on focus event"
-        },
-        onBlur: {
-            description: "callback called on blur event"
-        },
-        name: {
-            description: "value applied to the htmlFor props of label and to the id of input"
-        },
-        label: {
-            description: "value applied as text for label"
-        },
-        value: {
-            description: "value applied to the input element"
-        },
-        autoComplete: {
-            description: "turn on/off autocomplete (default is off)"
-        }
-    }
-} as Meta<typeof BasicTextField>;
+}
+export default meta
+type Story = StoryObj<typeof BasicTextField>
 
 const Template: StoryFn<typeof BasicTextField> = (args) => <BasicTextField {...args} />;
 
@@ -55,20 +30,20 @@ const HookForm: StoryFn<typeof BasicTextField> = (args) => {
 
 
 
-export const Default = Template.bind({});
+export const Default: Story = Template.bind({});
 Default.args = {
     name: "TextField",
     label: "Label",
 }
 
-export const DefaultValue = Template.bind({});
+export const DefaultValue: Story = Template.bind({});
 DefaultValue.args = {
     name: "TextField",
     label: "Label",
     defaultValue: "SomeDefaultValue"
 }
 
-export const ReactHookForm = HookForm.bind({})
+export const ReactHookForm: Story = HookForm.bind({})
 ReactHookForm.args = {
     name: "TextField",
     label: "Label"

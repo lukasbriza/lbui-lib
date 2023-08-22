@@ -1,37 +1,13 @@
 import React from 'react';
-import { StoryFn, Meta } from '@storybook/react';
+import { StoryFn, Meta, StoryObj } from '@storybook/react';
 import { ClassicPageLayout } from '../../components';
 
-export default {
+const meta: Meta<typeof ClassicPageLayout> = {
     title: '@lbui/Bricks/ClassicPageLayout',
     component: ClassicPageLayout,
-    argTypes: {
-        className: {
-            description: "Class applied to the root component"
-        },
-        menuClass: {
-            description: "Class applied to the menu component"
-        },
-        bodyClass: {
-            description: "Class applied to the body component"
-        },
-        footerClass: {
-            description: "Class applied to the footer component"
-        },
-        menu: {
-            description: "Element passed to menu section",
-        },
-        footer: {
-            description: "Element passed to footer section",
-        },
-        maxWidth: {
-            description: "Maximum width of root component in px",
-        },
-        options: {
-            description: "Additional options to component"
-        }
-    }
-} as Meta<typeof ClassicPageLayout>;
+}
+export default meta
+type Story = StoryObj<typeof ClassicPageLayout>
 
 const Template: StoryFn<typeof ClassicPageLayout> = (args) => (
     <ClassicPageLayout {...args}>
@@ -39,7 +15,7 @@ const Template: StoryFn<typeof ClassicPageLayout> = (args) => (
     </ClassicPageLayout>
 );
 
-export const Default = Template.bind({})
+export const Default: Story = Template.bind({})
 Default.args = {
     menu: <div>Menu</div>,
     footer: <div>Footer</div>,

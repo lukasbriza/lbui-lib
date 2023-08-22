@@ -1,19 +1,18 @@
 import React from 'react';
-import { StoryFn, Meta } from '@storybook/react';
+import { StoryFn, Meta, StoryObj } from '@storybook/react';
 import { SquareButton } from '../../components/buttons/SquareButton/SquareButton';
-import { buttonsBaseDescription } from './buttonsBaseDescription'
 
-export default {
+
+const meta: Meta<typeof SquareButton> = {
   title: '@lbui/Buttons/SquareButton',
   component: SquareButton,
-  argTypes: {
-    ...buttonsBaseDescription
-  }
-} as Meta<typeof SquareButton>;
+}
+export default meta
+type Story = StoryObj<typeof SquareButton>
 
 const Template: StoryFn<typeof SquareButton> = (args) => <SquareButton {...args} />;
 
-export const Button = Template.bind({});
+export const Button: Story = Template.bind({});
 Button.args = {
   label: "Button",
   onClick: (e: React.BaseSyntheticEvent) => { console.log(e) },

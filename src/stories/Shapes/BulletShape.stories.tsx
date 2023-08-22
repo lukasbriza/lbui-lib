@@ -1,33 +1,24 @@
 import React from 'react';
-import { StoryFn, Meta } from '@storybook/react';
+import { StoryFn, Meta, StoryObj } from '@storybook/react';
 import { BulletShape } from '../../components';
 
-export default {
+const meta: Meta<typeof BulletShape> = {
     title: '@lbui/Shapes/BulletShape',
-    component: BulletShape,
-    argTypes: {
-        className: {
-            description: "Apply custom class to the root of ocmponent"
-        },
-        size: {
-            description: "Size applied to width and height of component"
-        },
-        type: {
-            description: "Change shape to diamond,square or round"
-        }
-    }
-} as Meta<typeof BulletShape>;
+    component: BulletShape
+}
+export default meta
+type Story = StoryObj<typeof BulletShape>
 
 const Template: StoryFn<typeof BulletShape> = (args) => (<BulletShape {...args} />);
 
-export const Round = Template.bind({})
+export const Round: Story = Template.bind({})
 
-export const Diamond = Template.bind({})
+export const Diamond: Story = Template.bind({})
 Diamond.args = {
     type: 'diamond',
 }
 
-export const Square = Template.bind({})
+export const Square: Story = Template.bind({})
 Diamond.args = {
     type: 'square',
 }

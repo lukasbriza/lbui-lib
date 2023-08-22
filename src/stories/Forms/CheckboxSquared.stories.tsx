@@ -1,15 +1,14 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { StoryFn, Meta } from '@storybook/react'
+import { StoryFn, Meta, StoryObj } from '@storybook/react'
 import { CheckboxSquared } from '../../components'
 
-
-export default {
+const meta: Meta<typeof CheckboxSquared> = {
     title: '@lbui/Forms/CheckboxSquared',
     component: CheckboxSquared,
-    argTypes: {
-    }
-} as Meta<typeof CheckboxSquared>;
+}
+export default meta
+type Story = StoryObj<typeof CheckboxSquared>
 
 const Template: StoryFn<typeof CheckboxSquared> = (args) => {
     return (
@@ -32,20 +31,20 @@ const HookForm: StoryFn<typeof CheckboxSquared> = (args) => {
 }
 
 
-export const Default = Template.bind({});
+export const Default: Story = Template.bind({});
 Default.args = {
     label: "label",
     animate: false
 }
 
-export const Animated = Template.bind({});
+export const Animated: Story = Template.bind({});
 Animated.args = {
     label: "label",
     animate: true,
     clickEffect: false,
 }
 
-export const WithClickEffect = Template.bind({})
+export const WithClickEffect: Story = Template.bind({})
 WithClickEffect.args = {
     label: "label",
     animate: true,
@@ -53,7 +52,7 @@ WithClickEffect.args = {
     styleClass: { click: 'clickEffectClass' }
 }
 
-export const ReactHookForm = HookForm.bind({})
+export const ReactHookForm: Story = HookForm.bind({})
 ReactHookForm.args = {
     label: "label",
     animate: true,

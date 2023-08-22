@@ -1,22 +1,13 @@
 import React from 'react';
-import { StoryFn, Meta } from '@storybook/react';
+import { StoryFn, Meta, StoryObj } from '@storybook/react';
 import { Paper } from '../../components';
 
-export default {
+const meta: Meta<typeof Paper> = {
     title: '@lbui/Bricks/Paper',
     component: Paper,
-    argTypes: {
-        className: {
-            description: "Add custom class to component root"
-        },
-        elevation: {
-            description: "Level of surface elevation"
-        },
-        square: {
-            description: "Define corners of element",
-        },
-    }
-} as Meta<typeof Paper>;
+}
+export default meta
+type Story = StoryObj<typeof Paper>
 
 const Template: StoryFn<typeof Paper> = (args) => (
     <Paper {...args} >
@@ -33,4 +24,4 @@ const Template: StoryFn<typeof Paper> = (args) => (
     </Paper>
 );
 
-export const Default = Template.bind({})
+export const Default: Story = Template.bind({})

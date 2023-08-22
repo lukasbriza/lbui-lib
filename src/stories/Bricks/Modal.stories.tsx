@@ -1,12 +1,14 @@
 import React, { useContext } from 'react';
-import { StoryFn, Meta } from '@storybook/react';
+import { StoryFn, Meta, StoryObj } from '@storybook/react';
 import { ModalProvider, ModalContext } from '../../components/bricks/Modal/ModalProvider';
+import { ModalContextProps } from '../../components/bricks/Modal/model';
 
-
-export default {
+const meta: Meta<typeof ModalProvider> = {
     title: '@lbui/Bricks/Modal',
     component: ModalProvider,
-} as Meta<typeof ModalProvider>;
+}
+export default meta
+type Story = StoryObj<ModalContextProps>
 
 const Template: StoryFn<any> = (args: any) => {
     return (
@@ -54,14 +56,14 @@ const Children = (props) => {
     )
 }
 
-export const Default = Template.bind({});
+export const Default: Story = Template.bind({});
 
-export const Transitioning = Template.bind({});
+export const Transitioning: Story = Template.bind({});
 Transitioning.args = {
     transition: true
 }
 
-export const OutsideClick = Template.bind({});
+export const OutsideClick: Story = Template.bind({});
 OutsideClick.args = {
     transition: true,
     closeOnOutsideClick: true

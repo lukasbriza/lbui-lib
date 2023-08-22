@@ -1,22 +1,13 @@
 import React from 'react';
-import { StoryFn, Meta } from '@storybook/react';
+import { StoryFn, Meta, StoryObj } from '@storybook/react';
 import { MenuList, MenuItem } from '../../components';
 
-export default {
+const meta: Meta<typeof MenuList> = {
     title: '@lbui/Navigation/MenuList',
-    component: MenuList,
-    argTypes: {
-        children: {
-            description: "React node passed through component"
-        },
-        orientation: {
-            description: "Define orientation of MenuItems",
-        },
-        className: {
-            description: "Custom class applied to MenuList"
-        }
-    }
-} as Meta<typeof MenuList>;
+    component: MenuList
+}
+export default meta
+type Story = StoryObj<typeof MenuList>
 
 const Template: StoryFn<typeof MenuList> = (args) => (
     <MenuList {...args} >
@@ -27,4 +18,4 @@ const Template: StoryFn<typeof MenuList> = (args) => (
     </MenuList>
 );
 
-export const Default = Template.bind({})
+export const Default: Story = Template.bind({})
