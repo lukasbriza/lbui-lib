@@ -1,20 +1,20 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta, StoryObj } from '@storybook/react';
 import { PictureCard } from '../../components';
 
-export default {
+const meta: Meta<typeof PictureCard> = {
     title: '@lbui/Bricks/PictureCard',
-    component: PictureCard,
-    argTypes: {
-    }
-} as ComponentMeta<typeof PictureCard>;
+    component: PictureCard
+}
+export default meta
+type Story = StoryObj<typeof PictureCard>
 
-const Template: ComponentStory<typeof PictureCard> = (args) => (
+const Template: StoryFn<typeof PictureCard> = (args) => (
     <PictureCard style={{ width: '200px' }} {...args} />
 );
 
 
-export const Default = Template.bind({})
+export const Default: Story = Template.bind({})
 Default.args = {
     src: '/testimg.webp',
     body: <div style={{

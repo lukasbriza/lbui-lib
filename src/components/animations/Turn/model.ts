@@ -10,6 +10,6 @@ export type TurnProps = {
   configOff?: TurnToConfig;
   onEnd?: (type: "on" | "off") => void;
   styleClass?: {
-    root: StyleClassType["root"]
+    root?: StyleClassType["root"]
   }
 };

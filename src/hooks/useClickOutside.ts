@@ -8,13 +8,14 @@ type UseClickOutsideProps = MutableRefObject<any>;
  * @param {ref} reference on target element. need to use useRef hook.
  * @returns {boolean} outside - returns if click vas inside or outside.. default is undefined
  */
-export const useClickOutside = (ref: UseClickOutsideProps) => {
+export const useClickOutside = (ref: UseClickOutsideProps, onOutsideClick?: () => void) => {
   const [outside, setOutside] = useState<boolean | undefined>(undefined);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (ref.current && !ref.current.contains(event.target)) {
         setOutside(true);
+        onOutsideClick?.()
       } else {
         setOutside(false);
       }
@@ -28,6 +29,8 @@ export const useClickOutside = (ref: UseClickOutsideProps) => {
       }
     };
   }, [ref]);
+
+
 
   return { outside };
 };

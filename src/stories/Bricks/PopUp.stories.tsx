@@ -1,14 +1,16 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta, StoryObj } from '@storybook/react';
 import { PopUpProvider, usePopUpService } from '../../components';
-import { PopUpType } from '../../components/bricks/PopUp/model';
 
-export default {
+
+const meta: Meta<typeof PopUpProvider> = {
     title: '@lbui/Bricks/PopUp',
     component: PopUpProvider,
-} as ComponentMeta<typeof PopUpProvider>;
+}
+export default meta
+type Story = StoryObj<typeof PopUpProvider>
 
-const Template: ComponentStory<any> = (args: any) => {
+const Template: StoryFn<any> = (args: any) => {
     return (
         <section style={{ height: '100vh', width: '100vw', position: 'relative' }}>
             <PopUpProvider>
@@ -60,4 +62,4 @@ const Children = (props) => {
     )
 }
 
-export const Default = Template.bind({});
+export const Default: Story = Template.bind({});

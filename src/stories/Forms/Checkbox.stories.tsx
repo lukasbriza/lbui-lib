@@ -1,20 +1,19 @@
 import React from 'react'
-import { ComponentStory, ComponentMeta } from '@storybook/react'
+import { StoryFn, Meta, StoryObj } from '@storybook/react'
 import { Checkbox } from '../../components'
 
-
-export default {
+const meta: Meta<typeof Checkbox> = {
     title: '@lbui/Forms/Checkbox',
     component: Checkbox,
-    argTypes: {
-    }
-} as ComponentMeta<typeof Checkbox>;
+}
+export default meta
+type Story = StoryObj<typeof Checkbox>
 
-const Template: ComponentStory<typeof Checkbox> = (args) => <Checkbox {...args} />;
+const Template: StoryFn<typeof Checkbox> = (args) => <Checkbox {...args} />;
 
 
 
-export const Default = Template.bind({});
+export const Default: Story = Template.bind({});
 Default.args = {
     label: "label"
 }

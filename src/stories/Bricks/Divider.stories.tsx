@@ -1,35 +1,19 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta, StoryObj } from '@storybook/react';
 import { Divider } from '../../components';
 
-export default {
+const meta: Meta<typeof Divider> = {
     title: '@lbui/Bricks/Divider',
     component: Divider,
-    argTypes: {
-        depth: {
-            description: "Define height of component"
-        },
-        fullWidth: {
-            description: "Toggle full width of parent component"
-        },
-        className: {
-            description: "Add custom class to component root"
-        },
-        width: {
-            description: "Define width of ocmponent"
-        },
-        color: {
-            description: "Define color of element",
-            control: 'color'
-        },
-    }
-} as ComponentMeta<typeof Divider>;
+}
+export default meta
+type Story = StoryObj<typeof Divider>
 
-const Template: ComponentStory<typeof Divider> = (args) => (<Divider {...args} />);
+const Template: StoryFn<typeof Divider> = (args) => (<Divider {...args} />);
 
-export const Default = Template.bind({})
+export const Default: Story = Template.bind({})
 
-export const CustomWidth = Template.bind({})
+export const CustomWidth: Story = Template.bind({})
 CustomWidth.args = {
     fullWidth: false,
     width: 10,

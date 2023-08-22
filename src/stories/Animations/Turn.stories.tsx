@@ -1,36 +1,15 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta, StoryObj } from '@storybook/react';
 import { Turn } from '../../components';
 
-export default {
+const meta: Meta<typeof Turn> = {
     title: '@lbui/Animations/Turn',
-    component: Turn,
-    argTypes: {
-        appear: {
-            description: "Allow animation on component mount"
-        },
-        on: {
-            description: "Toggle between turnOn and turnOff animations"
-        },
-        className: {
-            description: "Add custom class to component root"
-        },
-        onEnd: {
-            description: "Callback called on end of every animation"
-        },
-        configOn: {
-            description: "Configuration passed to the turnOn animation"
-        },
-        configOff: {
-            description: "Configuration passed to the turnOff animation"
-        },
-        children: {
-            description: "Elements passed through component"
-        }
-    }
-} as ComponentMeta<typeof Turn>;
+    component: Turn
+}
+export default meta
+type Story = StoryObj<typeof Turn>
 
-const Template: ComponentStory<typeof Turn> = (args) => (
+const Template: StoryFn<typeof Turn> = (args) => (
     <Turn {...args}>
         <div
             style={{
@@ -44,14 +23,14 @@ const Template: ComponentStory<typeof Turn> = (args) => (
     </Turn>
 );
 
-export const Togglable = Template.bind({})
+export const Togglable: Story = Template.bind({})
 Togglable.args = {
     on: false,
     to: 360,
     base: 0,
     appear: false,
 }
-export const Appear = Template.bind({})
+export const Appear: Story = Template.bind({})
 Appear.args = {
 
     appear: true,

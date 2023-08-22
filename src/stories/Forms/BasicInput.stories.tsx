@@ -1,17 +1,19 @@
 import React from 'react';
 import { BasicInput } from '../../components';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Meta, StoryFn, StoryObj } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof BasicInput> = {
     title: "@lbui/Forms/BasicInput",
     component: BasicInput,
-} as ComponentMeta<typeof BasicInput>;
+}
+export default meta
+type Story = StoryObj<typeof BasicInput>
 
-const Template: ComponentStory<typeof BasicInput> = (args) => {
+const Template: StoryFn<typeof BasicInput> = (args) => {
     return <BasicInput {...args} onStateChange={(state) => console.log(state)} />
 }
 
-export const Default = Template.bind({})
+export const Default: Story = Template.bind({})
 Default.args = {
     styleClass: {
         focusInput: "focusedInput",

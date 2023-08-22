@@ -1,36 +1,15 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StoryFn, Meta, StoryObj } from '@storybook/react';
 import { Fade } from '../../components';
 
-export default {
+const meta: Meta<typeof Fade> = {
     title: '@lbui/Animations/Fade',
-    component: Fade,
-    argTypes: {
-        appear: {
-            description: "Allow animation on component mount"
-        },
-        on: {
-            description: "Toggle between fadeIn and fadeOut animations"
-        },
-        className: {
-            description: "Add custom class to component root"
-        },
-        onEnd: {
-            description: "Callback called on end of every animation"
-        },
-        configIn: {
-            description: "Configuration passed to the fadeIn animation"
-        },
-        configOff: {
-            description: "Configuration passed to the fadeOut animation"
-        },
-        children: {
-            description: "Elements passed through component"
-        }
-    }
-} as ComponentMeta<typeof Fade>;
+    component: Fade
+}
+export default meta
+type Story = StoryObj<typeof Fade>
 
-const Template: ComponentStory<typeof Fade> = (args) => (
+const Template: StoryFn<typeof Fade> = (args) => (
     <Fade {...args}>
         <div style={{
             width: '200px',
@@ -43,9 +22,9 @@ const Template: ComponentStory<typeof Fade> = (args) => (
     </Fade>
 );
 
-export const Appear = Template.bind({})
+export const Appear: Story = Template.bind({})
 
-export const Togglable = Template.bind({})
+export const Togglable: Story = Template.bind({})
 Togglable.args = {
     appear: false,
     on: true
