@@ -36,3 +36,4 @@ export * from "./forms/HelperText/HelperText";
 export * from "./forms/Checkbox/Checkbox";
 export * from "./forms/CheckboxSquared/CheckboxSquared";
 export * from "./forms/TimeInput/TimeInput";
+export * from "./forms/MaskInput/MaskInput";

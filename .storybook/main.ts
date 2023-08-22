@@ -8,19 +8,10 @@ const config: StorybookConfig = {
     "@storybook/addon-onboarding",
     "@storybook/addon-interactions",
     {
-      name: "@storybook/addon-docs",
-      options: {
-        configureJSX: true,
-        babelOptions: {},
-        sourceLoaderOptions: null,
-        transcludeMarkdown: true,
-      },
-    },
-    {
-      name: '@storybook/addon-styling',
+      name: "@storybook/addon-styling",
       options: {
         sass: {
-          implementation: require('sass'),
+          implementation: require("sass"),
         },
       },
     },
@@ -36,6 +27,5 @@ const config: StorybookConfig = {
   core: {
     builder: "@storybook/builder-webpack5",
   },
-
 };
 export default config;

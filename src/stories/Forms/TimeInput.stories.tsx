@@ -1,25 +1,38 @@
-import React, { useEffect } from 'react';
-import { TimeInput } from '../../components';
-import { Meta, StoryFn } from '@storybook/react';
-import { useForm } from 'react-hook-form';
+import React, { useEffect, useRef } from "react";
+import { TimeInput } from "../../components";
+import { Meta, StoryFn } from "@storybook/react";
+import { Form, useForm } from "react-hook-form";
 
 export default {
-    title: '@lbui/Forms/TimeInput',
-    component: TimeInput
-} as Meta<typeof TimeInput>
+  title: "@lbui/Forms/TimeInput",
+  component: TimeInput,
+} as Meta<typeof TimeInput>;
 
 const Template: StoryFn<typeof TimeInput> = (args) => {
-    const { name, ...otherargs } = args
-    const { watch, register } = useForm()
-    const val = watch(name)
+  const { name, ...otherargs } = args;
+  const ref = useRef<HTMLInputElement>(null);
+  const { watch, register, handleSubmit } = useForm({
+    defaultValues: { [name]: "01:00" },
+  });
+  const val = watch(name);
 
-    useEffect(() => { console.log(val) }, [val])
+  const submit = (data) => {
+    console.log(data);
+  };
+  return (
+    <>
+      <form onSubmit={handleSubmit(submit)}>
+        <TimeInput {...register(name)} {...otherargs} />
+        {val}
+        <button type="submit">Submit</button>
+      </form>
+    </>
+  );
+};
 
-    return <TimeInput {...register(name)} {...otherargs} />
-}
-
-export const Default = Template.bind({})
+export const Default = Template.bind({});
 Default.args = {
-    name: "TimeFrom",
-    label: "Od"
-}
+  name: "TimeFrom",
+  label: "Od",
+  defaultValue: "01:00",
+};
