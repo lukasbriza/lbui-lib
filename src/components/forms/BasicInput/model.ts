@@ -2,25 +2,8 @@ import {
   ReactNode,
   FocusEvent,
   ChangeEvent,
-  DetailedHTMLProps,
-  InputHTMLAttributes,
-  LabelHTMLAttributes,
-  HTMLAttributes,
 } from "react";
-import { StyleClassType } from "../../../utils";
-
-type DetailedInputProps = DetailedHTMLProps<
-  InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
->;
-type DetailedLabelProps = DetailedHTMLProps<
-  LabelHTMLAttributes<HTMLLabelElement>,
-  HTMLLabelElement
->;
-type DetailedDivElement = DetailedHTMLProps<
-  HTMLAttributes<HTMLDivElement>,
-  HTMLDivElement
->;
+import { DetailedDivElement, DetailedInputProps, DetailedLabelProps, StyleClassType } from "../../../utils";
 
 export type BasicInputProps = {
   name: string;

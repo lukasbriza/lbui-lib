@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { DetailedHTMLProps, HTMLAttributes, InputHTMLAttributes, LabelHTMLAttributes, ReactNode } from "react";
 
 export type Directions = "up" | "bottom" | "left" | "right";
 export type Element = ReactNode;
@@ -50,6 +50,7 @@ export type StyleClassType = {
   blur?: string;
   checkBox?: string;
   option?: string;
+  select?: string;
 }
 export type Props<T> = React.HTMLAttributes<T>;
 
@@ -107,3 +108,17 @@ export type SlideFromConfig = {
 export type SlideToConfig = {
   toLocation?: string;
 } & Pick<SlideFromConfig, "duration" | "ease">;
+
+//UNIFORM DETAILED PROPS
+export type DetailedInputProps = DetailedHTMLProps<
+  InputHTMLAttributes<HTMLInputElement>,
+  HTMLInputElement
+>;
+export type DetailedLabelProps = DetailedHTMLProps<
+  LabelHTMLAttributes<HTMLLabelElement>,
+  HTMLLabelElement
+>;
+export type DetailedDivElement = DetailedHTMLProps<
+  HTMLAttributes<HTMLDivElement>,
+  HTMLDivElement
+>;

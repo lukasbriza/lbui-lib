@@ -35,4 +35,5 @@ export * from "./forms/FilledTextField/FilledTextField";
 export * from "./forms/HelperText/HelperText";
 export * from "./forms/Checkbox/Checkbox";
 export * from "./forms/CheckboxSquared/CheckboxSquared";
+export * from "./forms/BasicSelect/BasicSelect";
 

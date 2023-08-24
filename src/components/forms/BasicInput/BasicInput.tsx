@@ -59,7 +59,7 @@ export const BasicInput = forwardRef<HTMLInputElement, BasicInputProps>(
 
     useEffect(() => {
       if (nextEffectSanitized()) {
-        //onStateChange?.({ filled, focused });
+        onStateChange?.({ filled, focused });
       }
     }, [filled, focused]);
 
