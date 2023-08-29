@@ -1,30 +1,37 @@
 import { DetailedDivElement, DetailedLabelProps, Option, StyleClassType } from "../../../utils";
 import { FocusEvent, ChangeEvent, ReactNode, Dispatch, SetStateAction } from "react"
 
-type ComponentInnerState = { focused: boolean; filled: boolean, opened: boolean, isError?: boolean }
+type ComponentInnerState = { focused: boolean; filled: boolean, isError?: boolean }
 
 export type BasicSelectProps = {
     name: string;
-    option: Option[];
-    defaultValue?: Option;
-    value?: Option;
+    options: Option[] | Option[][];
+    defaultValue?: Option | (Option | undefined)[];
+    value?: Option | (Option | undefined)[];
     label?: string;
     isError?: boolean;
 
-    options?: {
+    option?: {
         closeOnSelect?: boolean;
         closeOnClickOutside?: boolean;
         clearable?: boolean;
-        openAnimation?: (ref: HTMLDivElement) => gsap.core.TimelineChild;
-        openPosition?: gsap.Position;
-        closeAnimation?: (ref: HTMLDivElement) => gsap.core.TimelineChild;
-        closePosition?: gsap.Position;
+        openAnimation?: (ref: HTMLDivElement) => void;
+        closeAnimation?: (ref: HTMLDivElement) => void;
+        CustomOption?: React.JSXElementConstructor<{
+            option: Option,
+            role: "option",
+            state: { focused: boolean; filled: boolean, isError?: boolean },
+            onClick: () => void
+        }>
+        CustomClearOption?: React.JSXElementConstructor<{
+            option: Option,
+            role: "option",
+            state: { focused: boolean; filled: boolean, isError?: boolean },
+            onClick: () => void
+        }>
     }
 
-
-    customOption?: React.JSXElementConstructor<{ option: Option, role: "option", state: ComponentInnerState, onClick: () => void }>
-    customClearOption?: React.JSXElementConstructor<{ option: undefined, state: ComponentInnerState, onClick: () => void }>
-
+    valueTransform?: (value: BasicSelectProps["value"]) => ReactNode
     onStateChange?: (params: ComponentInnerState) => void;
     onFocus?: (e: FocusEvent<HTMLDivElement>) => void;
     onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -33,7 +40,7 @@ export type BasicSelectProps = {
 
     rootProps?: Omit<DetailedDivElement, "ref" | "className">;
     labelProps?: Omit<DetailedLabelProps, "ref" | "htmlFor" | "className">;
-    selectProps?: Omit<DetailedDivElement, "ref" | "className" | "onFocus" | "onBlur">;
+    selectProps?: Omit<DetailedDivElement, "ref" | "className" | "onFocus" | "onBlur" | "onchange">;
 
     styleClass?: {
         root?: StyleClassType["root"];
@@ -60,5 +67,10 @@ export type BasicSelectProps = {
         focusOption?: StyleClassType["focus"];
         fillOption?: StyleClassType["fill"];
         errorOption?: StyleClassType["error"];
+
+        columnSection?: StyleClassType["option"]
+        focusColumnSection?: StyleClassType["focus"];
+        fillColumnSection?: StyleClassType["fill"];
+        errorColumnSection?: StyleClassType["error"];
     }
 }

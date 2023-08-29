@@ -19,7 +19,7 @@ export type TypographyType =
   | "body2"
   | "buttonText";
 
-export type Option = { key: string; value: string; }
+export type Option = { key: string; value: string | null; }
 export type StyleClassType = {
   root?: string;
   line?: string;

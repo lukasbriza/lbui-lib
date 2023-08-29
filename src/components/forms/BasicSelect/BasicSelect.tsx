@@ -1,11 +1,12 @@
 import "./BasicSelect.scss"
 
-import React, { forwardRef, useEffect, useState, FocusEvent, ChangeEvent, MouseEvent } from "react";
+import React, { forwardRef, useEffect, useState, FocusEvent, ChangeEvent, MouseEvent, useRef, ReactNode } from "react";
 import { BasicSelectProps } from "./model";
 import clsx from "clsx";
-import { nextEffectSanitized, Option } from "../../../utils";
-import { useLibClass } from "../../../hooks";
-import { Options } from "../Options/Options";
+import { nextEffectSanitized, Option, StyleClassType } from "../../../utils";
+import { useClickOutside, useLibClass } from "../../../hooks";
+import { OptionScroller } from "../../bricks/OptionScroller/OptionScroller";
+import { getColumnIdentificator, handleParenValueChange, isFilled, isSimpleOptions, resolveInitialValue, transformToInputValue } from "./utils";
 
 const COMP_PREFIX = "BasicSelect";
 const useClass = (className: string) => {
@@ -14,6 +15,61 @@ const useClass = (className: string) => {
 
 /**
  * BasicSelect component
+ * @param {StyleClassType} [styleClass] - object defining applied classes in diferent component states and parts
+ * @param {StyleClassType} [styleClass.root] - define class of root component
+ * @param {StyleClassType} [styleClass.focusRoot] - define class applied on focus event
+ * @param {StyleClassType} [styleClass.filledRoot] - define class applied on fill event
+ * @param {StyleClassType} [styleClass.errorRoot] - define class applied on error event
+ * 
+ * @param {StyleClassType} [styleClass.label] - define class of label component
+ * @param {StyleClassType} [styleClass.focusLabel] - define class applied on focus event
+ * @param {StyleClassType} [styleClass.fillLabel] - define class applied on fill event
+ * @param {StyleClassType} [styleClass.errorLabel] - define class applied on error event
+ * 
+ * @param {StyleClassType} [styleClass.select] - define class of select component
+ * @param {StyleClassType} [styleClass.focusSelect] - define class applied on focus event
+ * @param {StyleClassType} [styleClass.fillSelect] - define class applied on fill event
+ * @param {StyleClassType} [styleClass.errorSelect] - define class applied on error event
+ * 
+ * @param {StyleClassType} [styleClass.options] - define class of options component
+ * @param {StyleClassType} [styleClass.focusOptions] - define class applied on focus event
+ * @param {StyleClassType} [styleClass.fillOptions] - define class applied on fill event
+ * @param {StyleClassType} [styleClass.errorOptions] - define class applied on error event
+ * 
+ * @param {StyleClassType} [styleClass.option] - define class of every option item component
+ * @param {StyleClassType} [styleClass.focusOption] - define class applied on focus event
+ * @param {StyleClassType} [styleClass.fillOption] - define class applied on fill event
+ * @param {StyleClassType} [styleClass.errorOption] - define class applied on error event
+ * 
+ * @param {StyleClassType} [styleClass.columnSection] - define class of column in scroller component
+ * @param {StyleClassType} [styleClass.focusColumnSection] - define class applied on focus event
+ * @param {StyleClassType} [styleClass.fillColumnSection] - define class applied on fill event
+ * @param {StyleClassType} [styleClass.errorColumnSection] - define class applied on error event
+ * 
+ * @param {Props<HTMLDivElement>} [rootProps] - define properties of wrapper (HTMLDivElement, without ref and className)
+ * @param {Props<HTMLLabelElement>} [labelProps] - define properties of label (HTMLLabelElement, without ref, htmlFor, className)
+ * @param {Props<HTMLDivElement>} [selectProps] - define properties of select component (HTMLDivElement, without ref, className, onFocus, onBlur, onChange)
+ * @param {ReactNode} [children] - pass children under the select element
+ * @param {void} [onBlur] - callback on blur event
+ * @param {void} [onChange] - callback on change event 
+ * @param {void} [onFocus] - callback on focus event
+ * @param {void} [onStateChange] - callback on inner state change
+ * @param {void} [valueTransform] - define function for transforming value that is  displayed in select
+ * 
+ * @param {boolean} [isError] - defines if apply error class (default is set to false)
+ * @param {string} [label] - define label of select
+ * @param {Option | (Option | undefined)[]} [value] - value to control element from parent
+ * @param {Option | (Option | undefined)[]} [defaultValue] - define firs render vlaue of component
+ * @param {Option[] | Option[][]} options - define option item structure (one or more columns)
+ * 
+ * @param {Object} [option] - provide customization for component
+ * @param {boolean} [option.closeOnSelect] - toggle closing scroller on select action
+ * @param {boolean} [option.closeOnClickOutside] - toggle closing scroller on click outside of component
+ * @param {boolean} [option.clearable] - add option for value nullification
+ * @param {void} [option.openAnimation] - define gsap open animation
+ * @param {void} [option.closeAnimation] - defined gsap close animation
+ * @param {Component} [option.CustomOption] - define custom option component for scroller
+ * @param {Component} [option.CustomClearOption] - define custom component for value nullification ([option.clearable] need to be true)
  */
 export const BasicSelect = forwardRef<HTMLInputElement, BasicSelectProps>((props, ref) => {
     const {
@@ -26,77 +82,143 @@ export const BasicSelect = forwardRef<HTMLInputElement, BasicSelectProps>((props
         labelProps,
         selectProps,
         isError,
-        options,
         onStateChange,
         onBlur,
         onChange,
         onFocus,
+        valueTransform,
         children,
-        ...otherProps
+
+        options,
+        option,
     } = props
-    const { onClick: onSelectClick, ...otherselectProps } = selectProps ?? {}
+
+    const {
+        select,
+        fillSelect,
+        focusSelect,
+        errorSelect,
+        label: labelClass,
+        fillLabel,
+        focusLabel,
+        errorLabel,
+        root,
+        filledRoot,
+        focusRoot,
+        errorRoot,
+        options: optionsClass,
+        fillOptions,
+        focusOptions,
+        errorOptions,
+        ...restClasses
+    } = styleClass ?? {}
+
     const {
         clearable = true,
         closeOnSelect = true,
         closeOnClickOutside = true,
-        ...otherOptions
-    } = options ?? {}
+        ...restOption
+    } = option ?? {}
 
+    const { onClick: onSelectClick, ...otherselectProps } = selectProps ?? {}
 
     const [focused, setFocused] = useState<boolean>(false);
     const [filled, setFilled] = useState<boolean>(false);
     const [opened, setOpened] = useState<boolean>(false)
-    const [innerValue, setInnerValue] = useState<Option | undefined>(value)
+    const [innerValue, setInnerValue] = useState<BasicSelectProps["value"]>(resolveInitialValue(options, value, defaultValue))
+    const selectWrapper = useRef<HTMLDivElement>(null)
+
+    const isSimple = isSimpleOptions(options)
 
 
     const handleFocus = (e: FocusEvent<HTMLDivElement>) => {
         setFocused(true)
+        //onStateChange?.({ filled, focused: true, isError });
         onFocus?.(e)
     }
 
     const handleBlur = (e: FocusEvent<HTMLDivElement>) => {
         setFocused(false)
+        // onStateChange?.({ filled, focused: false, isError });
         onBlur?.(e)
     }
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         let ev = e
-        ev.target.value = innerValue?.value ?? ""
-        setFilled(innerValue !== undefined)
         onChange?.(ev)
+        //onStateChange?.({ filled, focused, isError });
     }
 
-    const handleOptionClick = (option?: Option) => () => {
-        setInnerValue(option)
+    const handleOptionClick = (option: Option) => {
+        isSimple && setInnerValue(option)
+
+        if (!isSimple) {
+            const newValueIndex = getColumnIdentificator(option.key)
+            const actualValue = innerValue as (Option | undefined)[]
+            const newValue = actualValue.map((val, index) => {
+                if (index === newValueIndex) {
+                    return option
+                }
+                return val
+            })
+            setInnerValue(newValue)
+        }
         closeOnSelect && setOpened(false)
+        closeOnSelect && setFocused(false)
+        //onStateChange?.({ filled, focused: false, isError });
     }
 
     const handleSelectClick = (e: MouseEvent<HTMLDivElement>) => {
-        setOpened((value) => !value)
         onSelectClick?.(e)
+        setOpened(opened ? false : true)
+        setFocused(opened ? false : true)
     }
 
+    const handleClickOutside = () => {
+        closeOnClickOutside && setOpened(false)
+        setFocused(false)
+    }
+
+    const handleLabelClick = () => {
+        setFocused((value) => !value)
+        setOpened((value) => !value)
+    }
+
+    const { } = useClickOutside(selectWrapper, handleClickOutside)
 
     useEffect(() => {
         if (nextEffectSanitized()) {
-            onStateChange?.({ filled, focused, opened, isError });
+            onStateChange?.({ filled, focused, isError });
         }
-    }, [filled, focused, opened, isError]);
+    }, [filled, focused, isError]);
 
     useEffect(() => {
         if (nextEffectSanitized()) {
-            if (defaultValue) {
-                const hasDefaultOption = props.option.findIndex(({ key }) => key === defaultValue.key) !== -1
-                if (hasDefaultOption) {
-                    setFilled(true)
-                    setInnerValue(props.option.find(({ key }) => defaultValue.key === key))
+            //OPTIONS ARE ONE DIMENSIONAL
+            if (isSimple) {
+                const resolvedOption = (defaultValue || value) as Option | undefined
+                if (resolvedOption) {
+                    const foundOption = (options as Option[]).find(({ key }) => `${key}-0` === resolvedOption.key)
+                    foundOption && setFilled(true)
+                    foundOption && setInnerValue(foundOption)
                 }
+
             }
-            if (value) {
-                const hasValue = props.option.findIndex(({ key }) => key === value.key) !== -1
-                if (hasValue) {
-                    setFilled(true);
-                    setInnerValue(props.option.find(({ key }) => value.key === key))
+            //OPTIONS ARE MULTIDIMENSIONAL
+            if (!isSimple) {
+                const resolvedOption = (defaultValue || value) as (Option | undefined)[] | undefined
+                if (resolvedOption) {
+                    const innerState: (Option | undefined)[] = Array(resolvedOption.length).fill(undefined)
+                    resolvedOption.forEach((option) => {
+                        if (option) {
+                            const columnIndex = getColumnIdentificator(option.key)  //option.key.split("-")[1]
+                            const foundOption = (options[columnIndex] as Option[]).find(({ key }) => key === option.key)
+                            innerState[columnIndex] = foundOption
+                        }
+                    })
+                    setInnerValue(innerState)
+                    const isFilled = innerState.filter((val) => val === undefined).length < options.length
+                    isFilled && setFilled(true)
                 }
             }
         }
@@ -107,32 +229,34 @@ export const BasicSelect = forwardRef<HTMLInputElement, BasicSelectProps>((props
             const event = new Event("input", { bubbles: true });
             const input = document.getElementsByName(name)[0]
             input.dispatchEvent(event)
+            setFilled(isFilled(options, innerValue))
         }
     }, [innerValue])
 
     useEffect(() => {
         if (nextEffectSanitized()) {
-            if (value?.value !== innerValue?.value) {
-                setInnerValue(value)
-            }
+            handleParenValueChange(options, value, innerValue, setInnerValue)
+            setFilled(isFilled(options, value))
         }
     }, [value])
 
     return (
         <div
+            ref={selectWrapper}
+            onFocus={handleFocus}
             className={clsx([
-                styleClass?.root,
-                focused && styleClass?.focusRoot,
-                filled && styleClass?.filledRoot,
-                isError && styleClass?.errorRoot
+                useClass("selectWrapper"),
+                root,
+                focused && focusRoot,
+                filled && filledRoot,
+                isError && errorRoot
             ])}
             {...rootProps}
         >
             <input
                 onInput={handleChange}
                 type="text"
-                value={innerValue?.value ?? ""}
-                defaultValue={defaultValue?.value}
+                value={transformToInputValue(innerValue) ?? ""}
                 onChange={handleChange}
                 name={name}
                 ref={ref}
@@ -140,12 +264,13 @@ export const BasicSelect = forwardRef<HTMLInputElement, BasicSelectProps>((props
             />
             {label && (
                 <label
+                    onClick={handleLabelClick}
                     htmlFor={name}
                     className={clsx([
-                        styleClass?.label,
-                        filled && styleClass?.fillLabel,
-                        focused && styleClass?.focusLabel,
-                        isError && styleClass?.errorLabel
+                        labelClass,
+                        filled && fillLabel,
+                        focused && focusLabel,
+                        isError && errorLabel
                     ])}
                     {...labelProps}
                 >
@@ -158,43 +283,41 @@ export const BasicSelect = forwardRef<HTMLInputElement, BasicSelectProps>((props
                 onClick={handleSelectClick}
                 className={clsx([
                     useClass("select"),
-                    styleClass?.select,
-                    focused && styleClass?.focusSelect,
-                    filled && styleClass?.fillSelect,
-                    isError && styleClass?.errorSelect
+                    select,
+                    focused && focusSelect,
+                    filled && fillSelect,
+                    isError && errorSelect
                 ])}
                 {...otherselectProps}
             >
-                {innerValue?.value}
+                {valueTransform ? valueTransform(innerValue) : transformToInputValue(innerValue)}
                 {children &&
                     typeof children === "function" ?
-                    children({ isError, filled, focused, opened, setOpened }) :
+                    children({ isError, filled, focused, setOpened }) :
                     children
                 }
             </div>
-            <Options
+            <OptionScroller
                 state={{
-                    opened,
                     focused,
                     filled,
                     isError
                 }}
-                onOptionClick={handleOptionClick}
-                clearable={clearable}
-                styleClass={{
-                    option: styleClass?.option,
-                    focusOption: styleClass?.focusOption,
-                    fillOption: styleClass?.fillOption,
-                    errorOption: styleClass?.errorOption,
-                    options: styleClass?.options,
-                    focusOptions: styleClass?.focusOptions,
-                    fillOptions: styleClass?.fillOptions,
-                    errorOptions: styleClass?.errorOptions
+                onSelect={handleOptionClick}
+                option={{
+                    clearable: clearable,
+                    ...restOption,
                 }}
-                {...otherOptions}
-                {...otherProps}
+                styleClass={{
+                    root: clsx([useClass("scroller"), optionsClass]),
+                    focusRoot: focusOptions,
+                    fillRoot: fillOptions,
+                    errorRoot: errorOptions,
+                    ...restClasses
+                }}
+                options={options}
+                open={opened}
             />
         </div>
-
     )
 })
