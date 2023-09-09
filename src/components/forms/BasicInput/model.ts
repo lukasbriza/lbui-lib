@@ -2,25 +2,8 @@ import {
   ReactNode,
   FocusEvent,
   ChangeEvent,
-  DetailedHTMLProps,
-  InputHTMLAttributes,
-  LabelHTMLAttributes,
-  HTMLAttributes,
 } from "react";
-import { StyleClassType } from "../../../utils";
-
-type DetailedInputProps = DetailedHTMLProps<
-  InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
->;
-type DetailedLabelProps = DetailedHTMLProps<
-  LabelHTMLAttributes<HTMLLabelElement>,
-  HTMLLabelElement
->;
-type DetailedDivElement = DetailedHTMLProps<
-  HTMLAttributes<HTMLDivElement>,
-  HTMLDivElement
->;
+import { DetailedDivElement, DetailedInputProps, DetailedLabelProps, StyleClassType } from "../../../utils";
 
 export type BasicInputProps = {
   name: string;
@@ -36,6 +19,7 @@ export type BasicInputProps = {
     DetailedInputProps,
     "ref" | "name" | "onFocus" | "onChange" | "onBlur" | "type"
   >;
+  isError?: boolean;
   styleClass?: {
     root?: StyleClassType["root"];
     label?: StyleClassType["label"];
@@ -50,10 +34,15 @@ export type BasicInputProps = {
     fillLabel?: StyleClassType["fill"];
     fillRoot?: StyleClassType["fill"];
   };
-  isError?: boolean;
+  options?: {
+    focusOnLabelClick?: boolean;
+    blurOnLabelClick?: boolean;
+  };
   children?: (state: {
     isError?: boolean;
     filled: boolean;
     focused: boolean;
   }) => ReactNode;
 };
+
+export type ForwarderRef = React.ForwardedRef<HTMLInputElement | null>

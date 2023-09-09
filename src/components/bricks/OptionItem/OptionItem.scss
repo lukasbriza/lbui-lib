@@ -1,0 +1,10 @@
+.lbui-OptionItem-option {
+  text-align: center;
+  padding: 3px 15px;
+  cursor: pointer;
+  transition: background 0.1s ease-in;
+  font-size: 15px;
+}
+.lbui-OptionItem-option:hover {
+  background: rgba(128, 128, 128, 0.428);
+}

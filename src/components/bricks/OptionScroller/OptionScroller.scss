@@ -1,22 +1,24 @@
 .lbui-OptionScroller-root {
   position: absolute;
   border: 1px solid gray;
-  display: flex;
+  background: white;
+  display: none;
   flex-flow: row;
   max-height: 200px;
-  width: 150px;
   overflow: hidden;
+  opacity: 0;
 }
-.lbui-OptionScroller-option {
-  text-align: center;
-  padding: 5px 15px;
-  cursor: pointer;
-  transition: background 0.1s ease-in;
-  font-size: 18px;
+
+.lbui-OptionScroller-show {
+  display: flex;
+  opacity: 1;
 }
-.lbui-OptionScroller-option:hover {
-  background: rgba(128, 128, 128, 0.428);
+
+.lbui-OptionScroller-hide {
+  opacity: 0;
+  display: none;
 }
+
 .lbui-OptionScroller-column-section {
   overflow-y: auto;
   flex-grow: 1;

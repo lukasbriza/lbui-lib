@@ -5,12 +5,14 @@ import React, {
   FocusEvent,
   forwardRef,
   useEffect,
+  useImperativeHandle,
+  useRef,
   useState,
 } from "react";
-import { nextEffectSanitized } from "../../../utils";
+import { mergeRefs, nextEffectSanitized } from "../../../utils";
 import clsx from "clsx";
 import { useLibClass } from "../../../hooks";
-import { BasicInputProps } from "./model";
+import { BasicInputProps, ForwarderRef } from "./model";
 
 const COMP_PREFIX = "BasicInput";
 const useClass = (className: string) => {
@@ -24,6 +26,7 @@ const useClass = (className: string) => {
 export const BasicInput = forwardRef<HTMLInputElement, BasicInputProps>(
   (props, ref) => {
     const {
+      options,
       type = "text",
       name,
       label,
@@ -38,9 +41,14 @@ export const BasicInput = forwardRef<HTMLInputElement, BasicInputProps>(
       onStateChange,
       children,
     } = props;
+    const { onClick: onLabelClick, ...otherLabelProps } = labelProps ?? {}
+
+    const inputRef = useRef<HTMLInputElement>(null)
 
     const [focused, setFocused] = useState<boolean>(false);
     const [filled, setFilled] = useState<boolean>(false);
+
+    const { focusOnLabelClick, blurOnLabelClick } = options ?? {}
 
     const handleInputFocus = (e: FocusEvent<HTMLInputElement>) => {
       setFocused(true);
@@ -57,9 +65,21 @@ export const BasicInput = forwardRef<HTMLInputElement, BasicInputProps>(
       onBlur?.(e);
     };
 
+    const handleLabelClick = (e: React.MouseEvent<HTMLLabelElement>) => {
+      if (focusOnLabelClick && focused === false) {
+        inputRef.current?.focus()
+        return
+      }
+      if (blurOnLabelClick && focused === true) {
+        inputRef.current?.blur()
+        return
+      }
+      onLabelClick?.(e)
+    }
+
     useEffect(() => {
       if (nextEffectSanitized()) {
-        //onStateChange?.({ filled, focused });
+        onStateChange?.({ filled, focused });
       }
     }, [filled, focused]);
 
@@ -87,6 +107,7 @@ export const BasicInput = forwardRef<HTMLInputElement, BasicInputProps>(
       >
         {label && (
           <label
+            onClick={handleLabelClick}
             htmlFor={name}
             className={clsx([
               useClass("label"),
@@ -95,7 +116,7 @@ export const BasicInput = forwardRef<HTMLInputElement, BasicInputProps>(
               focused && styleClass?.focusLabel,
               filled && styleClass?.fillLabel,
             ])}
-            {...labelProps}
+            {...otherLabelProps}
           >
             {label}
           </label>
@@ -104,7 +125,7 @@ export const BasicInput = forwardRef<HTMLInputElement, BasicInputProps>(
           {...inputProps}
           name={name}
           type={type}
-          ref={ref}
+          ref={mergeRefs(inputRef, ref)}
           onFocus={handleInputFocus}
           onChange={handleInputChange}
           onBlur={handleInputBlur}

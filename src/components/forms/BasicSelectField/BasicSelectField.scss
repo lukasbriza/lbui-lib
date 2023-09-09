@@ -1,0 +1,62 @@
+@use "../../../utils/global.styles.scss" as g;
+
+.lbui-BasicSelectField-root {
+  position: relative;
+}
+
+.lbui-BasicSelectField-root:hover {
+  div:not(.lbui-BasicSelectField-label-active),
+  label:not(.lbui-BasicSelectField-label-active) {
+    color: rgb(0, 0, 0);
+  }
+}
+
+.lbui-BasicSelectField-label {
+  position: absolute;
+  cursor: pointer;
+  top: 50%;
+  margin-left: 15px;
+  transform: translateY(-50%);
+  font-size: 18px;
+  background: white;
+  color: rgba(0, 0, 0, 0.6);
+  transition: font-size 0.2s ease-out, top 0.2s ease-out, margin-left 0.2s ease-out,
+    color 200ms cubic-bezier(0, 0, 0.2, 1);
+  z-index: +1;
+}
+
+.lbui-BasicSelectField-select {
+  border: none;
+  outline: none;
+  outline: 1px rgba(0, 0, 0, 0.3) solid;
+  border-radius: 6px;
+  height: 45px;
+  min-width: 230px;
+}
+
+.lbui-BasicSelectField-focusedLabel {
+  top: 10px;
+}
+
+.lbui-BasicSelectField-label-active {
+  top: -1px;
+  padding-left: 0px;
+  padding-right: 0px;
+  margin-left: 15px;
+  font-size: 12px;
+  opacity: 1;
+  color: g.$pallete-primary;
+}
+
+.lbui-BasicSelectField-select-active {
+  outline: g.$pallete-primary 2px solid;
+}
+
+.lbui-BasicSelectField-options {
+  border: none;
+  border-radius: 6px;
+  margin-top: 6px;
+  color: rgba(0, 0, 0, 0.87);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 5px -3px, rgba(0, 0, 0, 0.14) 0px 8px 10px 1px,
+    rgba(0, 0, 0, 0.12) 0px 3px 14px 2px;
+}

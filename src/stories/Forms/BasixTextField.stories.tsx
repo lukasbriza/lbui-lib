@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 
 import { StoryFn, Meta, StoryObj } from '@storybook/react';
 import { BasicTextField } from '../../components';
@@ -14,15 +14,16 @@ type Story = StoryObj<typeof BasicTextField>
 const Template: StoryFn<typeof BasicTextField> = (args) => <BasicTextField {...args} />;
 
 const HookForm: StoryFn<typeof BasicTextField> = (args) => {
-    const { handleSubmit, register } = useForm({ defaultValues: { input: "" } })
-    const submit = (data: { input: string }) => {
+    const { handleSubmit, register } = useForm({ defaultValues: { TextField: "" } })
+
+    const submit = (data: { TextField: string }) => {
         console.log(data)
     }
 
 
     return (
         <form onSubmit={handleSubmit(submit)}>
-            <BasicTextField {...args} {...register("input")} />
+            <BasicTextField {...args} {...register(args.name as "TextField")} />
             <button style={{ marginTop: "15px" }} type="submit">submit</button>
         </form>
     )

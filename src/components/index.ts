@@ -25,6 +25,7 @@ export * from "./bricks/PopUp/PopUpProvider";
 export * from "./bricks/PopUp/model";
 export * from "./bricks/PopUp/PopUp";
 export * from "./bricks/OptionScroller/OptionScroller";
+export * from "./bricks/OptionItem/OptionItem";
 
 export * from "./shapes/BulletShape/BulletShape";
 export * from "./shapes/ArrowShape/ArrowShape";
@@ -35,4 +36,6 @@ export * from "./forms/FilledTextField/FilledTextField";
 export * from "./forms/HelperText/HelperText";
 export * from "./forms/Checkbox/Checkbox";
 export * from "./forms/CheckboxSquared/CheckboxSquared";
+export * from "./forms/BasicSelect/BasicSelect";
+export * from "./forms/BasicSelectField/BasicSelectField";
 
