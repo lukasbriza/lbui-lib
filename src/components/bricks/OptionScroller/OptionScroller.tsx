@@ -3,7 +3,7 @@ import "./OptionScroller.scss"
 import React, { FC, ReactNode, forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 import { useClickOutside, useLibClass } from "../../../hooks";
 import clsx from "clsx";
-import { Option, StyleClassType, nextEffectSanitized } from "../../../utils";
+import { Option, StyleClassType, getOptionConvention, nextEffectSanitized } from "../../../utils";
 import { ForwarderRef, OptionScrollerProps } from "./model";
 import { OptionItem } from "../OptionItem/OptionItem";
 
@@ -67,9 +67,9 @@ export const OptionScroller = forwardRef<ForwarderRef, OptionScrollerProps>((pro
     const divRef = useRef<HTMLDivElement>(null)
     const { } = useClickOutside(divRef, onClickOutside)
 
-    const isFilled = options.length > 0
-    const isSimple = isFilled && !Array.isArray(options[0])
-    const isComposed = isFilled && Array.isArray(options[0])
+    const optionsFilled = options.length > 0
+    const isSimple = optionsFilled && !Array.isArray(options[0])
+    const isComposed = optionsFilled && Array.isArray(options[0])
 
     const optionClasses = clsx([
         styleClass?.option,
@@ -96,14 +96,14 @@ export const OptionScroller = forwardRef<ForwarderRef, OptionScrollerProps>((pro
     }
 
     const buildOptions = () => {
-        if (isFilled && isSimple) {
-            const colChildren = (options as Option[]).map(({ key, value }) => getOption(`${key}-0`, value))
+        if (optionsFilled && isSimple) {
+            const colChildren = (getOptionConvention(options) as Option[]).map(({ key, value }) => getOption(key, value))
             clearable && colChildren.push(getClearOption(String(colChildren.length)))
             return buildColumn(0, colChildren)
         }
-        if (isFilled && isComposed) {
-            return (options as Option[][]).map((array, index) => {
-                const colChildren = array.map(({ key, value }) => getOption(`${key}-${index}`, value))
+        if (optionsFilled && isComposed) {
+            return (getOptionConvention(options) as Option[][]).map((array, index) => {
+                const colChildren = array.map(({ key, value }) => getOption(key, value))
                 clearable && colChildren.push(getClearOption(`${colChildren.length}-${index}`))
                 return buildColumn(index, colChildren)
             })

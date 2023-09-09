@@ -4,6 +4,7 @@
 }
 
 .lbui-BasicSelect-select {
+  position: relative;
   cursor: pointer;
   width: 150px;
   height: 30px;
@@ -15,4 +16,25 @@
 .lbui-BasicSelect-scroller {
   display: flex;
   width: 100%;
+}
+
+.lbui-BasicSelect-arrow {
+  cursor: pointer;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 25px;
+  height: 100%;
+  background: rgb(210, 210, 210);
+  border-left: 1px solid rgb(150, 150, 150);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.lbui-BasicSelect-arrow-opened {
+  .lbui-icon-container {
+    transform: rotate(180deg);
+  }
 }

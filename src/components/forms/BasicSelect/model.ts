@@ -7,14 +7,18 @@ export type BasicSelectProps = {
     name: string;
     options: Option[] | Option[][];
     defaultValue?: Option | (Option | undefined)[];
+    disable?: boolean;
     value?: Option | (Option | undefined)[];
     label?: string;
     isError?: boolean;
+    icon?: (state: ComponentInnerState & { setOpened: Dispatch<SetStateAction<boolean>> }) => ReactNode | ReactNode
 
     option?: {
+        controlStrictlyWithIcon?: boolean;
         closeOnSelect?: boolean;
         closeOnClickOutside?: boolean;
         clearable?: boolean;
+        onChangeValueTransform?: (value?: Option | (Option | undefined)[]) => string;
         openAnimation?: (ref: HTMLDivElement) => void;
         closeAnimation?: (ref: HTMLDivElement) => void;
         CustomOption?: React.JSXElementConstructor<{
@@ -40,7 +44,7 @@ export type BasicSelectProps = {
 
     rootProps?: Omit<DetailedDivElement, "ref" | "className">;
     labelProps?: Omit<DetailedLabelProps, "ref" | "htmlFor" | "className">;
-    selectProps?: Omit<DetailedDivElement, "ref" | "className" | "onFocus" | "onBlur" | "onchange">;
+    selectProps?: Omit<DetailedDivElement, "ref" | "className" | "onFocus" | "onBlur" | "onChange">;
 
     styleClass?: {
         root?: StyleClassType["root"];
@@ -57,6 +61,12 @@ export type BasicSelectProps = {
         focusSelect?: StyleClassType["focus"];
         fillSelect?: StyleClassType["fill"];
         errorSelect?: StyleClassType["error"];
+
+        icon?: StyleClassType["icon"];
+        openIcon?: StyleClassType["open"];
+        focusIcon?: StyleClassType["focus"];
+        fillIcon?: StyleClassType["fill"];
+        errorIcon?: StyleClassType["error"];
 
         options?: StyleClassType["option"];
         focusOptions?: StyleClassType["focus"];

@@ -13,7 +13,7 @@ type Story = StoryObj<typeof BasicSelect>
 
 const Template: StoryFn<typeof BasicSelect> = (args) => {
     const { name, ...otherArgs } = args
-    const { handleSubmit, register } = useForm()
+    const { handleSubmit, register, setValue } = useForm()
 
     const [, setArgs] = useArgs()
 
@@ -27,8 +27,9 @@ const Template: StoryFn<typeof BasicSelect> = (args) => {
     }
     return (
         <form onSubmit={handleSubmit(submit)}>
-            <BasicSelect {...otherArgs} {...register(name)} />
+            <BasicSelect {...otherArgs} {...register(name)} onStateChange={hadnleStatechange} />
             <button type='submit' style={{ marginTop: "30px", cursor: "pointer" }}>Submit</button>
+            <button type="button" onClick={() => { setValue("select", [{ value: "col1", key: "col1" }, { value: "col2", key: "col2" }]) }}>test</button>
         </form>
     )
 }

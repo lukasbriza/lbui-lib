@@ -20,7 +20,7 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
  * @param {boolean} [password=false] - if true, input have type "password", else input have type "text" (default is false)
  */
 
-export const BasicTextField = forwardRef<HTMLInputElement | null, BasicTextFieldProps>((props, ref) => {
+export const BasicTextField = forwardRef<HTMLInputElement, BasicTextFieldProps>((props, ref) => {
     const {
         styleClass,
         isError = false,
@@ -54,6 +54,10 @@ export const BasicTextField = forwardRef<HTMLInputElement | null, BasicTextField
                 focusLabel: clsx([useClass('label-focused-color'), !filled && [useClass('label-focused'), styleClass?.focusLabel]]),
             }}
             isError={isError}
+            options={{
+                focusOnLabelClick: true,
+                blurOnLabelClick: true
+            }}
             {...otherProps}
         />
     )

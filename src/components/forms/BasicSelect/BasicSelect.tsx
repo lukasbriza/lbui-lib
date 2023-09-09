@@ -3,10 +3,11 @@ import "./BasicSelect.scss"
 import React, { forwardRef, useEffect, useState, FocusEvent, ChangeEvent, MouseEvent, useRef, ReactNode } from "react";
 import { BasicSelectProps } from "./model";
 import clsx from "clsx";
-import { nextEffectSanitized, Option, StyleClassType } from "../../../utils";
+import { getOptionConvention, nextEffectSanitized, Option, StyleClassType } from "../../../utils";
 import { useClickOutside, useLibClass } from "../../../hooks";
 import { OptionScroller } from "../../bricks/OptionScroller/OptionScroller";
 import { getColumnIdentificator, handleParenValueChange, isFilled, isSimpleOptions, resolveInitialValue, transformToInputValue } from "./utils";
+import { Arrow } from "../../../lib";
 
 const COMP_PREFIX = "BasicSelect";
 const useClass = (className: string) => {
@@ -30,6 +31,11 @@ const useClass = (className: string) => {
  * @param {StyleClassType} [styleClass.focusSelect] - define class applied on focus event
  * @param {StyleClassType} [styleClass.fillSelect] - define class applied on fill event
  * @param {StyleClassType} [styleClass.errorSelect] - define class applied on error event
+ * 
+ * @param {StyleClassType} [styleClass.icon] = define class of select toggle icon
+ * @param {StyleClassType} [styleClass.focusIcon] - define class applied on focus event
+ * @param {StyleClassType} [styleClass.fillIcon] - define class applied on fill event
+ * @param {StyleClassType} [styleClass.errorIcon] - define class applied on error event
  * 
  * @param {StyleClassType} [styleClass.options] - define class of options component
  * @param {StyleClassType} [styleClass.focusOptions] - define class applied on focus event
@@ -55,14 +61,17 @@ const useClass = (className: string) => {
  * @param {void} [onFocus] - callback on focus event
  * @param {void} [onStateChange] - callback on inner state change
  * @param {void} [valueTransform] - define function for transforming value that is  displayed in select
+ * @param {ReactNode} [icon] - defined custom icon, can provide inner state of component
  * 
  * @param {boolean} [isError] - defines if apply error class (default is set to false)
+ * @param {boolean} [disable] - disable component control
  * @param {string} [label] - define label of select
  * @param {Option | (Option | undefined)[]} [value] - value to control element from parent
  * @param {Option | (Option | undefined)[]} [defaultValue] - define firs render vlaue of component
  * @param {Option[] | Option[][]} options - define option item structure (one or more columns)
  * 
  * @param {Object} [option] - provide customization for component
+ * @param {Component} [option.controlStrictlyWithIcon] - toggle ability of component to open/close only by clicking icon/arrow
  * @param {boolean} [option.closeOnSelect] - toggle closing scroller on select action
  * @param {boolean} [option.closeOnClickOutside] - toggle closing scroller on click outside of component
  * @param {boolean} [option.clearable] - add option for value nullification
@@ -70,13 +79,16 @@ const useClass = (className: string) => {
  * @param {void} [option.closeAnimation] - defined gsap close animation
  * @param {Component} [option.CustomOption] - define custom option component for scroller
  * @param {Component} [option.CustomClearOption] - define custom component for value nullification ([option.clearable] need to be true)
+ * @param {void} [option.onChangeValueTransform] - define function that can transform value passed to the change event
  */
 export const BasicSelect = forwardRef<HTMLInputElement, BasicSelectProps>((props, ref) => {
     const {
         value,
         defaultValue,
+        disable = false,
         label,
         name,
+        icon,
         styleClass,
         rootProps,
         labelProps,
@@ -110,6 +122,11 @@ export const BasicSelect = forwardRef<HTMLInputElement, BasicSelectProps>((props
         fillOptions,
         focusOptions,
         errorOptions,
+        icon: iconClass,
+        openIcon,
+        fillIcon,
+        focusIcon,
+        errorIcon,
         ...restClasses
     } = styleClass ?? {}
 
@@ -117,6 +134,8 @@ export const BasicSelect = forwardRef<HTMLInputElement, BasicSelectProps>((props
         clearable = true,
         closeOnSelect = true,
         closeOnClickOutside = true,
+        controlStrictlyWithIcon = false,
+        onChangeValueTransform,
         ...restOption
     } = option ?? {}
 
@@ -130,23 +149,35 @@ export const BasicSelect = forwardRef<HTMLInputElement, BasicSelectProps>((props
 
     const isSimple = isSimpleOptions(options)
 
+    const clickWorkFlow = (e: MouseEvent<HTMLDivElement>) => {
+        onSelectClick?.(e)
+        setOpened(opened ? false : true)
+        setFocused(opened ? false : true)
+    }
 
     const handleFocus = (e: FocusEvent<HTMLDivElement>) => {
-        setFocused(true)
-        //onStateChange?.({ filled, focused: true, isError });
-        onFocus?.(e)
+        if (!disable) {
+            setFocused(true)
+            onFocus?.(e)
+        }
     }
 
     const handleBlur = (e: FocusEvent<HTMLDivElement>) => {
-        setFocused(false)
-        // onStateChange?.({ filled, focused: false, isError });
-        onBlur?.(e)
+        if (!disable) {
+            setFocused(false)
+            onBlur?.(e)
+        }
     }
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        let ev = e
-        onChange?.(ev)
-        //onStateChange?.({ filled, focused, isError });
+        console.log("change")
+        if (!disable) {
+            let ev = e
+            if (onChangeValueTransform) {
+                ev.target.value = onChangeValueTransform(innerValue)
+            }
+            onChange?.(ev)
+        }
     }
 
     const handleOptionClick = (option: Option) => {
@@ -165,14 +196,11 @@ export const BasicSelect = forwardRef<HTMLInputElement, BasicSelectProps>((props
         }
         closeOnSelect && setOpened(false)
         closeOnSelect && setFocused(false)
-        //onStateChange?.({ filled, focused: false, isError });
     }
 
-    const handleSelectClick = (e: MouseEvent<HTMLDivElement>) => {
-        onSelectClick?.(e)
-        setOpened(opened ? false : true)
-        setFocused(opened ? false : true)
-    }
+    const handleArrowClick = (e: MouseEvent<HTMLDivElement>) => !disable && controlStrictlyWithIcon && clickWorkFlow(e)
+
+    const handleSelectClick = (e: MouseEvent<HTMLDivElement>) => !disable && !controlStrictlyWithIcon && clickWorkFlow(e)
 
     const handleClickOutside = () => {
         closeOnClickOutside && setOpened(false)
@@ -180,8 +208,10 @@ export const BasicSelect = forwardRef<HTMLInputElement, BasicSelectProps>((props
     }
 
     const handleLabelClick = () => {
-        setFocused((value) => !value)
-        setOpened((value) => !value)
+        if (controlStrictlyWithIcon === false && !disable) {
+            setFocused((value) => !value)
+            setOpened((value) => !value)
+        }
     }
 
     const { } = useClickOutside(selectWrapper, handleClickOutside)
@@ -198,7 +228,7 @@ export const BasicSelect = forwardRef<HTMLInputElement, BasicSelectProps>((props
             if (isSimple) {
                 const resolvedOption = (defaultValue || value) as Option | undefined
                 if (resolvedOption) {
-                    const foundOption = (options as Option[]).find(({ key }) => `${key}-0` === resolvedOption.key)
+                    const foundOption = (options as Option[]).find(({ key }) => `${key}-0` === `${resolvedOption.key}-0`)
                     foundOption && setFilled(true)
                     foundOption && setInnerValue(foundOption)
                 }
@@ -209,11 +239,10 @@ export const BasicSelect = forwardRef<HTMLInputElement, BasicSelectProps>((props
                 const resolvedOption = (defaultValue || value) as (Option | undefined)[] | undefined
                 if (resolvedOption) {
                     const innerState: (Option | undefined)[] = Array(resolvedOption.length).fill(undefined)
-                    resolvedOption.forEach((option) => {
+                    resolvedOption.forEach((option, index) => {
                         if (option) {
-                            const columnIndex = getColumnIdentificator(option.key)  //option.key.split("-")[1]
-                            const foundOption = (options[columnIndex] as Option[]).find(({ key }) => key === option.key)
-                            innerState[columnIndex] = foundOption
+                            let foundOption = (options[index] as Option[]).find(({ key }) => key === option.key)
+                            innerState[index] = foundOption ? { key: `${foundOption.key}-${index}`, value: foundOption.value } : undefined
                         }
                     })
                     setInnerValue(innerState)
@@ -235,10 +264,18 @@ export const BasicSelect = forwardRef<HTMLInputElement, BasicSelectProps>((props
 
     useEffect(() => {
         if (nextEffectSanitized()) {
-            handleParenValueChange(options, value, innerValue, setInnerValue)
-            setFilled(isFilled(options, value))
+            const convertedOptions = getOptionConvention(options)
+            handleParenValueChange(convertedOptions, value, innerValue, setInnerValue)
+            setFilled(isFilled(convertedOptions, value))
         }
     }, [value])
+
+    useEffect(() => {
+        if (disable) {
+            setFocused(false)
+            setOpened(false)
+        }
+    }, [disable])
 
     return (
         <div
@@ -254,9 +291,10 @@ export const BasicSelect = forwardRef<HTMLInputElement, BasicSelectProps>((props
             {...rootProps}
         >
             <input
+                disabled={disable}
                 onInput={handleChange}
                 type="text"
-                value={transformToInputValue(innerValue) ?? ""}
+                value={transformToInputValue(defaultValue ? defaultValue : innerValue) ?? ""}
                 onChange={handleChange}
                 name={name}
                 ref={ref}
@@ -291,6 +329,24 @@ export const BasicSelect = forwardRef<HTMLInputElement, BasicSelectProps>((props
                 {...otherselectProps}
             >
                 {valueTransform ? valueTransform(innerValue) : transformToInputValue(innerValue)}
+                {icon ?
+                    typeof icon === "function" ?
+                        icon({ isError, filled, focused, setOpened }) :
+                        icon :
+                    <div className={
+                        clsx([
+                            useClass("arrow"),
+                            opened && (openIcon ? openIcon : useClass("arrow-opened")),
+                            iconClass,
+                            focused && focusIcon,
+                            filled && fillIcon,
+                            isError && errorIcon,
+                        ])}
+                        onClick={handleArrowClick}
+                    >
+                        <Arrow />
+                    </div>
+                }
                 {children &&
                     typeof children === "function" ?
                     children({ isError, filled, focused, setOpened }) :

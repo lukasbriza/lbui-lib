@@ -51,6 +51,7 @@ export type StyleClassType = {
   checkBox?: string;
   option?: string;
   select?: string;
+  open?: string;
 }
 export type Props<T> = React.HTMLAttributes<T>;
 
