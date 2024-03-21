@@ -32,13 +32,12 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps & Props<HTMLI
         clickEffect = true,
         checker,
         onChange,
-        onClick,
         name,
         labelProps,
         ...otherProps
     } = props
-
     const wrapper = useRef<HTMLDivElement>(null)
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (clickEffect && e.target.checked) {
             const { current } = wrapper
@@ -53,7 +52,6 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps & Props<HTMLI
         onChange?.(e)
     }
 
-
     return (
         <label
             htmlFor={name}
@@ -62,7 +60,6 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps & Props<HTMLI
         >
             <div
                 className={clsx([useClass('wrapper'), styleClass?.checkBox])}
-                onClick={onClick}
                 ref={wrapper}
             >
                 <input

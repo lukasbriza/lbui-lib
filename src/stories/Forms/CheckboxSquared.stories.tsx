@@ -17,14 +17,16 @@ const Template: StoryFn<typeof CheckboxSquared> = (args) => {
 };
 
 const HookForm: StoryFn<typeof CheckboxSquared> = (args) => {
-    const { handleSubmit, register } = useForm({ defaultValues: { input: false } })
+    const { handleSubmit, register, watch, formState: { defaultValues } } = useForm({ defaultValues: { input: true } })
+    const values = watch()
+    console.log(values)
     const submit = (data: { input: boolean }) => {
         console.log(data)
     }
 
     return (
         <form onSubmit={handleSubmit(submit)}>
-            <CheckboxSquared {...args} {...register("input")} />
+            <CheckboxSquared {...args} {...register("input")} defaultChecked={defaultValues?.input} />
             <button style={{ marginTop: "15px" }} type="submit">submit</button>
         </form>
     )

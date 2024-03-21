@@ -25,13 +25,13 @@ const useClass = (className: string) => { return useLibClass(COMP_PREFIX, classN
  * @param {string} label - text/element applied to the label component
  * @param {boolean} animate - define if transition is provided
  * @param {boolean} clickEffect - define if click effect will be visible
- * @param {boolean} [labelSensitive=false] - if true, checkbox react when clickedo n label
+ * @param {boolean} [labelSensitive=false] - if true, checkbox react when clicked on label
  */
 
 export const CheckboxSquared = forwardRef<HTMLInputElement, CheckboxSquaredProps & Props<HTMLInputElement>>((props, ref) => {
     const {
         styleClass,
-        checked = false,
+        checked,
         animate = true,
         defaultChecked,
         onChange,
@@ -41,15 +41,13 @@ export const CheckboxSquared = forwardRef<HTMLInputElement, CheckboxSquaredProps
     const [isChecked, setIsChecked] = useState<boolean>(defaultChecked ? defaultChecked : false)
 
     useEffect(() => {
-        if (checked !== isChecked) {
+        if (checked !== undefined && (checked !== isChecked)) {
             setIsChecked(checked)
         }
     }, [checked])
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setIsChecked(e.target.checked)
-        onChange?.(e)
-    }
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => onChange?.(e)
+
 
     const checker = (
         <div className={clsx([
@@ -65,12 +63,13 @@ export const CheckboxSquared = forwardRef<HTMLInputElement, CheckboxSquaredProps
             styleClass={{
                 ...styleClass,
                 checkBox: clsx([useClass('checkbox'), styleClass?.checkBox]),
-                click: styleClass?.click
+                click: styleClass?.click,
+                input: clsx([useClass("input"), styleClass?.input])
             }}
             labelProps={{ onClick: () => { labelSensitive && setIsChecked(value => !value) } }}
             checked={isChecked}
             onChange={handleChange}
-            onClick={() => { !labelSensitive && setIsChecked(value => !value) }}
+            onClick={() => { setIsChecked(value => !value) }}
             checker={checker}
             ref={ref}
             {...otherProps} />

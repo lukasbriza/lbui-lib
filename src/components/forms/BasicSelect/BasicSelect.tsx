@@ -170,7 +170,6 @@ export const BasicSelect = forwardRef<HTMLInputElement, BasicSelectProps>((props
     }
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        console.log("change")
         if (!disable) {
             let ev = e
             if (onChangeValueTransform) {
